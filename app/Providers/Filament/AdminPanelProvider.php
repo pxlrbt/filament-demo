@@ -5,11 +5,14 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Http\Middleware\Authenticate;
+use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Tests\Fixtures\Resources\Users\UserResource;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -19,6 +22,14 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
+use pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use pxlrbt\FilamentSpotlightPro\SpotlightActions\PushContextAction;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterCommands;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterPages;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterResources;
+use pxlrbt\FilamentSpotlightPro\SpotlightQueries\SpotlightQuery;
+use pxlrbt\FilamentSpotlightPro\SpotlightResults\SpotlightResult;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -65,7 +76,24 @@ class AdminPanelProvider extends PanelProvider
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
             )
-            ->spa()
+            ->plugin(
+                EnvironmentIndicatorPlugin::make()
+                    // ->showBorder()
+                    // ->showGitBranch()
+                    // ->showBadge()
+                    ->showDebugModeWarningInProduction()
+            )
+            // ->plugin(SpotlightPlugin::make())
+            ->viteTheme('resources/css/filament/app/theme.css')
+            // ->plugin(
+            //     \pxlrbt\FilamentSpotlightPro\SpotlightPlugin::make()
+            //     ->registerItems([
+            //         RegisterCommands::make(),
+            //         RegisterResources::make(),
+            //         RegisterPages::make(),
+            //     ])
+            // )
+            // ->spa()
             ->colors([
                 'primary' => Color::Blue,
             ]);

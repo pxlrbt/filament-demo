@@ -6,7 +6,9 @@ use App\Filament\Resources\Shop\OrderResource;
 use Filament\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\EmbeddedTable;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Schema;
 
 class ListOrders extends ListRecords
 {
@@ -36,5 +38,12 @@ class ListOrders extends ListRecords
             'delivered' => Tab::make()->query(fn ($query) => $query->where('status', 'delivered')),
             'cancelled' => Tab::make()->query(fn ($query) => $query->where('status', 'cancelled')),
         ];
+    }
+
+    public function content(Schema $schema): Schema
+    {
+        return $schema->components([
+            EmbeddedTable::make(),
+        ]);
     }
 }

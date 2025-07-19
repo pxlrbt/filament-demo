@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Shop products created.');
 
         $this->command->warn(PHP_EOL . 'Creating orders...');
-        $orders = $this->withProgressBar(1000, fn () => Order::factory(1)
+        $orders = $this->withProgressBar(10000, fn () => Order::factory(1)
             ->sequence(fn ($sequence) => ['shop_customer_id' => $customers->random(1)->first()->id])
             ->has(Payment::factory()->count(rand(1, 3)))
             ->has(

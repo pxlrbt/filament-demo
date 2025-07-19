@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Blog;
 use App\Filament\Resources\Blog\AuthorResource\Pages;
 use App\Models\Blog\Author;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -14,6 +15,9 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\ExportAction;
+use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use UnitEnum;
 
 class AuthorResource extends Resource
@@ -97,8 +101,33 @@ class AuthorResource extends Resource
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
+                Action::make('acti')
+                    ->url(fn ($record) => AuthorResource::getUrl('activities', ['record' => $record]))
+            ])
+            ->headerActions([
+                ExportAction::make()->exports([
+                    ExcelExport::make('table')
+                        ->queue()
+                        ->fromTable()
+                        ->except('email')
+                        ->withNamesAsHeadings()
+                        // ->askForFilename()
+                        // ->askForWriterType()
+                        ->withColumns([
+                            Column::make('bio')->heading('BIO'),
+                        ])
+                        ->modifyQueryUsing(fn($query) => $query->limit(1))
+                        ->withFilename('table')
+                    ,
+                    ExcelExport::make('form')
+                        ->fromForm()
+                        ->withFilename('form')
+                    ,
+                ])
+
             ])
             ->groupedBulkActions([
+                \pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction::make(),
                 DeleteBulkAction::make()
                     ->action(function () {
                         Notification::make()
@@ -120,6 +149,7 @@ class AuthorResource extends Resource
     {
         return [
             'index' => Pages\ManageAuthors::route('/'),
+            'activities' => Pages\ListAuthorActivities::route('/{record}/actitivites'),
         ];
     }
 }

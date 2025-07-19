@@ -22,6 +22,7 @@ use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\JsContent;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
+use Phiki\Grammar\Detections\JavaScript;
 use Squire\Models\Currency;
 use UnitEnum;
 
@@ -51,38 +53,59 @@ class OrderResource extends Resource
         return $schema
             ->components([
                 Group::make()
+                    ->columnSpan(2)
                     ->schema([
-                        Section::make()
-                            ->schema(static::getDetailsFormSchema())
-                            ->columns(2),
+                        // Forms\Components\Toggle::make('published'),
+                        // Forms\Components\DatePicker::make('published_at')
+                        //     ->visibleJs(<<<'JS'
+                        //         $get('published')
+                        //     JS)
 
-                        Section::make('Order items')
-                            ->headerActions([
-                                Action::make('reset')
-                                    ->modalHeading('Are you sure?')
-                                    ->modalDescription('All existing items will be removed from the order.')
-                                    ->requiresConfirmation()
-                                    ->color('danger')
-                                    ->action(fn (Set $set) => $set('items', [])),
-                            ])
-                            ->schema([
-                                static::getItemsRepeater(),
-                            ]),
+                        Forms\Components\TextInput::make('length'),
+
+                        Forms\Components\TextInput::make('name')
+                          ->hint(JsContent::make(<<<'JS'
+                              ($get('name')?.length ?? 0) + '/' + $get('length')
+                          JS)),
                     ])
-                    ->columnSpan(['lg' => fn (?Order $record) => $record === null ? 3 : 2]),
 
-                Section::make()
-                    ->schema([
-                        Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn (Order $record): ?string => $record->created_at?->diffForHumans()),
-
-                        Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(fn (Order $record): ?string => $record->updated_at?->diffForHumans()),
-                    ])
-                    ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Order $record) => $record === null),
+                        //
+                        // Forms\Components\Placeholder::make('Great length')->visibleJs(<<<'JS'
+                        //     $get('name')?.length > 10
+                        // JS),
+                            // ->hint(fn ($state): ?string => strlen($state).'/20'),
+                //
+                //         Section::make()
+                //             ->schema(static::getDetailsFormSchema())
+                //             ->columns(2),
+                //
+                //         Section::make('Order items')
+                //             ->headerActions([
+                //                 Action::make('reset')
+                //                     ->modalHeading('Are you sure?')
+                //                     ->modalDescription('All existing items will be removed from the order.')
+                //                     ->requiresConfirmation()
+                //                     ->color('danger')
+                //                     ->action(fn (Set $set) => $set('items', [])),
+                //             ])
+                //             ->schema([
+                //                 static::getItemsRepeater(),
+                //             ]),
+                //     ])
+                //     ->columnSpan(['lg' => fn (?Order $record) => $record === null ? 3 : 2]),
+                //
+                // Section::make()
+                //     ->schema([
+                //         Forms\Components\Placeholder::make('created_at')
+                //             ->label('Created at')
+                //             ->content(fn (Order $record): ?string => $record->created_at?->diffForHumans()),
+                //
+                //         Forms\Components\Placeholder::make('updated_at')
+                //             ->label('Last modified at')
+                //             ->content(fn (Order $record): ?string => $record->updated_at?->diffForHumans()),
+                //     ])
+                //     ->columnSpan(['lg' => 1])
+                //     ->hidden(fn (?Order $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -161,16 +184,21 @@ class OrderResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
+                TestAction::make('inline_test')
             ])
-            ->groupedBulkActions([
-                DeleteBulkAction::make()
-                    ->action(function () {
-                        Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
-                            ->warning()
-                            ->send();
-                    }),
-            ])
+            // ->toolbarActions([
+            //     TestAction::make('bulk_test')
+            // ])
+            // ->groupedBulkActions([
+            //
+            //     DeleteBulkAction::make()
+            //         ->action(function () {
+            //             Notification::make()
+            //                 ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+            //                 ->warning()
+            //                 ->send();
+            //         }),
+            // ])
             ->groups([
                 Tables\Grouping\Group::make('created_at')
                     ->label('Order Date')
