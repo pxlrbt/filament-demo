@@ -20,10 +20,6 @@
         "laravel/horizon": "^5.21",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.8",
-        "pxlrbt/filament-activity-log": "dev-main",
-        "pxlrbt/filament-environment-indicator": "dev-feat/debug-mode-in-production",
-        "pxlrbt/filament-excel": "dev-main",
-        "pxlrbt/filament-spotlight": "dev-main",
         "squirephp/countries-en": "^3.3",
         "squirephp/currencies-en": "^3.3"
     },
@@ -80,16 +76,6 @@
             "dont-discover": []
         }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../filament/packages/*"
-        },
-        {
-            "type": "path",
-            "url": "../filament-*"
-        }
-    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

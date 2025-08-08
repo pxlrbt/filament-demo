@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\Login as MiddlewareLogin;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -38,7 +39,9 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
+            ->path('/admin')
             ->login(Login::class)
+            ->sidebarCollapsibleOnDesktop()
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -64,36 +67,20 @@ class AdminPanelProvider extends PanelProvider
                 StartSession::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
+                // VerifyCsrfToken::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                MiddlewareLogin::class,
+
             ])
             ->plugin(
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
             )
-            ->plugin(
-                EnvironmentIndicatorPlugin::make()
-                    // ->showBorder()
-                    // ->showGitBranch()
-                    // ->showBadge()
-                    ->showDebugModeWarningInProduction()
-            )
-            // ->plugin(SpotlightPlugin::make())
             ->viteTheme('resources/css/filament/app/theme.css')
-            // ->plugin(
-            //     \pxlrbt\FilamentSpotlightPro\SpotlightPlugin::make()
-            //     ->registerItems([
-            //         RegisterCommands::make(),
-            //         RegisterResources::make(),
-            //         RegisterPages::make(),
-            //     ])
-            // )
-            // ->spa()
             ->colors([
                 'primary' => Color::Blue,
             ]);

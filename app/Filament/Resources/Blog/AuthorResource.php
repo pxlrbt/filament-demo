@@ -149,7 +149,6 @@ class AuthorResource extends Resource
     {
         return [
             'index' => Pages\ManageAuthors::route('/'),
-            'activities' => Pages\ListAuthorActivities::route('/{record}/actitivites'),
         ];
     }
 }

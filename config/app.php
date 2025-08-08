@@ -4,7 +4,6 @@ use App\Providers\AppServiceProvider;
 use App\Providers\EventServiceProvider;
 use App\Providers\Filament\AdminPanelProvider;
 use App\Providers\Filament\AppPanelProvider;
-use App\Providers\Filament\TalkPanelProvider;
 use App\Providers\HorizonServiceProvider;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
@@ -243,7 +242,6 @@ return [
         HorizonServiceProvider::class,
         AdminPanelProvider::class,
         AppPanelProvider::class,
-        TalkPanelProvider::class,
         RouteServiceProvider::class,
 
     ],
