@@ -53,14 +53,12 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->unsavedChangesAlerts()
             ->brandLogo(fn () => view('filament.app.logo'))
             ->brandLogoHeight('1.25rem')
             ->navigationGroups([
                 'Shop',
                 'Blog',
             ])
-            ->databaseNotifications()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -74,7 +72,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 MiddlewareLogin::class,
-
             ])
             ->plugin(
                 SpatieTranslatablePlugin::make()
