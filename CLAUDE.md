@@ -17,3 +17,4 @@ There is a PoC for the theme editor at the home route.
 
 - Always ask questions if something is unclear
 - Use Playwright MCP to validate UI changes
+- The project is accesible in the browser via https://tweakfilament.test

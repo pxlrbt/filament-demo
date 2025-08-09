@@ -111,7 +111,7 @@ function themeEditor() {
         init() {
             // Initialize form as empty object first
             this.form = {};
-            
+
             // Load saved state or apply default preset
             this.loadFromLocalStorage();
 
@@ -160,12 +160,14 @@ function themeEditor() {
 
         updateThemeClass() {
             const iframe = document.querySelector('iframe');
+
             if (iframe && iframe.contentDocument) {
-                const body = iframe.contentDocument.body;
+                const html = iframe.contentDocument.documentElement
+
                 if (this.themeMode === 'dark') {
-                    body.classList.add('dark');
+                    html.classList.add('dark');
                 } else {
-                    body.classList.remove('dark');
+                    html.classList.remove('dark');
                 }
             }
         },
@@ -264,7 +266,7 @@ function themeEditor() {
 
             if (preset) {
                 this.currentPreset = presetName;
-                
+
                 if (skipHistorySave) {
                     this.isUndoRedoOperation = true;
                 }
@@ -337,6 +339,7 @@ function themeEditor() {
                 iframe.contentDocument.head.appendChild(style);
             }
 
+
             style.textContent = this.generateCSS();
         },
 
@@ -359,16 +362,16 @@ function themeEditor() {
         loadFromLocalStorage() {
             try {
                 const savedState = localStorage.getItem('filament-theme-editor-state');
-                
+
                 if (savedState) {
                     const state = JSON.parse(savedState);
-                    
+
                     // Restore UI state
                     if (state.activeTab) this.activeTab = state.activeTab;
                     if (state.previewMode) this.previewMode = state.previewMode;
                     if (state.themeMode) this.themeMode = state.themeMode;
                     if (state.currentPreset) this.currentPreset = state.currentPreset;
-                    
+
                     // Restore form data
                     if (state.form && Object.keys(state.form).length > 0) {
                         this.isUndoRedoOperation = true;
@@ -379,13 +382,13 @@ function themeEditor() {
                     } else {
                         this.applyPreset('default', true);
                     }
-                    
+
                     // Restore history if available
                     if (state.history && Array.isArray(state.history) && state.history.length > 0) {
                         this.history = state.history;
                         this.historyIndex = state.historyIndex || this.history.length - 1;
                     }
-                    
+
                     // Set last saved time
                     if (state.savedAt) {
                         this.lastSaved = new Date(state.savedAt);
@@ -413,7 +416,7 @@ function themeEditor() {
                     historyIndex: this.historyIndex,
                     savedAt: now.toISOString()
                 };
-                
+
                 localStorage.setItem('filament-theme-editor-state', JSON.stringify(state));
                 this.lastSaved = now;
             } catch (error) {
@@ -478,34 +481,50 @@ function themeEditor() {
                 return vars;
             }
 
-            // Create a form copy with current theme mode colors
-            const formForCSS = JSON.parse(JSON.stringify(this.form));
-            if (formForCSS.colors && formForCSS.colors[this.themeMode]) {
-                // Replace colors with the current theme mode colors
-                formForCSS.colors = formForCSS.colors[this.themeMode];
+            function generateColorMappings(vars) {
+                const lightMappings = {};
+                const darkMappings = {};
+
+                // Generate mappings for light mode (default)
+                Object.keys(vars).forEach(key => {
+                    if (key.startsWith('--colors-light-')) {
+                        key = key.replace('--colors-light-', '');
+                        const unprefixed = '--colors-' + key;
+                        const lightPrefixed = '--colors-light-' + key;
+                        const darkPrefixed = '--colors-dark-' + key;
+
+                        darkMappings[unprefixed] = `var(${darkPrefixed})`;
+                        lightMappings[unprefixed] = `var(${lightPrefixed})`;
+                    }
+                });
+
+                return [lightMappings, darkMappings];
             }
 
-            const cssVars = flattenToCssVars(formForCSS);
+            const cssVars = flattenToCssVars(this.form);
+            const [lightMappings, darkMappings] = generateColorMappings(cssVars);
 
-            return `
+            const css = `
                 :root {
                     ${Object.entries(cssVars)
                         .map(([key, value]) => `${key}: ${value};`)
-                        .join('\n    ')}
+                        .join('\n                    ')}
+
+                    /* Default to light mode */
+                    ${Object.entries(lightMappings)
+                        .map(([key, value]) => `${key}: ${value};`)
+                        .join('\n                    ')}
                 }
 
-                body.dark {
-                    ${Object.entries(flattenToCssVars(this.form.colors?.dark || {}))
+                :root.dark {
+                    /* Dark mode overrides */
+                    ${Object.entries(darkMappings)
                         .map(([key, value]) => `${key}: ${value};`)
-                        .join('\n    ')}
-                }
-
-                body:not(.dark) {
-                    ${Object.entries(flattenToCssVars(this.form.colors?.light || {}))
-                        .map(([key, value]) => `${key}: ${value};`)
-                        .join('\n    ')}
+                        .join('\n                    ')}
                 }
             `;
+
+            return css;
         }
     }
 }

@@ -18,6 +18,7 @@
 
     body {
         background-color: var(--colors-base-background);
+        color: var(--colors-text-primary);
 
         font-family: var(--typography-base-fontFamily), system-ui, -apple-system, sans-serif;
         line-height: var(--typography-base-lineHeight);
