@@ -22,8 +22,11 @@
         <header>
             <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                 <div class="flex lg:flex-1">
-                    <a href="/" class="-m-1.5 p-1.5 font-bold text-white">
-                        Filament<span class="text-orange-500">Studio</span>
+                    <a href="/" class="-m-1.5 p-1.5 font-bold text-white flex items-center gap-2">
+                        <div class="flex items-center">
+                            <span class="text-xl">Filament</span>
+                            <span class="ml-1 px-2 py-1 text-xs font-semibold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
+                        </div>
                     </a>
                 </div>
 
@@ -61,10 +64,11 @@
                         <el-dialog-panel
                             class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
                             <div class="flex items-center justify-between">
-                                <a href="#" class="-m-1.5 p-1.5">
-                                    <span class="sr-only">Your Company</span>
-                                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                        alt="" class="h-8 w-auto" />
+                                <a href="/" class="-m-1.5 p-1.5 font-bold text-white flex items-center gap-2">
+                                    <div class="flex items-center">
+                                        <span class="text-lg">Filament</span>
+                                        <span class="ml-1 px-2 py-1 text-xs font-semibold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
+                                    </div>
                                 </a>
                                 <button type="button" command="close" commandfor="mobile-menu"
                                     class="-m-2.5 rounded-md p-2.5 text-gray-400">

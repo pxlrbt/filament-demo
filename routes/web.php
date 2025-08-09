@@ -7,3 +7,4 @@ use App\Models\Blog\Post;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
+Route::view('/editor', 'theme-editor');
