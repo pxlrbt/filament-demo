@@ -2,7 +2,8 @@
     <!-- Hero Section -->
     <div class="relative isolate">
         <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-orange-400 to-orange-600 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+            <div class="relative left-[calc(50%-11rem)] aspect-[2/1] w-[48rem] -translate-x-1/2 rotate-[25deg] bg-gradient-to-tr from-orange-400 via-orange-500 to-orange-600 opacity-25 sm:left-[calc(50%-30rem)] sm:w-[80rem] rounded-full"></div>
+            <div class="relative left-[calc(50%+8rem)] aspect-[3/2] w-[32rem] -translate-x-1/2 rotate-[45deg] bg-gradient-to-bl from-orange-300 to-orange-500 opacity-20 sm:left-[calc(50%+20rem)] sm:w-[60rem] rounded-full"></div>
         </div>
 
         <div class="mx-auto max-w-4xl px-6 py-24 sm:py-32 lg:px-8">
@@ -45,7 +46,8 @@
         </div>
 
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-            <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-orange-400 to-orange-600 opacity-30 sm:w-[72.1875rem]"></div>
+            <div class="relative left-[calc(50%+3rem)] aspect-[2/1] w-[42rem] -translate-x-1/2 rotate-[15deg] bg-gradient-to-tr from-orange-400 via-orange-500 to-orange-600 opacity-20 sm:w-[76rem] rounded-full"></div>
+            <div class="relative left-[calc(50%-12rem)] aspect-[3/2] w-[28rem] -translate-x-1/2 rotate-[-20deg] bg-gradient-to-bl from-orange-300 to-orange-500 opacity-15 sm:w-[50rem] rounded-full"></div>
         </div>
     </div>
 
