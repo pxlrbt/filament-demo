@@ -250,6 +250,40 @@ function themeEditor() {
             document.head.appendChild(link);
         },
 
+        injectFontsIntoIframe() {
+            const iframe = document.querySelector('iframe');
+            
+            if (!iframe || !iframe.contentDocument) return;
+
+            // Check if Google Fonts link already exists in iframe
+            let existingLink = iframe.contentDocument.querySelector('link#google-fonts');
+            
+            if (!existingLink) {
+                existingLink = document.createElement('link');
+                existingLink.id = 'google-fonts';
+                existingLink.rel = 'stylesheet';
+                iframe.contentDocument.head.appendChild(existingLink);
+            }
+
+            // Get unique fonts from current form data
+            const currentFonts = new Set();
+            
+            if (this.form.typography?.base?.fontFamily) {
+                currentFonts.add(this.form.typography.base.fontFamily);
+            }
+            if (this.form.typography?.headline?.fontFamily) {
+                currentFonts.add(this.form.typography.headline.fontFamily);
+            }
+
+            // If no fonts in form, fall back to all fonts
+            const fontsToLoad = currentFonts.size > 0 ? Array.from(currentFonts) : this.fonts;
+
+            // Update the Google Fonts URL
+            existingLink.href = 'https://fonts.googleapis.com/css2?family=' +
+                               fontsToLoad.map(font => font.replace(' ', '+')).join('&family=') +
+                               '&display=swap';
+        },
+
         setupIframe() {
             const iframe = document.querySelector('iframe');
 
@@ -331,6 +365,9 @@ function themeEditor() {
 
             if (!iframe || !iframe.contentDocument) return;
 
+            // Inject Google Fonts CSS into iframe
+            this.injectFontsIntoIframe();
+
             let style = iframe.contentDocument.querySelector('style#custom-theme');
 
             if (!style) {
@@ -338,7 +375,6 @@ function themeEditor() {
                 style.id = 'custom-theme';
                 iframe.contentDocument.head.appendChild(style);
             }
-
 
             style.textContent = this.generateCSS();
         },
