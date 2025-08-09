@@ -3,13 +3,11 @@
 <div x-show="activeTab === 'colors'" class="space-y-6">
     <!-- Theme Mode Indicator -->
     <div class="bg-gray-800 p-3 rounded-lg border border-gray-700">
-        <div class="flex items-center justify-between">
-            <span class="text-sm font-medium text-gray-300">
-                Editing <span x-text="themeMode" class="capitalize font-bold text-white"></span> Mode Colors
-            </span>
-            <div class="text-xs text-gray-400">
-                Switch mode using the toggle above to edit different color schemes
-            </div>
+        <span class="text-sm font-medium text-gray-300">
+            Editing <span x-text="themeMode" class="capitalize font-bold text-white"></span> Mode Colors
+        </span>
+        <div class="mt-1 text-xs text-gray-400">
+            Switch mode using the toggle above to edit different color schemes
         </div>
     </div>
 
