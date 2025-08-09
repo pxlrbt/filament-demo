@@ -8,25 +8,63 @@
             <main class="flex-1 flex flex-col bg-gray-900">
                 <div class="flex items-center justify-between p-2 bg-gray-900 border-b border-gray-800">
                     <h3 class="text-lg font-semibold text-white">Live Preview</h3>
-                    <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
-                        <button
-                            :class="previewMode === 'desktop' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
-                            @click="previewMode = 'desktop'"
-                            class="p-2 rounded-md transition-all"
-                        >
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/>
-                            </svg>
-                        </button>
-                        <button
-                            :class="previewMode === 'tablet' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
-                            @click="previewMode = 'tablet'"
-                            class="p-2 rounded-md transition-all"
-                        >
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
-                            </svg>
-                        </button>
+                    <div class="flex items-center space-x-2">
+                        <!-- History Controls -->
+                        <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
+                            <button
+                                @click="undo()"
+                                :disabled="!canUndo()"
+                                :class="canUndo() ? 'text-gray-300 hover:text-white hover:bg-gray-700' : 'text-gray-600 cursor-not-allowed'"
+                                class="p-2 rounded-md transition-all"
+                                title="Undo (⌘Z)"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+                                </svg>
+                            </button>
+                            <button
+                                @click="redo()"
+                                :disabled="!canRedo()"
+                                :class="canRedo() ? 'text-gray-300 hover:text-white hover:bg-gray-700' : 'text-gray-600 cursor-not-allowed'"
+                                class="p-2 rounded-md transition-all"
+                                title="Redo (⌘⇧Z)"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 15.5c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 15h9V6l-3.6 4.6z"/>
+                                </svg>
+                            </button>
+                            <button
+                                @click="reset()"
+                                class="p-2 rounded-md transition-all text-gray-300 hover:text-white hover:bg-gray-700"
+                                title="Reset to preset"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Preview Mode Controls -->
+                        <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
+                            <button
+                                :class="previewMode === 'desktop' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
+                                @click="previewMode = 'desktop'"
+                                class="p-2 rounded-md transition-all"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/>
+                                </svg>
+                            </button>
+                            <button
+                                :class="previewMode === 'tablet' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
+                                @click="previewMode = 'tablet'"
+                                class="p-2 rounded-md transition-all"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="flex-1 flex items-center justify-center p-6 bg-gray-850">
@@ -40,201 +78,6 @@
             </main>
         </div>
 
-        <script>
-            function themeEditor() {
-                return {
-                    activeTab: 'typography',
-                    previewMode: 'desktop',
-                    currentPreset: 'default',
-                    units: {
-                        letterSpacing: 'em',
-                        spacing: 'rem',
-                        rounding: 'rem',
-                    },
-                    form: {},
-
-                    presets: {
-                        default: {
-                            typography: {
-                                base: {
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0,
-                                    lineHeight: 1.6
-                                },
-                                headline: {
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0,
-                                    lineHeight: 1.3
-                                }
-                            },
-                            colors: {
-                                primary: {
-                                    background: '#2563eb', // dezentes Blau für Akzente
-                                    text: '#ffffff'
-                                },
-                                secondary: {
-                                    background: '#334155', // dunkles Grau-Blau für sekundäre Elemente
-                                    text: '#e0e7ef'
-                                },
-                                accent: {
-                                    background: '#10b981', // minimalistisches Grün für Highlights
-                                    text: '#ffffff'
-                                },
-                                base: {
-                                    background: '#18181b', // fast schwarzer Hintergrund
-                                    text: '#f4f4f5'
-                                },
-                                card: {
-                                    background: '#23272f', // abgesetzte Kartenfarbe
-                                    text: '#f4f4f5'
-                                },
-                                sidebar: {
-                                    background: '#18181b',
-                                    text: '#e0e7ef',
-                                    primaryBackground: '#2563eb',
-                                    primaryText: '#ffffff',
-                                    accentBackground: '#10b981',
-                                    accentText: '#ffffff'
-                                }
-                            },
-                            layout: {
-                                spacing: 0.25,
-                                rounding: 0.5,
-                            }
-                        }
-                    },
-
-                    fonts: [
-                        'Inter', 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Source Sans Pro',
-                        'Raleway', 'PT Sans', 'Lora', 'Merriweather', 'Playfair Display',
-                        'Oswald', 'Nunito', 'Ubuntu', 'Poppins', 'Mukti', 'Fira Sans',
-                        'Work Sans', 'Rubik', 'DM Sans', 'Manrope', 'Space Grotesk'
-                    ],
-
-                    init() {
-                        this.$nextTick(() => {
-                            this.applyPreset('default');
-                            this.loadGoogleFonts();
-                            this.setupIframe();
-                        });
-                    },
-
-                    loadGoogleFonts() {
-                        const link = document.createElement('link');
-
-                        link.href = 'https://fonts.googleapis.com/css2?family=' +
-                                   this.fonts.map(font => font.replace(' ', '+')).join('&family=') +
-                                   '&display=swap';
-                        link.rel = 'stylesheet';
-
-                        document.head.appendChild(link);
-                    },
-
-                    setupIframe() {
-                        const iframe = document.querySelector('iframe');
-
-                        if (iframe) {
-                            iframe.onload = () => {
-                                this.updateTheme();
-                            };
-                        }
-                    },
-
-                    applyPreset(presetName) {
-                        const preset = this.presets[presetName];
-
-                        if (preset) {
-                            this.currentPreset = presetName;
-                            this.form = { ...preset };
-                            this.$nextTick(() => {
-                                this.updateTheme();
-                            });
-                        }
-                    },
-
-                    updateFont(fontName) {
-                        this.form.fontFamily = fontName;
-                        this.updateTheme();
-                    },
-
-                    updateTheme() {
-                        const iframe = document.querySelector('iframe');
-
-                        if (!iframe || !iframe.contentDocument) return;
-
-                        let style = iframe.contentDocument.querySelector('style#custom-theme');
-
-                        if (!style) {
-                            style = document.createElement('style');
-                            style.id = 'custom-theme';
-                            iframe.contentDocument.head.appendChild(style);
-                        }
-
-                        style.textContent = this.generateCSS();
-                    },
-
-                    exportTheme() {
-                        const theme = {
-                            name: 'Custom Theme',
-                            variables: this.form,
-                            css: this.generateCSS()
-                        };
-
-                        const blob = new Blob([JSON.stringify(theme, null, 2)], { type: 'application/json' });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'filament-theme.json';
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    },
-
-                    saveTheme() {
-                        localStorage.setItem('filament-theme', JSON.stringify(this.form));
-                        alert('Theme saved successfully!');
-                    },
-
-                    generateCSS() {
-                        const self = this;
-
-                        function flattenToCssVars(obj, prefix = []) {
-                            if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
-                                return {};
-                            }
-
-                            let vars = {};
-
-                            for (const [key, value] of Object.entries(obj)) {
-                                const newPrefix = [...prefix, key];
-
-                                if (typeof value === 'object' && value !== null && ! Array.isArray(value)) {
-                                    Object.assign(vars, flattenToCssVars(value, newPrefix));
-
-                                    continue;
-                                }
-
-                                const varName = '--' + newPrefix.join('-');
-
-                                vars[varName] = (key in self.units)
-                                    ? `${value}${self.units[key]}`
-                                    : value;
-                            }
-
-                            return vars;
-                        }
-
-                        const cssVars = flattenToCssVars(this.form);
-
-                        return `
-                            :root {
-                                ${Object.entries(cssVars)
-                                    .map(([key, value]) => `${key}: ${value};`)
-                                    .join('\n    ')}
-                            }
-                        `;
-                    }
-                }
-            }
-        </script>
+        @vite('resources/js/theme-editor.js')
     </div>
 </x-layouts.app>

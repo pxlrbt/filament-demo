@@ -12,7 +12,7 @@
     <div class="flex items-center space-x-1 min-w-20">
         <input
             x-model="form.{{ $name }}"
-            @input="updateTheme"
+            @input="handleFormChange()"
             type="number"
             step="{{ $step }}"
             min="{{ $min }}"
@@ -24,7 +24,7 @@
 
     <input
         x-model="form.{{ $name }}"
-        @input="updateTheme"
+        @input="handleFormChange()"
         type="range"
         name="{{ $name }}"
         id="{{ $name }}"

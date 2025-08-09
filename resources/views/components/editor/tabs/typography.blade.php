@@ -55,7 +55,7 @@
             <x-field name="typography.base.fontFamily">
                 <x-label>Font Family</x-label>
 
-                <select>
+                <x-select>
                     <option value="Inter">Inter</option>
                     <option value="Roboto">Roboto</option>
                     <option value="Open Sans">Open Sans</option>
@@ -78,7 +78,7 @@
                     <option value="DM Sans">DM Sans</option>
                     <option value="Manrope">Manrope</option>
                     <option value="Space Grotesk">Space Grotesk</option>
-                </select>
+                </x-select>
             </x-field>
 
             <x-field name="typography.base.letterSpacing">
@@ -109,7 +109,7 @@
             <x-field name="typography.headline.fontFamily">
                 <x-label>Font Family</x-label>
 
-                <select>
+                <x-select>
                     <option value="Inter">Inter</option>
                     <option value="Roboto">Roboto</option>
                     <option value="Open Sans">Open Sans</option>
@@ -132,7 +132,7 @@
                     <option value="DM Sans">DM Sans</option>
                     <option value="Manrope">Manrope</option>
                     <option value="Space Grotesk">Space Grotesk</option>
-                </select>
+                </x-select>
             </x-field>
 
             <x-field name="typography.headline.letterSpacing">
