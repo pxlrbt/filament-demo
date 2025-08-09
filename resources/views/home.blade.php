@@ -1,3 +1,28 @@
+@php
+$faqs = [
+    [
+        'question' => 'What is Filament Studio?',
+        'answer' => 'Filament Studio is a powerful theme builder for Filament PHP that lets you create, customize, and preview beautiful admin panel themes without writing any code. It provides real-time editing capabilities with instant preview.'
+    ],
+    [
+        'question' => 'What export formats are supported?',
+        'answer' => 'Themes can be exported as ready-to-use CSS files, Tailwind configuration files, or complete theme packages that integrate seamlessly with your Filament application. All exports include both light and dark mode variants.'
+    ],
+    [
+        'question' => 'Do I need coding knowledge to use Filament Studio?',
+        'answer' => 'Not at all! Filament Studio is designed to be used by anyone, regardless of technical background. The visual interface makes theme creation intuitive and accessible, while still providing the flexibility that developers need.'
+    ],
+    [
+        'question' => 'What\'s included in the 1 year of updates?',
+        'answer' => 'Your purchase includes free updates for one full year, covering new features, bug fixes, compatibility updates with the latest Filament versions, and new preset themes. After the year, you can continue using your current version or purchase an update package.'
+    ],
+    [
+        'question' => 'Can I use themes on multiple applications?',
+        'answer' => 'The Business plan allows usage on one application, while the Unlimited plan provides licensing for unlimited applications. Both plans allow you to create and export as many themes as you need within your license terms.'
+    ]
+];
+@endphp
+
 <x-layouts.app>
     <!-- Hero Section -->
     <div class="relative isolate">
@@ -114,7 +139,7 @@
     </div>
 
     <!-- Examples/Gallery Section -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50" id="examples">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50 rounded-lg border border-gray-700/40" id="examples">
         <div class="mx-auto max-w-2xl text-center">
             <h2 class="text-base/7 font-semibold text-orange-500">Theme Gallery</h2>
             <p class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -270,7 +295,7 @@
     </div>
 
     <!-- FAQ Section -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50" id="faq">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50 rounded-lg border border-gray-700/40" id="faq">
         <div class="mx-auto max-w-4xl">
             <div class="mx-auto max-w-2xl text-center">
                 <h2 class="text-base/7 font-semibold text-orange-500">FAQ</h2>
@@ -281,121 +306,27 @@
                     Everything you need to know about Filament Studio.
                 </p>
             </div>
-            <div class="mt-16 space-y-8" x-data="{ openFaq: null }">
-                <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button
-                        @click="openFaq = openFaq === 1 ? null : 1"
-                        class="flex w-full items-start justify-between text-left"
-                    >
-                        <span class="text-lg font-semibold text-white">What is Filament Studio?</span>
-                        <span class="ml-6 flex h-7 items-center">
-                            <svg
-                                :class="openFaq === 1 ? 'rotate-45' : ''"
-                                class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                        </span>
-                    </button>
-                    <div x-show="openFaq === 1" x-collapse class="mt-4">
-                        <p class="text-gray-300">Filament Studio is a powerful theme builder for Filament PHP that lets you create, customize, and preview beautiful admin panel themes without writing any code. It provides real-time editing capabilities with instant preview.</p>
-                    </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button
-                        @click="openFaq = openFaq === 2 ? null : 2"
-                        class="flex w-full items-start justify-between text-left"
-                    >
-                        <span class="text-lg font-semibold text-white">What export formats are supported?</span>
-                        <span class="ml-6 flex h-7 items-center">
-                            <svg
-                                :class="openFaq === 2 ? 'rotate-45' : ''"
-                                class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                        </span>
-                    </button>
-                    <div x-show="openFaq === 2" x-collapse class="mt-4">
-                        <p class="text-gray-300">Themes can be exported as ready-to-use CSS files, Tailwind configuration files, or complete theme packages that integrate seamlessly with your Filament application. All exports include both light and dark mode variants.</p>
-                    </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button
-                        @click="openFaq = openFaq === 3 ? null : 3"
-                        class="flex w-full items-start justify-between text-left"
-                    >
-                        <span class="text-lg font-semibold text-white">Do I need coding knowledge to use Filament Studio?</span>
-                        <span class="ml-6 flex h-7 items-center">
-                            <svg
-                                :class="openFaq === 3 ? 'rotate-45' : ''"
-                                class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                        </span>
-                    </button>
-                    <div x-show="openFaq === 3" x-collapse class="mt-4">
-                        <p class="text-gray-300">Not at all! Filament Studio is designed to be used by anyone, regardless of technical background. The visual interface makes theme creation intuitive and accessible, while still providing the flexibility that developers need.</p>
-                    </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button
-                        @click="openFaq = openFaq === 4 ? null : 4"
-                        class="flex w-full items-start justify-between text-left"
-                    >
-                        <span class="text-lg font-semibold text-white">What's included in the 1 year of updates?</span>
-                        <span class="ml-6 flex h-7 items-center">
-                            <svg
-                                :class="openFaq === 4 ? 'rotate-45' : ''"
-                                class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                        </span>
-                    </button>
-                    <div x-show="openFaq === 4" x-collapse class="mt-4">
-                        <p class="text-gray-300">Your purchase includes free updates for one full year, covering new features, bug fixes, compatibility updates with the latest Filament versions, and new preset themes. After the year, you can continue using your current version or purchase an update package.</p>
-                    </div>
-                </div>
-
-                <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button
-                        @click="openFaq = openFaq === 5 ? null : 5"
-                        class="flex w-full items-start justify-between text-left"
-                    >
-                        <span class="text-lg font-semibold text-white">Can I use themes on multiple applications?</span>
-                        <span class="ml-6 flex h-7 items-center">
-                            <svg
-                                :class="openFaq === 5 ? 'rotate-45' : ''"
-                                class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                        </span>
-                    </button>
-                    <div x-show="openFaq === 5" x-collapse class="mt-4">
-                        <p class="text-gray-300">The Business plan allows usage on one application, while the Unlimited plan provides licensing for unlimited applications. Both plans allow you to create and export as many themes as you need within your license terms.</p>
-                    </div>
-                </div>
+            <div class="mt-16 space-y-4">
+                @foreach($faqs as $faq)
+                    <details class="rounded-sm bg-gray-900/50 p-6 border border-gray-700/40 group">
+                        <summary class="flex w-full items-start justify-between text-left cursor-pointer list-none">
+                            <span class="text-lg font-semibold text-white">{{ $faq['question'] }}</span>
+                            <span class="ml-6 flex h-7 items-center">
+                                <svg
+                                    class="h-6 w-6 text-orange-500 transition-transform group-open:rotate-45"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="mt-4">
+                            <p class="text-gray-300">{{ $faq['answer'] }}</p>
+                        </div>
+                    </details>
+                @endforeach
             </div>
         </div>
     </div>
