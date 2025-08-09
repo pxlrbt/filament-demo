@@ -42,10 +42,10 @@
                     </button>
                 </div>
 
-                <div class="hidden lg:flex lg:gap-x-12">
-                    <a href="/" class="text-sm/6 font-semibold text-white">Home</a>
-                    <a href="/editor" class="text-sm/6 font-semibold text-white">Editor</a>
-                    <a href="/#faq" class="text-sm/6 font-semibold text-white">FAQ</a>
+                <div class="hidden items-center lg:flex lg:gap-x-12">
+                    <a href="/" class="text-sm/6 font-semibold text-white {{ request()->is('/') ? 'relative px-2 py-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg shadow-sm' : 'hover:text-orange-300 transition-colors px-2 py-1' }}">Home</a>
+                    <a href="/editor" class="text-sm/6 font-semibold text-white {{ request()->is('editor') ? 'relative px-2 py-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg shadow-sm' : 'hover:text-orange-300 transition-colors px-2 py-1' }}">Editor</a>
+                    <a href="/#faq" class="text-sm/6 font-semibold text-white hover:text-orange-300 transition-colors px-2 py-1">FAQ</a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
                     @if(request()->is('editor'))
@@ -87,19 +87,12 @@
                             <div class="mt-6 flow-root">
                                 <div class="-my-6 divide-y divide-white/10">
                                     <div class="space-y-2 py-6">
-                                        <a href="#"
-                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Product</a>
-                                        <a href="#"
-                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Features</a>
-                                        <a href="#"
-                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Marketplace</a>
-                                        <a href="#"
-                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Company</a>
-                                    </div>
-                                    <div class="py-6">
-                                        <a href="#"
-                                            class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5">Log
-                                            in</a>
+                                        <a href="/"
+                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white {{ request()->is('/') ? 'bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg' : 'hover:bg-white/5' }}">Home</a>
+                                        <a href="/editor"
+                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white {{ request()->is('editor') ? 'bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg' : 'hover:bg-white/5' }}">Editor</a>
+                                        <a href="/#faq"
+                                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">FAQ</a>
                                     </div>
                                 </div>
                             </div>
