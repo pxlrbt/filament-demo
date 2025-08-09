@@ -55,30 +55,7 @@
             <x-field name="typography.base.fontFamily">
                 <x-label>Font Family</x-label>
 
-                <x-select>
-                    <option value="Inter">Inter</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lato">Lato</option>
-                    <option value="Montserrat">Montserrat</option>
-                    <option value="Source Sans Pro">Source Sans Pro</option>
-                    <option value="Raleway">Raleway</option>
-                    <option value="PT Sans">PT Sans</option>
-                    <option value="Lora">Lora</option>
-                    <option value="Merriweather">Merriweather</option>
-                    <option value="Playfair Display">Playfair Display</option>
-                    <option value="Oswald">Oswald</option>
-                    <option value="Nunito">Nunito</option>
-                    <option value="Ubuntu">Ubuntu</option>
-                    <option value="Poppins">Poppins</option>
-                    <option value="Mukti">Mukti</option>
-                    <option value="Fira Sans">Fira Sans</option>
-                    <option value="Work Sans">Work Sans</option>
-                    <option value="Rubik">Rubik</option>
-                    <option value="DM Sans">DM Sans</option>
-                    <option value="Manrope">Manrope</option>
-                    <option value="Space Grotesk">Space Grotesk</option>
-                </x-select>
+                <x-font-selector />
             </x-field>
 
             <x-field name="typography.base.letterSpacing">
@@ -109,30 +86,7 @@
             <x-field name="typography.headline.fontFamily">
                 <x-label>Font Family</x-label>
 
-                <x-select>
-                    <option value="Inter">Inter</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lato">Lato</option>
-                    <option value="Montserrat">Montserrat</option>
-                    <option value="Source Sans Pro">Source Sans Pro</option>
-                    <option value="Raleway">Raleway</option>
-                    <option value="PT Sans">PT Sans</option>
-                    <option value="Lora">Lora</option>
-                    <option value="Merriweather">Merriweather</option>
-                    <option value="Playfair Display">Playfair Display</option>
-                    <option value="Oswald">Oswald</option>
-                    <option value="Nunito">Nunito</option>
-                    <option value="Ubuntu">Ubuntu</option>
-                    <option value="Poppins">Poppins</option>
-                    <option value="Mukti">Mukti</option>
-                    <option value="Fira Sans">Fira Sans</option>
-                    <option value="Work Sans">Work Sans</option>
-                    <option value="Rubik">Rubik</option>
-                    <option value="DM Sans">DM Sans</option>
-                    <option value="Manrope">Manrope</option>
-                    <option value="Space Grotesk">Space Grotesk</option>
-                </x-select>
+                <x-font-selector />
             </x-field>
 
             <x-field name="typography.headline.letterSpacing">

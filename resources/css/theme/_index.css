@@ -2,6 +2,8 @@
 
 @import '../../../vendor/filament/filament/resources/css/theme.css';
 
+@import './circular.css' layer(custom-theme);
+@import './shadows.css' layer(custom-theme);
 @import './cards.css' layer(custom-theme);
 @import './sidebar.css' layer(custom-theme);
 @import './topbar.css' layer(custom-theme);
@@ -10,16 +12,12 @@
 @source '../../../app/Filament/App/**/*';
 @source '../../../resources/views/filament/app/**/*';
 
-
 @layer custom-theme {
     :root {
         --spacing: var(--layout-spacing);
     }
 
     body {
-        background-color: var(--colors-base-background);
-        color: var(--colors-text-primary);
-
         font-family: var(--typography-base-fontFamily), system-ui, -apple-system, sans-serif;
         line-height: var(--typography-base-lineHeight);
         letter-spacing: var(--typography-base-letterSpacing);
@@ -44,20 +42,4 @@
     .fi-dropdown-list-item {
         border-radius: calc(var(--layout-rounding) * 0.45);
     }
-
-
-    /* // Avatar
-    .fi-circular {
-        border-radius: var(--circular-rounding);
-    } */
-
-
-    /* Borderless */
-    /* .fi-section:not(.fi-section-not-contained),
-    .fi-wi-stats-overview-stat,
-    .fi-ta-ctn {
-        box-shadow:
-            0 0 1px 0 hsl(0 0% 0% / 1),
-            6px 6px 0 rgba(0, 0, 0, 0.4);
-    } */
 }

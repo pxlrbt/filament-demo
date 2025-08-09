@@ -1,13 +1,24 @@
 /* Card Colors */
 .fi-card,
-.fi-section,
+.fi-section:not(.fi-section-not-contained),
+
+.fi-dropdown-panel,
+.fi-modal-window,
+.fi-global-search-results-ctn,
+
 .fi-wi-stats-overview-stat,
-.fi-ta-ctn {
+
+.fi-simple-main,
+
+.fi-ta-ctn,
+.fi-ta-record {
     background: var(--colors-card-background);
 }
 
+
 /* Sections, Widgets */
 .fi-wi-stats-overview-stat,
+.fi-simple-main,
 .fi-section,
 .fi-ta-ctn {
     border-radius: var(--layout-rounding);

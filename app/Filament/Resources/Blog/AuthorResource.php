@@ -101,33 +101,8 @@ class AuthorResource extends Resource
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
-                Action::make('acti')
-                    ->url(fn ($record) => AuthorResource::getUrl('activities', ['record' => $record]))
-            ])
-            ->headerActions([
-                ExportAction::make()->exports([
-                    ExcelExport::make('table')
-                        ->queue()
-                        ->fromTable()
-                        ->except('email')
-                        ->withNamesAsHeadings()
-                        // ->askForFilename()
-                        // ->askForWriterType()
-                        ->withColumns([
-                            Column::make('bio')->heading('BIO'),
-                        ])
-                        ->modifyQueryUsing(fn($query) => $query->limit(1))
-                        ->withFilename('table')
-                    ,
-                    ExcelExport::make('form')
-                        ->fromForm()
-                        ->withFilename('form')
-                    ,
-                ])
-
             ])
             ->groupedBulkActions([
-                \pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction::make(),
                 DeleteBulkAction::make()
                     ->action(function () {
                         Notification::make()

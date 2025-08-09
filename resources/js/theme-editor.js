@@ -15,6 +15,12 @@ function themeEditor() {
             letterSpacing: 'em',
             spacing: 'rem',
             rounding: 'rem',
+            circularRounding: 'rem',
+
+            offsetX: 'em',
+            offsetY: 'em',
+            blur: 'em',
+            spread: 'em'
         },
         form: {},
 
@@ -34,26 +40,23 @@ function themeEditor() {
                 },
                 colors: {
                     dark: {
-                        primary: {
-                            background: '#2563eb',
+                        base: "#18181b",
+                        primary: '#2563eb',
+                        info: '#38bdf8',      // Tailwind sky-400
+                        success: '#16a34a',   // Tailwind cyan-400
+                        warning: '#facc15',   // Tailwind yellow-400
+                        danger: '#f87171',    // Tailwind red-400
+
+                        topbar: {
+                            background: '#1e293b',
                             text: '#ffffff'
                         },
-                        secondary: {
-                            background: '#334155',
-                            text: '#e0e7ef'
-                        },
-                        accent: {
-                            background: '#10b981',
-                            text: '#ffffff'
-                        },
-                        base: {
-                            background: '#18181b',
-                            text: '#f4f4f5'
-                        },
+
                         card: {
-                            background: '#23272f',
-                            text: '#f4f4f5'
+                            background: '#1e293b',
+                            text: '#ffffff'
                         },
+
                         sidebar: {
                             background: '#18181b',
                             text: '#e0e7ef',
@@ -61,29 +64,29 @@ function themeEditor() {
                             primaryText: '#ffffff',
                             accentBackground: '#10b981',
                             accentText: '#ffffff'
-                        }
+                        },
+
+                        shadow: '#000000cc'
                     },
+
                     light: {
-                        primary: {
-                            background: '#2563eb',
-                            text: '#ffffff'
-                        },
-                        secondary: {
-                            background: '#64748b',
-                            text: '#1e293b'
-                        },
-                        accent: {
-                            background: '#10b981',
-                            text: '#ffffff'
-                        },
-                        base: {
-                            background: '#ffffff',
-                            text: '#0f172a'
-                        },
+                        base: '#ffffff',
+                        primary: '#2563eb',
+                        info: '#38bdf8',      // Tailwind sky-400
+                        success: '#16a34a',   // Tailwind cyan-400
+                        warning: '#facc15',   // Tailwind yellow-400
+                        danger: '#f87171',    // Tailwind red-400
+
                         card: {
                             background: '#f8fafc',
                             text: '#1e293b'
                         },
+
+                        topbar: {
+                            background: '#f8fafc',
+                            text: '#1e293b'
+                        },
+
                         sidebar: {
                             background: '#f1f5f9',
                             text: '#334155',
@@ -91,26 +94,109 @@ function themeEditor() {
                             primaryText: '#ffffff',
                             accentBackground: '#10b981',
                             accentText: '#ffffff'
-                        }
+                        },
+
+                        shadow: '#000000cc'
                     }
                 },
+
                 layout: {
                     spacing: 0.25,
                     rounding: 0.5,
+                    circularRounding: 5,
+
+                    shadow: {
+                        offsetX: 0,
+                        offsetY: 0,
+                        blur: 0,
+                        spread: 0,
+                    }
                 }
             }
         },
 
         fonts: [
+            // Most Popular Sans-Serif
             'Inter', 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Source Sans Pro',
-            'Raleway', 'PT Sans', 'Lora', 'Merriweather', 'Playfair Display',
-            'Oswald', 'Nunito', 'Ubuntu', 'Poppins', 'Mukti', 'Fira Sans',
-            'Work Sans', 'Rubik', 'DM Sans', 'Manrope', 'Space Grotesk'
+            'Raleway', 'PT Sans', 'Nunito', 'Ubuntu', 'Poppins', 'Fira Sans',
+            'Work Sans', 'Rubik', 'DM Sans', 'Manrope', 'Space Grotesk',
+            'Roboto Condensed', 'Noto Sans', 'IBM Plex Sans', 'Barlow', 'Lexend',
+            'Plus Jakarta Sans', 'Outfit', 'Figtree', 'Red Hat Display', 'Be Vietnam Pro',
+            'Satoshi', 'Epilogue', 'Sora', 'Albert Sans', 'Onest', 'Geist Sans',
+
+            // Classic Sans-Serif
+            'Helvetica Neue', 'Arial', 'Verdana', 'Tahoma', 'Geneva', 'Lucida Grande',
+            'Trebuchet MS', 'Century Gothic', 'Futura', 'Avant Garde', 'Optima',
+
+            // Extended Sans-Serif Collection
+            'Archivo', 'Asap', 'Assistant', 'Cabin', 'Catamaran', 'Chakra Petch',
+            'Clear Sans', 'Commissioner', 'Concourse', 'Cousine', 'Dancing Script',
+            'Dosis', 'Exo', 'Exo 2', 'Familjen Grotesk', 'Fira Code', 'Golos Text',
+            'Hind', 'Hind Siliguri', 'Hind Madurai', 'Hind Guntur', 'Hind Vadodara',
+            'Josefin Sans', 'Jost', 'Karla', 'League Spartan', 'Libre Franklin',
+            'Mukti', 'Noto Sans JP', 'Noto Sans KR', 'Overpass', 'Oxygen',
+            'PT Sans Caption', 'Public Sans', 'Quicksand', 'Readex Pro', 'Roboto Flex',
+            'Schibsted Grotesk', 'Sen', 'Signika', 'Signika Negative', 'Spartan',
+            'Titillium Web', 'Urbanist', 'Varela Round', 'Yanone Kaffeesatz',
+
+            // Serif Fonts
+            'Lora', 'Merriweather', 'Playfair Display', 'PT Serif', 'IBM Plex Serif',
+            'Crimson Text', 'Libre Baskerville', 'Cormorant Garamond', 'EB Garamond',
+            'Vollkorn', 'Bitter', 'Cardo', 'Crimson Pro', 'Domine', 'Frank Ruhl Libre',
+            'Gelasio', 'Gowun Batang', 'Inria Serif', 'Literata', 'Lora', 'Neuton',
+            'Noto Serif', 'Old Standard TT', 'Petrona', 'Poly', 'Proza Libre',
+            'Roboto Slab', 'Rokkitt', 'Rufina', 'Slabo 27px', 'Spectral',
+            'Sura', 'Tinos', 'Unna', 'Vesper Libre', 'Volkhov', 'Zilla Slab',
+
+            // Display & Decorative
+            'Abril Fatface', 'Bebas Neue', 'Righteous', 'Fredoka One', 'Archivo Black',
+            'Anton', 'Fjalla One', 'Alfa Slab One', 'Bungee', 'Comfortaa',
+            'Creepster', 'Fredoka', 'Kalam', 'Lobster', 'Monoton', 'Pacifico',
+            'Permanent Marker', 'Shadows Into Light', 'Sigmar One', 'Ultra',
+
+            // Monospace/Code Fonts
+            'Source Code Pro', 'Fira Code', 'JetBrains Mono', 'Cascadia Code',
+            'Victor Mono', 'Space Mono', 'Roboto Mono', 'Ubuntu Mono', 'Inconsolata',
+            'Anonymous Pro', 'Courier Prime', 'Cutive Mono', 'Nova Mono', 'Overpass Mono',
+            'PT Mono', 'Red Hat Mono', 'Share Tech Mono', 'Syne Mono',
+
+            // Handwriting & Script
+            'Dancing Script', 'Great Vibes', 'Kaushan Script', 'Lobster Two',
+            'Pacifico', 'Sacramento', 'Satisfy', 'Shadows Into Light Two',
+            'Amatic SC', 'Caveat', 'Courgette', 'Handlee', 'Indie Flower',
+            'Kalam', 'Marck Script', 'Nanum Pen Script', 'Patrick Hand',
+            'Permanent Marker', 'Reenie Beanie', 'Rock Salt', 'Schoolbell',
+
+            // International & Multi-language
+            'Noto Sans Arabic', 'Noto Sans Bengali', 'Noto Sans Chinese',
+            'Noto Sans Devanagari', 'Noto Sans Greek', 'Noto Sans Hebrew',
+            'Noto Sans Thai', 'Noto Sans Tamil', 'Noto Sans Telugu',
+            'Cairo', 'Amiri', 'Scheherazade New', 'IBM Plex Sans Arabic',
+            'Tajawal', 'Almarai', 'Changa', 'El Messiri', 'Harmattan',
+            'Katibeh', 'Lalezar', 'Lateef', 'Mada', 'Markazi Text',
+            'Mirza', 'Rakkas', 'Reem Kufi', 'Vibes',
+
+            // Condensed & Extended
+            'Barlow Condensed', 'Barlow Semi Condensed', 'Fira Sans Condensed',
+            'Fira Sans Extra Condensed', 'Oswald', 'PT Sans Narrow', 'Roboto Condensed',
+            'Source Sans Pro', 'Ubuntu Condensed', 'Yanone Kaffeesatz',
+            'Abel', 'Advent Pro', 'Armata', 'Cuprum', 'Economica', 'Electrolize',
+            'Exo', 'Gruppo', 'Jura', 'Magra', 'Michroma', 'Orbitron', 'Poiret One',
+            'Pontano Sans', 'Questrial', 'Ruda', 'Strait', 'Syncopate', 'Telex',
+
+            // Geometric & Modern
+            'Comfortaa', 'Geometric', 'Century Gothic', 'Futura PT', 'Proxima Nova',
+            'Avenir', 'Gotham', 'Brandon Grotesque', 'Circular', 'Helvetica Now',
+            'San Francisco', 'Product Sans', 'Google Sans', 'YouTube Sans',
+            'Airbnb Cereal', 'Spotify Circular', 'Netflix Sans', 'Uber Move'
         ],
 
         init() {
             // Initialize form as empty object first
             this.form = {};
+
+            // Store global reference for font selectors
+            window.themeEditorInstance = this;
 
             // Load saved state or apply default preset
             this.loadFromLocalStorage();
@@ -250,14 +336,51 @@ function themeEditor() {
             document.head.appendChild(link);
         },
 
+        loadGoogleFont(fontName) {
+            if (!fontName) return;
+
+            const fontId = `google-font-${fontName.replace(/\s+/g, '-').toLowerCase()}`;
+
+            // Check if font is already loaded
+            if (document.getElementById(fontId)) return;
+
+            const link = document.createElement('link');
+            link.id = fontId;
+            link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(' ', '+')}:wght@300;400;500;600;700&display=swap`;
+            link.rel = 'stylesheet';
+
+            document.head.appendChild(link);
+
+            // Also inject into iframe if it exists
+            this.injectFontIntoIframe(fontName);
+        },
+
+        injectFontIntoIframe(fontName) {
+            const iframe = document.querySelector('iframe');
+
+            if (!iframe || !iframe.contentDocument) return;
+
+            const fontId = `google-font-${fontName.replace(/\s+/g, '-').toLowerCase()}`;
+
+            // Check if font is already loaded in iframe
+            if (iframe.contentDocument.getElementById(fontId)) return;
+
+            const link = document.createElement('link');
+            link.id = fontId;
+            link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(' ', '+')}:wght@300;400;500;600;700&display=swap`;
+            link.rel = 'stylesheet';
+
+            iframe.contentDocument.head.appendChild(link);
+        },
+
         injectFontsIntoIframe() {
             const iframe = document.querySelector('iframe');
-            
+
             if (!iframe || !iframe.contentDocument) return;
 
             // Check if Google Fonts link already exists in iframe
             let existingLink = iframe.contentDocument.querySelector('link#google-fonts');
-            
+
             if (!existingLink) {
                 existingLink = document.createElement('link');
                 existingLink.id = 'google-fonts';
@@ -267,7 +390,7 @@ function themeEditor() {
 
             // Get unique fonts from current form data
             const currentFonts = new Set();
-            
+
             if (this.form.typography?.base?.fontFamily) {
                 currentFonts.add(this.form.typography.base.fontFamily);
             }
@@ -541,7 +664,7 @@ function themeEditor() {
             const [lightMappings, darkMappings] = generateColorMappings(cssVars);
 
             const css = `
-                :root {
+                :root, body {
                     ${Object.entries(cssVars)
                         .map(([key, value]) => `${key}: ${value};`)
                         .join('\n                    ')}
@@ -550,9 +673,116 @@ function themeEditor() {
                     ${Object.entries(lightMappings)
                         .map(([key, value]) => `${key}: ${value};`)
                         .join('\n                    ')}
+
+                    --l-50: 0.97717647058824;
+                    --c-50: 0.01395454545455;
+                    --l-100: 0.95035294117647;
+                    --c-100: 0.03272727272727;
+                    --l-200: 0.90547058823529;
+                    --c-200: 0.06318181818182;
+                    --l-300: 0.84047058823529;
+                    --c-300: 0.10604545454546;
+                    --l-400: 0.75352941176471;
+                    --c-400: 0.15027272727273;
+                    --l-500: 0.68270588235294;
+                    --c-500: 0.17009090909091;
+                    --l-600: 0.59782352941176;
+                    --c-600: 0.16913636363636;
+                    --l-700: 0.51494117647059;
+                    --c-700: 0.14940909090909;
+                    --l-800: 0.44611764705882;
+                    --c-800: 0.12331818181818;
+                    --l-900: 0.39458823529412;
+                    --c-900: 0.09963636363636;
+                    --l-950: 0.27788235294118;
+                    --c-950: 0.07136363636364;
+
+                    --danger-50: oklch(from var(--colors-danger) var(--l-50) var(--c-50) h);
+                    --danger-100: oklch(from var(--colors-danger) var(--l-100) var(--c-100) h);
+                    --danger-200: oklch(from var(--colors-danger) var(--l-200) var(--c-200) h);
+                    --danger-300: oklch(from var(--colors-danger) var(--l-300) var(--c-300) h);
+                    --danger-400: oklch(from var(--colors-danger) var(--l-400) var(--c-400) h);
+                    --danger-500: oklch(from var(--colors-danger) var(--l-500) var(--c-500) h);
+                    --danger-600: oklch(from var(--colors-danger) var(--l-600) var(--c-600) h);
+                    --danger-700: oklch(from var(--colors-danger) var(--l-700) var(--c-700) h);
+                    --danger-800: oklch(from var(--colors-danger) var(--l-800) var(--c-800) h);
+                    --danger-900: oklch(from var(--colors-danger) var(--l-900) var(--c-900) h);
+                    --danger-950: oklch(from var(--colors-danger) var(--l-950) var(--c-950) h);
+
+                    --warning-50: oklch(from var(--colors-warning) var(--l-50) var(--c-50) h);
+                    --warning-100: oklch(from var(--colors-warning) var(--l-100) var(--c-100) h);
+                    --warning-200: oklch(from var(--colors-warning) var(--l-200) var(--c-200) h);
+                    --warning-300: oklch(from var(--colors-warning) var(--l-300) var(--c-300) h);
+                    --warning-400: oklch(from var(--colors-warning) var(--l-400) var(--c-400) h);
+                    --warning-500: oklch(from var(--colors-warning) var(--l-500) var(--c-500) h);
+                    --warning-600: oklch(from var(--colors-warning) var(--l-600) var(--c-600) h);
+                    --warning-700: oklch(from var(--colors-warning) var(--l-700) var(--c-700) h);
+                    --warning-800: oklch(from var(--colors-warning) var(--l-800) var(--c-800) h);
+                    --warning-900: oklch(from var(--colors-warning) var(--l-900) var(--c-900) h);
+                    --warning-950: oklch(from var(--colors-warning) var(--l-950) var(--c-950) h);
+
+                    --info-50: oklch(from var(--colors-info) var(--l-50) var(--c-50) h);
+                    --info-100: oklch(from var(--colors-info) var(--l-100) var(--c-100) h);
+                    --info-200: oklch(from var(--colors-info) var(--l-200) var(--c-200) h);
+                    --info-300: oklch(from var(--colors-info) var(--l-300) var(--c-300) h);
+                    --info-400: oklch(from var(--colors-info) var(--l-400) var(--c-400) h);
+                    --info-500: oklch(from var(--colors-info) var(--l-500) var(--c-500) h);
+                    --info-600: oklch(from var(--colors-info) var(--l-600) var(--c-600) h);
+                    --info-700: oklch(from var(--colors-info) var(--l-700) var(--c-700) h);
+                    --info-800: oklch(from var(--colors-info) var(--l-800) var(--c-800) h);
+                    --info-900: oklch(from var(--colors-info) var(--l-900) var(--c-900) h);
+                    --info-950: oklch(from var(--colors-info) var(--l-950) var(--c-950) h);
+
+                    --success-50: oklch(from var(--colors-success) var(--l-50) var(--c-50) h);
+                    --success-100: oklch(from var(--colors-success) var(--l-100) var(--c-100) h);
+                    --success-200: oklch(from var(--colors-success) var(--l-200) var(--c-200) h);
+                    --success-300: oklch(from var(--colors-success) var(--l-300) var(--c-300) h);
+                    --success-400: oklch(from var(--colors-success) var(--l-400) var(--c-400) h);
+                    --success-500: oklch(from var(--colors-success) var(--l-500) var(--c-500) h);
+                    --success-600: oklch(from var(--colors-success) var(--l-600) var(--c-600) h);
+                    --success-700: oklch(from var(--colors-success) var(--l-700) var(--c-700) h);
+                    --success-800: oklch(from var(--colors-success) var(--l-800) var(--c-800) h);
+                    --success-900: oklch(from var(--colors-success) var(--l-900) var(--c-900) h);
+                    --success-950: oklch(from var(--colors-success) var(--l-950) var(--c-950) h);
+
+                    --primary-50: oklch(from var(--colors-primary) var(--l-50) var(--c-50) h);
+                    --primary-100: oklch(from var(--colors-primary) var(--l-100) var(--c-100) h);
+                    --primary-200: oklch(from var(--colors-primary) var(--l-200) var(--c-200) h);
+                    --primary-300: oklch(from var(--colors-primary) var(--l-300) var(--c-300) h);
+                    --primary-400: oklch(from var(--colors-primary) var(--l-400) var(--c-400) h);
+                    --primary-500: oklch(from var(--colors-primary) var(--l-500) var(--c-500) h);
+                    --primary-600: oklch(from var(--colors-primary) var(--l-600) var(--c-600) h);
+                    --primary-700: oklch(from var(--colors-primary) var(--l-700) var(--c-700) h);
+                    --primary-800: oklch(from var(--colors-primary) var(--l-800) var(--c-800) h);
+                    --primary-900: oklch(from var(--colors-primary) var(--l-900) var(--c-900) h);
+                    --primary-950: oklch(from var(--colors-primary) var(--l-950) var(--c-950) h);
+
+                    --secondary-50: oklch(from var(--colors-secondary) var(--l-50) var(--c-50) h);
+                    --secondary-100: oklch(from var(--colors-secondary) var(--l-100) var(--c-100) h);
+                    --secondary-200: oklch(from var(--colors-secondary) var(--l-200) var(--c-200) h);
+                    --secondary-300: oklch(from var(--colors-secondary) var(--l-300) var(--c-300) h);
+                    --secondary-400: oklch(from var(--colors-secondary) var(--l-400) var(--c-400) h);
+                    --secondary-500: oklch(from var(--colors-secondary) var(--l-500) var(--c-500) h);
+                    --secondary-600: oklch(from var(--colors-secondary) var(--l-600) var(--c-600) h);
+                    --secondary-700: oklch(from var(--colors-secondary) var(--l-700) var(--c-700) h);
+                    --secondary-800: oklch(from var(--colors-secondary) var(--l-800) var(--c-800) h);
+                    --secondary-900: oklch(from var(--colors-secondary) var(--l-900) var(--c-900) h);
+                    --secondary-950: oklch(from var(--colors-secondary) var(--l-950) var(--c-950) h);
+
+                    --gray-50: oklch(from var(--colors-base) var(--l-50) var(--c-50) h);
+                    --gray-100: oklch(from var(--colors-base) var(--l-100) var(--c-100) h);
+                    --gray-200: oklch(from var(--colors-base) var(--l-200) var(--c-200) h);
+                    --gray-300: oklch(from var(--colors-base) var(--l-300) var(--c-300) h);
+                    --gray-400: oklch(from var(--colors-base) var(--l-400) var(--c-400) h);
+                    --gray-500: oklch(from var(--colors-base) var(--l-500) var(--c-500) h);
+                    --gray-600: oklch(from var(--colors-base) var(--l-600) var(--c-600) h);
+                    --gray-700: oklch(from var(--colors-base) var(--l-700) var(--c-700) h);
+                    --gray-800: oklch(from var(--colors-base) var(--l-800) var(--c-800) h);
+                    --gray-900: oklch(from var(--colors-base) var(--l-900) var(--c-900) h);
+                    --gray-950: oklch(from var(--colors-base) var(--l-950) var(--c-950) h);
                 }
 
-                :root.dark {
+                .dark body {
                     /* Dark mode overrides */
                     ${Object.entries(darkMappings)
                         .map(([key, value]) => `${key}: ${value};`)
@@ -560,9 +790,157 @@ function themeEditor() {
                 }
             `;
 
+            console.log('Generated CSS:', css);
             return css;
         }
     }
 }
 
+window.themeEditor = themeEditor;
+
+function fontSelector(fieldName) {
+    return {
+        isOpen: false,
+        search: '',
+        fieldName: fieldName,
+        preloadedFonts: new Set(),
+
+        init() {
+            // Find the parent theme editor component
+            this.themeEditor = this.$el.closest('[x-data*="themeEditor"]')?.__x?.$data;
+
+            // If themeEditor is not found, try to get it from window
+            if (!this.themeEditor && window.themeEditorInstance) {
+                this.themeEditor = window.themeEditorInstance;
+            }
+
+            // Load fonts when the current value changes
+            this.$watch('currentValue', (newValue) => {
+                if (newValue && this.themeEditor && typeof this.themeEditor.loadGoogleFont === 'function') {
+                    this.themeEditor.loadGoogleFont(newValue);
+                }
+            });
+
+            // Preload current font if it exists
+            if (this.currentValue) {
+                this.preloadFont(this.currentValue);
+            }
+        },
+
+        get fonts() {
+            // Use themeEditor fonts if available, otherwise return fallback
+            return this.themeEditor?.fonts || [
+                // Most Popular Sans-Serif
+                'Inter', 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Source Sans Pro',
+                'Raleway', 'PT Sans', 'Nunito', 'Ubuntu', 'Poppins', 'Fira Sans',
+                'Work Sans', 'Rubik', 'DM Sans', 'Manrope', 'Space Grotesk',
+                'Roboto Condensed', 'Noto Sans', 'IBM Plex Sans', 'Barlow', 'Lexend',
+                'Plus Jakarta Sans', 'Outfit', 'Figtree', 'Red Hat Display', 'Be Vietnam Pro',
+                'Satoshi', 'Epilogue', 'Sora', 'Albert Sans', 'Onest', 'Geist Sans',
+
+                // Extended Sans-Serif Collection
+                'Archivo', 'Asap', 'Assistant', 'Cabin', 'Catamaran', 'Chakra Petch',
+                'Clear Sans', 'Commissioner', 'Concourse', 'Cousine', 'Dancing Script',
+                'Dosis', 'Exo', 'Exo 2', 'Familjen Grotesk', 'Fira Code', 'Golos Text',
+                'Hind', 'Hind Siliguri', 'Hind Madurai', 'Hind Guntur', 'Hind Vadodara',
+                'Josefin Sans', 'Jost', 'Karla', 'League Spartan', 'Libre Franklin',
+                'Mukti', 'Noto Sans JP', 'Noto Sans KR', 'Overpass', 'Oxygen',
+                'PT Sans Caption', 'Public Sans', 'Quicksand', 'Readex Pro', 'Roboto Flex',
+                'Schibsted Grotesk', 'Sen', 'Signika', 'Signika Negative', 'Spartan',
+                'Titillium Web', 'Urbanist', 'Varela Round', 'Yanone Kaffeesatz',
+
+                // Serif Fonts
+                'Lora', 'Merriweather', 'Playfair Display', 'PT Serif', 'IBM Plex Serif',
+                'Crimson Text', 'Libre Baskerville', 'Cormorant Garamond', 'EB Garamond',
+                'Vollkorn', 'Bitter', 'Cardo', 'Crimson Pro', 'Domine', 'Frank Ruhl Libre',
+                'Gelasio', 'Gowun Batang', 'Inria Serif', 'Literata', 'Lora', 'Neuton',
+                'Noto Serif', 'Old Standard TT', 'Petrona', 'Poly', 'Proza Libre',
+                'Roboto Slab', 'Rokkitt', 'Rufina', 'Slabo 27px', 'Spectral',
+                'Sura', 'Tinos', 'Unna', 'Vesper Libre', 'Volkhov', 'Zilla Slab',
+
+                // Display & Decorative
+                'Abril Fatface', 'Bebas Neue', 'Righteous', 'Fredoka One', 'Archivo Black',
+                'Anton', 'Fjalla One', 'Alfa Slab One', 'Bungee', 'Comfortaa',
+                'Creepster', 'Fredoka', 'Kalam', 'Lobster', 'Monoton', 'Pacifico',
+                'Permanent Marker', 'Shadows Into Light', 'Sigmar One', 'Ultra',
+
+                // Monospace/Code Fonts
+                'Source Code Pro', 'Fira Code', 'JetBrains Mono', 'Cascadia Code',
+                'Victor Mono', 'Space Mono', 'Roboto Mono', 'Ubuntu Mono', 'Inconsolata',
+                'Anonymous Pro', 'Courier Prime', 'Cutive Mono', 'Nova Mono', 'Overpass Mono',
+                'PT Mono', 'Red Hat Mono', 'Share Tech Mono', 'Syne Mono',
+
+                // Handwriting & Script
+                'Dancing Script', 'Great Vibes', 'Kaushan Script', 'Lobster Two',
+                'Pacifico', 'Sacramento', 'Satisfy', 'Shadows Into Light Two',
+                'Amatic SC', 'Caveat', 'Courgette', 'Handlee', 'Indie Flower',
+                'Kalam', 'Marck Script', 'Nanum Pen Script', 'Patrick Hand',
+                'Permanent Marker', 'Reenie Beanie', 'Rock Salt', 'Schoolbell'
+            ];
+        },
+
+        get currentValue() {
+            if (!this.themeEditor?.form) return '';
+            const path = this.fieldName.split('.');
+            let current = this.themeEditor.form;
+            for (const key of path) {
+                current = current?.[key];
+            }
+            return current || '';
+        },
+
+        set currentValue(value) {
+            if (!this.themeEditor?.form) return;
+            const path = this.fieldName.split('.');
+            let current = this.themeEditor.form;
+            for (let i = 0; i < path.length - 1; i++) {
+                if (!current[path[i]]) {
+                    current[path[i]] = {};
+                }
+                current = current[path[i]];
+            }
+            current[path[path.length - 1]] = value;
+
+            // Trigger theme update after setting value
+            if (this.themeEditor && typeof this.themeEditor.handleFormChange === 'function') {
+                this.themeEditor.handleFormChange();
+            }
+        },
+
+        selectFont(font) {
+            this.currentValue = font;
+            this.isOpen = false;
+
+            // Load the selected font immediately
+            this.preloadFont(font);
+
+            if (this.themeEditor && typeof this.themeEditor.loadGoogleFont === 'function') {
+                this.themeEditor.loadGoogleFont(font);
+            }
+        },
+
+        preloadFont(fontName) {
+            if (!fontName || this.preloadedFonts.has(fontName)) return;
+
+            this.preloadedFonts.add(fontName);
+
+            // Create a preload link for better performance
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'preload';
+            preloadLink.as = 'style';
+            preloadLink.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(' ', '+')}:wght@300;400;500;600;700&display=swap`;
+
+            document.head.appendChild(preloadLink);
+
+            // Then load the actual stylesheet
+            setTimeout(() => {
+                if (this.themeEditor && typeof this.themeEditor.loadGoogleFont === 'function') {
+                    this.themeEditor.loadGoogleFont(fontName);
+                }
+            }, 100);
+        }
+    }
+}
+
+window.fontSelector = fontSelector;
 window.themeEditor = themeEditor;

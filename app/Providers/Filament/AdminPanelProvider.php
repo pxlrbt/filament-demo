@@ -32,6 +32,8 @@ use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterResources;
 use pxlrbt\FilamentSpotlightPro\SpotlightQueries\SpotlightQuery;
 use pxlrbt\FilamentSpotlightPro\SpotlightResults\SpotlightResult;
 
+use function PHPUnit\Framework\isFalse;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -41,6 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('/admin')
             ->login(Login::class)
+            ->darkMode()
             ->sidebarCollapsibleOnDesktop()
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -77,9 +80,10 @@ class AdminPanelProvider extends PanelProvider
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
             )
-            ->viteTheme('resources/css/theme/_index.css')
-            ->colors([
-                'primary' => Color::Blue,
-            ]);
+            ->viteTheme('resources/css/theme/_index.css');
+            // ->colors([
+            //     'gray' => '#ca6868',
+            //     'primary' => '#ff0000',
+            // ]);
     }
 }

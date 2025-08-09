@@ -184,21 +184,18 @@ class OrderResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
-                TestAction::make('inline_test')
             ])
-            // ->toolbarActions([
-            //     TestAction::make('bulk_test')
-            // ])
-            // ->groupedBulkActions([
-            //
-            //     DeleteBulkAction::make()
-            //         ->action(function () {
-            //             Notification::make()
-            //                 ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
-            //                 ->warning()
-            //                 ->send();
-            //         }),
-            // ])
+
+            ->groupedBulkActions([
+
+                DeleteBulkAction::make()
+                    ->action(function () {
+                        Notification::make()
+                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->warning()
+                            ->send();
+                    }),
+            ])
             ->groups([
                 Tables\Grouping\Group::make('created_at')
                     ->label('Order Date')

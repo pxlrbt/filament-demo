@@ -1,0 +1,20 @@
+.fi-section:not(.fi-section-not-contained),
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn,
+.fi-btn {
+    --border: 0 0 0 1px rgba(0 0 0 / .2);
+
+    box-shadow:
+        var(--border),
+        var(--layout-shadow-offsetX) var(--layout-shadow-offsetY) var(--layout-shadow-blur) var(--layout-shadow-spread)  var(--colors-shadow);
+
+}
+
+.fi-btn {
+    --border: 0 0 0 1px rgba(0 0 0 / .2);
+
+    box-shadow:
+        var(--border),
+        calc(var(--layout-shadow-offsetX) * .5) calc(var(--layout-shadow-offsetY) * .5) calc(var(--layout-shadow-blur) * .5) calc(var(--layout-shadow-spread) * .5)  var(--colors-shadow);
+
+}
