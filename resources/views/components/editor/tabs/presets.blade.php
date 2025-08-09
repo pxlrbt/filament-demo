@@ -14,8 +14,8 @@
                 >
                     <div class="flex-shrink-0 w-8 h-8 bg-gray-700 border border-gray-600 rounded-md flex items-center justify-center overflow-hidden">
                         <div class="flex gap-0.5">
-                            <span :style="`background-color: ${preset.baseColor}`" class="w-2 h-2 rounded-sm"></span>
-                            <span :style="`background-color: ${preset.cardColor}`" class="w-2 h-2 rounded-sm"></span>
+                            <span :style="`background-color: ${preset.colors[themeMode].primary}`" class="w-2 h-2 rounded-sm"></span>
+                            <span :style="`background-color: ${preset.colors[themeMode].base}`" class="w-2 h-2 rounded-sm"></span>
                         </div>
                     </div>
                     <div class="ml-3 text-left">
