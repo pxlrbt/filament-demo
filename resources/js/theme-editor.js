@@ -77,6 +77,11 @@ function themeEditor() {
             this.form = {};
             this.applyPreset('default');
 
+            // Watch form changes automatically
+            this.$watch('form', () => {
+                this.handleFormChange();
+            }, { deep: true });
+
             this.$nextTick(() => {
                 this.loadGoogleFonts();
                 this.setupIframe();
