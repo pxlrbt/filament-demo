@@ -25,7 +25,7 @@
                     <a href="/" class="-m-1.5 p-1.5 font-bold text-white flex items-center gap-2">
                         <div class="flex items-center">
                             <span class="text-xl">Filament</span>
-                            <span class="ml-1 px-2 py-1 text-xs font-semibold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
+                            <span class="ml-1 px-2 py-1 text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
                         </div>
                     </a>
                 </div>
@@ -72,7 +72,7 @@
                                 <a href="/" class="-m-1.5 p-1.5 font-bold text-white flex items-center gap-2">
                                     <div class="flex items-center">
                                         <span class="text-lg">Filament</span>
-                                        <span class="ml-1 px-2 py-1 text-xs font-semibold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
+                                        <span class="ml-1 px-2 py-1 text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
                                     </div>
                                 </a>
                                 <button type="button" command="close" commandfor="mobile-menu"
