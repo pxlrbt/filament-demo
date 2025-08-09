@@ -3,6 +3,7 @@
 @import '../../../vendor/filament/filament/resources/css/theme.css';
 
 @import './circular.css' layer(custom-theme);
+@import './rounding.css' layer(custom-theme);
 @import './shadows.css' layer(custom-theme);
 @import './cards.css' layer(custom-theme);
 @import './sidebar.css' layer(custom-theme);

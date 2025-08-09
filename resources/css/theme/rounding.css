@@ -1,0 +1,15 @@
+.fi-wi-stats-overview-stat,
+.fi-simple-main,
+.fi-section,
+.fi-ta-ctn {
+    border-radius: var(--layout-rounding);
+}
+
+.fi-wi-stats-overview-stat-chart {
+    border-bottom-left-radius: var(--layout-rounding);
+    border-bottom-right-radius: var(--layout-rounding);
+}
+
+.fi-badge {
+    border-radius: calc(var(--layout-rounding) *.5);
+}
