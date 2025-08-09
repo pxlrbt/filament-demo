@@ -100,99 +100,41 @@
         <x-slot:title>Sidebar Colors</x-slot>
 
         <div class="space-y-2">
-            <x-label>Background Color</x-label>
-            <div class="flex items-center space-x-2">
-                <input
-                    x-model="form.colors[themeMode].sidebar.background"
-                    type="color"
-                    class="w-10 h-8 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-                >
-                <input
-                    x-model="form.colors[themeMode].sidebar.background"
-                    type="text"
-                    class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
-        </div>
+            <x-field name="colors[themeMode].sidebar.background">
+                <x-label>Background</x-label>
 
-        <div class="space-y-2">
-            <x-label>Text Color</x-label>
-            <div class="flex items-center space-x-2">
-                <input
-                    x-model="form.colors[themeMode].sidebar.text"
-                    type="color"
-                    class="w-10 h-8 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-                >
-                <input
-                    x-model="form.colors[themeMode].sidebar.text"
-                    type="text"
-                    class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
-        </div>
+                <x-color />
+            </x-field>
 
-        <div class="space-y-2">
-            <x-label>Primary Background Color</x-label>
-            <div class="flex items-center space-x-2">
-                <input
-                    x-model="form.colors[themeMode].sidebar.primaryBackground"
-                    type="color"
-                    class="w-10 h-8 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-                >
-                <input
-                    x-model="form.colors[themeMode].sidebar.primaryBackground"
-                    type="text"
-                    class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
-        </div>
+            <x-field name="colors[themeMode].sidebar.text">
+                <x-label>Text</x-label>
 
-        <div class="space-y-2">
-            <x-label>Primary Text Color</x-label>
-            <div class="flex items-center space-x-2">
-                <input
-                    x-model="form.colors[themeMode].sidebar.primaryText"
-                    type="color"
-                    class="w-10 h-8 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-                >
-                <input
-                    x-model="form.colors[themeMode].sidebar.primaryText"
-                    type="text"
-                    class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
-        </div>
+                <x-color />
+            </x-field>
 
-        <div class="space-y-2">
-            <x-label>Accent Background Color</x-label>
-            <div class="flex items-center space-x-2">
-                <input
-                    x-model="form.colors[themeMode].sidebar.accentBackground"
-                    type="color"
-                    class="w-10 h-8 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-                >
-                <input
-                    x-model="form.colors[themeMode].sidebar.accentBackground"
-                    type="text"
-                    class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
-        </div>
+            <x-field name="colors[themeMode].sidebar.primaryBackground">
+                <x-label>Primary Background</x-label>
 
-        <div class="space-y-2">
-            <x-label>Accent Text Color</x-label>
-            <div class="flex items-center space-x-2">
-                <input
-                    x-model="form.colors[themeMode].sidebar.accentText"
-                    type="color"
-                    class="w-10 h-8 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-                >
-                <input
-                    x-model="form.colors[themeMode].sidebar.accentText"
-                    type="text"
-                    class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
+                <x-color />
+            </x-field>
+
+            <x-field name="colors[themeMode].sidebar.primaryText">
+                <x-label>Primary Text</x-label>
+
+                <x-color />
+            </x-field>
+
+            <x-field name="colors[themeMode].sidebar.accentBackground">
+                <x-label>Accent Background</x-label>
+
+                <x-color />
+            </x-field>
+
+            <x-field name="colors[themeMode].sidebar.accentText">
+                <x-label>Accent Text</x-label>
+
+                <x-color />
+            </x-field>
         </div>
     </x-editor.details>
 
