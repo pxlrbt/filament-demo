@@ -1,0 +1,62 @@
+@layer properties base components utilities theme custom-theme;
+
+@import '../../../vendor/filament/filament/resources/css/theme.css';
+
+@import './cards.css' layer(custom-theme);
+@import './sidebar.css' layer(custom-theme);
+@import './topbar.css' layer(custom-theme);
+
+
+@source '../../../app/Filament/App/**/*';
+@source '../../../resources/views/filament/app/**/*';
+
+
+@layer custom-theme {
+    :root {
+        --spacing: var(--layout-spacing);
+    }
+
+    body {
+        background-color: var(--colors-base-background);
+
+        font-family: var(--typography-base-fontFamily), system-ui, -apple-system, sans-serif;
+        line-height: var(--typography-base-lineHeight);
+        letter-spacing: var(--typography-base-letterSpacing);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--typography-headline-fontFamily), system-ui, -apple-system, sans-serif;
+        line-height: var(--typography-headline-lineHeight);
+        letter-spacing: var(--typography-headline-letterSpacing);
+    }
+
+    .fi-btn,
+    .fi-input-wrp,
+    .fi-sidebar-item-btn {
+        border-radius: calc(var(--layout-rounding) * 0.5);
+    }
+
+    .fi-dropdown-panel {
+        border-radius: calc(var(--layout-rounding) * 0.5);
+    }
+
+    .fi-dropdown-list-item {
+        border-radius: calc(var(--layout-rounding) * 0.45);
+    }
+
+
+    /* // Avatar
+    .fi-circular {
+        border-radius: var(--circular-rounding);
+    } */
+
+
+    /* Borderless */
+    /* .fi-section:not(.fi-section-not-contained),
+    .fi-wi-stats-overview-stat,
+    .fi-ta-ctn {
+        box-shadow:
+            0 0 1px 0 hsl(0 0% 0% / 1),
+            6px 6px 0 rgba(0, 0, 0, 0.4);
+    } */
+}

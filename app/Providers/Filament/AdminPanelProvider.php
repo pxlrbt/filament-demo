@@ -77,7 +77,7 @@ class AdminPanelProvider extends PanelProvider
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
             )
-            ->viteTheme('resources/css/filament/app/theme.css')
+            ->viteTheme('resources/css/theme/_index.css')
             ->colors([
                 'primary' => Color::Blue,
             ]);

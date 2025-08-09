@@ -1,0 +1,17 @@
+
+body.fi-body-has-sidebar-collapsible-on-desktop {
+    .fi-topbar {
+        background-color: var(--base-color);
+        /* background-color: var(--card-color); */
+    }
+}
+
+
+body:has(.fi-topbar-close-sidebar-btn[style*="none"]) .fi-topbar {
+    background: transparent;
+    background: linear-gradient(
+        to right,
+        black 0 var(--collapsed-sidebar-width),
+        var(--base-color) var(--collapsed-sidebar-width) 100%
+    );
+}

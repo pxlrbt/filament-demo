@@ -1,64 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* Only apply custom styles to pages that are NOT the theme editor */
-body:not(.theme-editor-page) {
-    font-family: var(--font-text, sans-serif);
-    color: white;
-    background-color: #0f172a;
-    padding: 2rem 1rem;
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+:root {
+    --spacing-y: 1rem;
+
+    color-scheme: dark;
+}
+
+details {
+    & > div {
+        margin-top: var(--spacing-y);
     }
 
-    main {
-        display: flex;
-        width: 100%;
-        overflow: hidden;
-        height: 100vh;
-        justify-items: start;
-        align-items: start;
-        gap: 1rem;
-    }
+    summary {
+        position: relative;
+        list-style: none;
+        transition: height 0.3s;
 
-    aside {
-        flex: 0 0 20rem;
-        padding: 2rem;
-        background-color: rgba(255, 255, 255, 0.1);
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        label {
-            display: block;
-        }
-
-        input, select {
-            display: block;
-            width: 100%;
-            padding: 0.25em 0.5em;
+        &::-webkit-details-marker {
+            display: none;
         }
     }
 
-    .embed {
-        flex: 1 1 auto;
-        width: 100%;
-        height: 100%;
-        max-height: 90svh;
-        display: flex;
-        flex-direction: column;
-        zoom: 0.8;
+    &[open] {
+        padding-bottom: var(--spacing-y);
+        height: auto;
+        height: calc-size(auto);
     }
 
-    iframe {
-        flex: 1 0 auto;
-        border: 1px solid rgba(255 255 255 / 0.25);
+    &:last-child {
+        border-bottom: none;
     }
 }

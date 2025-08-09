@@ -1,0 +1,37 @@
+
+body:not(.fi-body-has-sidebar-collapsible-on-desktop) {
+    .fi-sidebar {
+        background-color: black;
+    }
+
+    .fi-topbar {
+        background: linear-gradient(
+            to right,
+            black 0 var(--sidebar-width),
+            var(--base-color) var(--sidebar-width) 100%
+        );
+    }
+}
+
+body.fi-body-has-sidebar-collapsible-on-desktop {
+    .fi-topbar {
+        background-color: var(--base-color);
+        /* background-color: var(--card-color); */
+    }
+}
+
+/* Apply rule for fi-topbar when fi-topbar-close-sidebar-btn is visible */
+
+body:not(.fi-body-has-sidebar-collapsible-on-desktop) {
+    .fi-sidebar {
+        background-color: black;
+    }
+
+    .fi-topbar {
+        background: linear-gradient(
+            to right,
+            black 0 var(--sidebar-width),
+            var(--base-color) var(--sidebar-width) 100%
+        );
+    }
+}

@@ -1,0 +1,19 @@
+/* Card Colors */
+.fi-card,
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn {
+    background: var(--colors-card-background);
+}
+
+/* Sections, Widgets */
+.fi-wi-stats-overview-stat,
+.fi-section,
+.fi-ta-ctn {
+    border-radius: var(--layout-rounding);
+}
+
+.fi-wi-stats-overview-stat-chart {
+    border-bottom-left-radius: var(--layout-rounding);
+    border-bottom-right-radius: var(--layout-rounding);
+}
