@@ -1,0 +1,79 @@
+{
+  "name": "Default",
+  "description": "The default Filament theme with modern styling",
+  "typography": {
+    "base": {
+      "fontFamily": "Inter",
+      "letterSpacing": 0,
+      "lineHeight": 1.6
+    },
+    "headline": {
+      "fontFamily": "Inter",
+      "letterSpacing": 0,
+      "lineHeight": 1.3
+    }
+  },
+  "colors": {
+    "dark": {
+      "base": "#18181b",
+      "primary": "#2563eb",
+      "info": "#38bdf8",
+      "success": "#16a34a",
+      "warning": "#facc15",
+      "danger": "#f87171",
+      "topbar": {
+        "background": "#1e293b",
+        "text": "#ffffff"
+      },
+      "card": {
+        "background": "#1e293b",
+        "text": "#ffffff"
+      },
+      "sidebar": {
+        "background": "#18181b",
+        "text": "#e0e7ef",
+        "primaryBackground": "#2563eb",
+        "primaryText": "#ffffff",
+        "accentBackground": "#10b981",
+        "accentText": "#ffffff"
+      },
+      "shadow": "#000000cc"
+    },
+    "light": {
+      "base": "#ffffff",
+      "primary": "#2563eb",
+      "info": "#38bdf8",
+      "success": "#16a34a",
+      "warning": "#facc15",
+      "danger": "#f87171",
+      "card": {
+        "background": "#f8fafc",
+        "text": "#1e293b"
+      },
+      "topbar": {
+        "background": "#f8fafc",
+        "text": "#1e293b"
+      },
+      "sidebar": {
+        "background": "#f1f5f9",
+        "text": "#334155",
+        "primaryBackground": "#2563eb",
+        "primaryText": "#ffffff",
+        "accentBackground": "#10b981",
+        "accentText": "#ffffff"
+      },
+      "shadow": "#000000cc"
+    }
+  },
+  "layout": {
+    "spacing": 0.25,
+    "rounding": 0.5,
+    "circularRounding": 5,
+    "shadow": {
+      "offsetX": 0,
+      "offsetY": 0,
+      "blur": 0,
+      "spread": 0
+    }
+  }
+}

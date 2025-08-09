@@ -1,0 +1,40 @@
+{
+  "presets": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "The default Filament theme with modern styling",
+      "file": "default.json"
+    },
+    {
+      "id": "minimal",
+      "name": "Minimal",
+      "description": "A clean, minimal theme with subtle colors and typography",
+      "file": "minimal.json"
+    },
+    {
+      "id": "bold",
+      "name": "Bold",
+      "description": "A vibrant theme with bold colors and strong typography",
+      "file": "bold.json"
+    },
+    {
+      "id": "ocean",
+      "name": "Ocean",
+      "description": "A calm, ocean-inspired theme with blue and teal accents",
+      "file": "ocean.json"
+    },
+    {
+      "id": "bubblegum",
+      "name": "Bubblegum",
+      "description": "A fun, vibrant theme with playful pink and pastel colors",
+      "file": "bubblegum.json"
+    },
+    {
+      "id": "bold-tech",
+      "name": "Bold Tech",
+      "description": "A modern tech-focused theme with bold blues and clean design",
+      "file": "bold-tech.json"
+    }
+  ]
+}

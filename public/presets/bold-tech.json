@@ -1,0 +1,79 @@
+{
+  "name": "Bold Tech",
+  "description": "A modern tech-focused theme with bold blues and clean design",
+  "typography": {
+    "base": {
+      "fontFamily": "Roboto",
+      "letterSpacing": 0,
+      "lineHeight": 1.6
+    },
+    "headline": {
+      "fontFamily": "Roboto",
+      "letterSpacing": 0,
+      "lineHeight": 1.3
+    }
+  },
+  "colors": {
+    "dark": {
+      "base": "#0f172a",
+      "primary": "#8b5cf6",
+      "info": "#38bdf8",
+      "success": "#22c55e",
+      "warning": "#f59e0b",
+      "danger": "#ef4444",
+      "topbar": {
+        "background": "#1e1b4b",
+        "text": "#e0e7ff"
+      },
+      "card": {
+        "background": "#1e1b4b",
+        "text": "#e0e7ff"
+      },
+      "sidebar": {
+        "background": "#0f172a",
+        "text": "#e0e7ff",
+        "primaryBackground": "#8b5cf6",
+        "primaryText": "#ffffff",
+        "accentBackground": "#4338ca",
+        "accentText": "#e0e7ff"
+      },
+      "shadow": "#000000cc"
+    },
+    "light": {
+      "base": "#ffffff",
+      "primary": "#8b5cf6",
+      "info": "#38bdf8",
+      "success": "#22c55e",
+      "warning": "#f59e0b",
+      "danger": "#ef4444",
+      "card": {
+        "background": "#ffffff",
+        "text": "#312e81"
+      },
+      "topbar": {
+        "background": "#f5f3ff",
+        "text": "#312e81"
+      },
+      "sidebar": {
+        "background": "#f5f3ff",
+        "text": "#312e81",
+        "primaryBackground": "#8b5cf6",
+        "primaryText": "#ffffff",
+        "accentBackground": "#dbeafe",
+        "accentText": "#1e40af"
+      },
+      "shadow": "#0f172a80"
+    }
+  },
+  "layout": {
+    "spacing": 0.25,
+    "rounding": 0.5,
+    "circularRounding": 5,
+    "shadow": {
+      "offsetX": 0,
+      "offsetY": 1,
+      "blur": 3,
+      "spread": 0
+    }
+  }
+}

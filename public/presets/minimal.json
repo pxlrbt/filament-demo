@@ -1,0 +1,79 @@
+{
+  "name": "Minimal",
+  "description": "A clean, minimal theme with subtle colors and typography",
+  "typography": {
+    "base": {
+      "fontFamily": "Inter",
+      "letterSpacing": 0.01,
+      "lineHeight": 1.7
+    },
+    "headline": {
+      "fontFamily": "Inter",
+      "letterSpacing": -0.02,
+      "lineHeight": 1.2
+    }
+  },
+  "colors": {
+    "dark": {
+      "base": "#0a0a0a",
+      "primary": "#6366f1",
+      "info": "#06b6d4",
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "danger": "#ef4444",
+      "topbar": {
+        "background": "#111111",
+        "text": "#f9fafb"
+      },
+      "card": {
+        "background": "#111111",
+        "text": "#f9fafb"
+      },
+      "sidebar": {
+        "background": "#0a0a0a",
+        "text": "#d1d5db",
+        "primaryBackground": "#6366f1",
+        "primaryText": "#ffffff",
+        "accentBackground": "#10b981",
+        "accentText": "#ffffff"
+      },
+      "shadow": "#00000080"
+    },
+    "light": {
+      "base": "#fefefe",
+      "primary": "#6366f1",
+      "info": "#06b6d4",
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "danger": "#ef4444",
+      "card": {
+        "background": "#ffffff",
+        "text": "#111827"
+      },
+      "topbar": {
+        "background": "#ffffff",
+        "text": "#111827"
+      },
+      "sidebar": {
+        "background": "#fafafa",
+        "text": "#374151",
+        "primaryBackground": "#6366f1",
+        "primaryText": "#ffffff",
+        "accentBackground": "#10b981",
+        "accentText": "#ffffff"
+      },
+      "shadow": "#0000001a"
+    }
+  },
+  "layout": {
+    "spacing": 0.125,
+    "rounding": 0.25,
+    "circularRounding": 2,
+    "shadow": {
+      "offsetX": 0,
+      "offsetY": 1,
+      "blur": 2,
+      "spread": 0
+    }
+  }
+}

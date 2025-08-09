@@ -23,97 +23,8 @@ function themeEditor() {
             spread: 'em'
         },
         form: {},
-
-        presets: {
-            default: {
-                typography: {
-                    base: {
-                        fontFamily: 'Inter',
-                        letterSpacing: 0,
-                        lineHeight: 1.6
-                    },
-                    headline: {
-                        fontFamily: 'Inter',
-                        letterSpacing: 0,
-                        lineHeight: 1.3
-                    }
-                },
-                colors: {
-                    dark: {
-                        base: "#18181b",
-                        primary: '#2563eb',
-                        info: '#38bdf8',      // Tailwind sky-400
-                        success: '#16a34a',   // Tailwind cyan-400
-                        warning: '#facc15',   // Tailwind yellow-400
-                        danger: '#f87171',    // Tailwind red-400
-
-                        topbar: {
-                            background: '#1e293b',
-                            text: '#ffffff'
-                        },
-
-                        card: {
-                            background: '#1e293b',
-                            text: '#ffffff'
-                        },
-
-                        sidebar: {
-                            background: '#18181b',
-                            text: '#e0e7ef',
-                            primaryBackground: '#2563eb',
-                            primaryText: '#ffffff',
-                            accentBackground: '#10b981',
-                            accentText: '#ffffff'
-                        },
-
-                        shadow: '#000000cc'
-                    },
-
-                    light: {
-                        base: '#ffffff',
-                        primary: '#2563eb',
-                        info: '#38bdf8',      // Tailwind sky-400
-                        success: '#16a34a',   // Tailwind cyan-400
-                        warning: '#facc15',   // Tailwind yellow-400
-                        danger: '#f87171',    // Tailwind red-400
-
-                        card: {
-                            background: '#f8fafc',
-                            text: '#1e293b'
-                        },
-
-                        topbar: {
-                            background: '#f8fafc',
-                            text: '#1e293b'
-                        },
-
-                        sidebar: {
-                            background: '#f1f5f9',
-                            text: '#334155',
-                            primaryBackground: '#2563eb',
-                            primaryText: '#ffffff',
-                            accentBackground: '#10b981',
-                            accentText: '#ffffff'
-                        },
-
-                        shadow: '#000000cc'
-                    }
-                },
-
-                layout: {
-                    spacing: 0.25,
-                    rounding: 0.5,
-                    circularRounding: 5,
-
-                    shadow: {
-                        offsetX: 0,
-                        offsetY: 0,
-                        blur: 0,
-                        spread: 0,
-                    }
-                }
-            }
-        },
+        presets: {},
+        presetMetadata: {},
 
         fonts: [
             // Most Popular Sans-Serif
@@ -198,8 +109,19 @@ function themeEditor() {
             // Store global reference for font selectors
             window.themeEditorInstance = this;
 
-            // Load saved state or apply default preset
-            this.loadFromLocalStorage();
+            // Load presets from JSON file
+            this.loadPresets().then(() => {
+                // Load saved state or apply default preset after presets are loaded
+                this.loadFromLocalStorage();
+
+                this.$nextTick(() => {
+                    this.loadGoogleFonts();
+                    this.setupIframe();
+                    this.setupKeyboardShortcuts();
+                    this.updateThemeClass();
+                    this.saveToHistory();
+                });
+            });
 
             // Watch form changes automatically
             this.$watch('form', () => {
@@ -230,14 +152,55 @@ function themeEditor() {
             this.$watch('currentPreset', () => {
                 this.saveToLocalStorage();
             });
+        },
 
-            this.$nextTick(() => {
-                this.loadGoogleFonts();
-                this.setupIframe();
-                this.setupKeyboardShortcuts();
-                this.updateThemeClass();
-                this.saveToHistory();
-            });
+        async loadPresets() {
+            try {
+                // First load the index to get available presets
+                const indexResponse = await fetch('/presets/index.json');
+                if (!indexResponse.ok) {
+                    console.error('Failed to load presets index');
+                    this.presets = {};
+                    return;
+                }
+
+                const indexData = await indexResponse.json();
+                const loadedPresets = {};
+
+                // Load each preset file
+                for (const presetInfo of indexData.presets) {
+                    try {
+                        const presetResponse = await fetch(`/presets/${presetInfo.file}`);
+                        if (presetResponse.ok) {
+                            const presetData = await presetResponse.json();
+                            // Remove the name and description from the preset data as they're in the index
+                            const { name, description, ...presetConfig } = presetData;
+                            loadedPresets[presetInfo.id] = presetConfig;
+                        } else {
+                            console.warn(`Failed to load preset: ${presetInfo.file}`);
+                        }
+                    } catch (error) {
+                        console.warn(`Error loading preset ${presetInfo.file}:`, error);
+                    }
+                }
+
+                this.presets = loadedPresets;
+
+                // Store preset metadata for UI purposes
+                this.presetMetadata = indexData.presets.reduce((acc, preset) => {
+                    acc[preset.id] = {
+                        name: preset.name,
+                        description: preset.description
+                    };
+                    return acc;
+                }, {});
+
+            } catch (error) {
+                console.error('Error loading presets:', error);
+                // Fallback to empty presets object
+                this.presets = {};
+                this.presetMetadata = {};
+            }
         },
 
         toggleThemeMode() {
@@ -416,6 +379,22 @@ function themeEditor() {
                     this.updateTheme();
                 };
             }
+        },
+
+        getAvailablePresets() {
+            return Object.keys(this.presets).map(id => ({
+                id,
+                name: this.presetMetadata[id]?.name || id,
+                description: this.presetMetadata[id]?.description || ''
+            }));
+        },
+
+        getPresetName(presetId) {
+            return this.presetMetadata[presetId]?.name || presetId;
+        },
+
+        getPresetDescription(presetId) {
+            return this.presetMetadata[presetId]?.description || '';
         },
 
         applyPreset(presetName, skipHistorySave = false) {
@@ -623,6 +602,52 @@ function themeEditor() {
             };
         },
 
+        resetFieldToPresetDefault(fieldName) {
+            const preset = this.presets[this.currentPreset];
+            if (!preset) return;
+
+            // Handle dynamic field names like colors[themeMode].primary
+            let resolvedFieldName = fieldName;
+            if (fieldName.includes('[themeMode]')) {
+                resolvedFieldName = fieldName.replace('[themeMode]', `.${this.themeMode}`);
+            }
+
+            // Navigate to the field value in the preset
+            const fieldPath = resolvedFieldName.split('.');
+            let presetValue = preset;
+
+            for (const key of fieldPath) {
+                if (presetValue && typeof presetValue === 'object' && key in presetValue) {
+                    presetValue = presetValue[key];
+                } else {
+                    // Field not found in preset, skip reset
+                    console.warn(`Field ${resolvedFieldName} not found in preset ${this.currentPreset}`);
+                    return;
+                }
+            }
+
+            // Set the form field to the preset value
+            // Also handle dynamic paths in the form
+            let formFieldName = fieldName;
+            if (fieldName.includes('[themeMode]')) {
+                formFieldName = fieldName.replace('[themeMode]', `.${this.themeMode}`);
+            }
+
+            const formPath = formFieldName.split('.');
+            let formTarget = this.form;
+            for (let i = 0; i < formPath.length - 1; i++) {
+                if (!formTarget[formPath[i]]) {
+                    formTarget[formPath[i]] = {};
+                }
+                formTarget = formTarget[formPath[i]];
+            }
+
+            formTarget[formPath[formPath.length - 1]] = presetValue;
+
+            // Trigger form change handling
+            this.handleFormChange();
+        },
+
         generateCSS() {
             const self = this;
 
@@ -781,17 +806,17 @@ function themeEditor() {
                     --secondary-900: oklch(from var(--colors-secondary) var(--l-900) var(--c-900) h);
                     --secondary-950: oklch(from var(--colors-secondary) var(--l-950) var(--c-950) h);
 
-                    --gray-50: oklch(from var(--colors-base) var(--l-50) var(--c-50) h);
-                    --gray-100: oklch(from var(--colors-base) var(--l-100) var(--c-100) h);
-                    --gray-200: oklch(from var(--colors-base) var(--l-200) var(--c-200) h);
-                    --gray-300: oklch(from var(--colors-base) var(--l-300) var(--c-300) h);
-                    --gray-400: oklch(from var(--colors-base) var(--l-400) var(--c-400) h);
-                    --gray-500: oklch(from var(--colors-base) var(--l-500) var(--c-500) h);
-                    --gray-600: oklch(from var(--colors-base) var(--l-600) var(--c-600) h);
-                    --gray-700: oklch(from var(--colors-base) var(--l-700) var(--c-700) h);
-                    --gray-800: oklch(from var(--colors-base) var(--l-800) var(--c-800) h);
-                    --gray-900: oklch(from var(--colors-base) var(--l-900) var(--c-900) h);
-                    --gray-950: oklch(from var(--colors-base) var(--l-950) var(--c-950) h);
+                    --gray-50: oklch(from var(--colors-base) var(--l-50) c h);
+                    --gray-100: oklch(from var(--colors-base) var(--l-100) c h);
+                    --gray-200: oklch(from var(--colors-base) var(--l-200) c h);
+                    --gray-300: oklch(from var(--colors-base) var(--l-300) c h);
+                    --gray-400: oklch(from var(--colors-base) var(--l-400) c h);
+                    --gray-500: oklch(from var(--colors-base) var(--l-500) c h);
+                    --gray-600: oklch(from var(--colors-base) var(--l-600) c h);
+                    --gray-700: oklch(from var(--colors-base) var(--l-700) c h);
+                    --gray-800: oklch(from var(--colors-base) var(--l-800) c h);
+                    --gray-900: oklch(from var(--colors-base) var(--l-900) c h);
+                    --gray-950: oklch(from var(--colors-base) var(--l-950) c h);
                 }
 
                 .dark body {

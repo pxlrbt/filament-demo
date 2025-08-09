@@ -1,0 +1,79 @@
+{
+  "name": "Bold",
+  "description": "A vibrant theme with bold colors and strong typography",
+  "typography": {
+    "base": {
+      "fontFamily": "Inter",
+      "letterSpacing": 0,
+      "lineHeight": 1.6
+    },
+    "headline": {
+      "fontFamily": "Inter",
+      "letterSpacing": -0.01,
+      "lineHeight": 1.2
+    }
+  },
+  "colors": {
+    "dark": {
+      "base": "#0f0f23",
+      "primary": "#8b5cf6",
+      "info": "#3b82f6",
+      "success": "#22c55e",
+      "warning": "#eab308",
+      "danger": "#f43f5e",
+      "topbar": {
+        "background": "#1e1b4b",
+        "text": "#f1f5f9"
+      },
+      "card": {
+        "background": "#1e1b4b",
+        "text": "#f1f5f9"
+      },
+      "sidebar": {
+        "background": "#0f0f23",
+        "text": "#cbd5e1",
+        "primaryBackground": "#8b5cf6",
+        "primaryText": "#ffffff",
+        "accentBackground": "#f43f5e",
+        "accentText": "#ffffff"
+      },
+      "shadow": "#000000dd"
+    },
+    "light": {
+      "base": "#fefcff",
+      "primary": "#8b5cf6",
+      "info": "#3b82f6",
+      "success": "#22c55e",
+      "warning": "#eab308",
+      "danger": "#f43f5e",
+      "card": {
+        "background": "#faf5ff",
+        "text": "#1f2937"
+      },
+      "topbar": {
+        "background": "#faf5ff",
+        "text": "#1f2937"
+      },
+      "sidebar": {
+        "background": "#f3e8ff",
+        "text": "#4c1d95",
+        "primaryBackground": "#8b5cf6",
+        "primaryText": "#ffffff",
+        "accentBackground": "#f43f5e",
+        "accentText": "#ffffff"
+      },
+      "shadow": "#8b5cf633"
+    }
+  },
+  "layout": {
+    "spacing": 0.375,
+    "rounding": 0.75,
+    "circularRounding": 8,
+    "shadow": {
+      "offsetX": 0,
+      "offsetY": 4,
+      "blur": 8,
+      "spread": 0
+    }
+  }
+}
