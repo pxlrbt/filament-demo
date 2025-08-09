@@ -7,6 +7,9 @@ function themeEditor() {
         historyIndex: -1,
         maxHistorySize: 50,
         historyTimeout: null,
+        localStorageTimeout: null,
+        lastSaved: null,
+        isUndoRedoOperation: false,
         units: {
             letterSpacing: 'em',
             spacing: 'rem',
@@ -75,12 +78,33 @@ function themeEditor() {
         init() {
             // Initialize form as empty object first
             this.form = {};
-            this.applyPreset('default');
+            
+            // Load saved state or apply default preset
+            this.loadFromLocalStorage();
 
             // Watch form changes automatically
             this.$watch('form', () => {
                 this.handleFormChange();
             }, { deep: true });
+
+            // Watch for changes to save to localStorage (but not during undo/redo)
+            this.$watch('form', () => {
+                if (!this.isUndoRedoOperation) {
+                    this.debouncedSaveToLocalStorage();
+                }
+            }, { deep: true });
+
+            this.$watch('activeTab', () => {
+                this.saveToLocalStorage();
+            });
+
+            this.$watch('previewMode', () => {
+                this.saveToLocalStorage();
+            });
+
+            this.$watch('currentPreset', () => {
+                this.saveToLocalStorage();
+            });
 
             this.$nextTick(() => {
                 this.loadGoogleFonts();
@@ -120,27 +144,31 @@ function themeEditor() {
 
         undo() {
             if (this.historyIndex > 0) {
+                this.isUndoRedoOperation = true;
                 this.historyIndex--;
                 this.form = JSON.parse(JSON.stringify(this.history[this.historyIndex]));
                 this.$nextTick(() => {
                     this.updateTheme();
+                    this.isUndoRedoOperation = false;
+                    this.saveToLocalStorage();
                 });
             }
         },
 
         redo() {
             if (this.historyIndex < this.history.length - 1) {
+                this.isUndoRedoOperation = true;
                 this.historyIndex++;
                 this.form = JSON.parse(JSON.stringify(this.history[this.historyIndex]));
                 this.$nextTick(() => {
                     this.updateTheme();
+                    this.isUndoRedoOperation = false;
+                    this.saveToLocalStorage();
                 });
             }
         },
 
         reset() {
-            console.log('resetting to preset:', this.currentPreset);
-
             this.applyPreset(this.currentPreset);
             this.saveToHistory();
         },
@@ -174,17 +202,24 @@ function themeEditor() {
             }
         },
 
-        applyPreset(presetName) {
+        applyPreset(presetName, skipHistorySave = false) {
             const preset = this.presets[presetName];
 
             if (preset) {
                 this.currentPreset = presetName;
                 
+                if (skipHistorySave) {
+                    this.isUndoRedoOperation = true;
+                }
+
                 // Deep merge to maintain Alpine.js reactivity
                 this.deepMerge(this.form, preset);
 
                 this.$nextTick(() => {
                     this.updateTheme();
+                    if (skipHistorySave) {
+                        this.isUndoRedoOperation = false;
+                    }
                 });
             }
         },
@@ -215,7 +250,9 @@ function themeEditor() {
 
         handleFormChange() {
             this.updateTheme();
-            this.debouncedSaveToHistory();
+            if (!this.isUndoRedoOperation) {
+                this.debouncedSaveToHistory();
+            }
         },
 
         debouncedSaveToHistory() {
@@ -260,6 +297,92 @@ function themeEditor() {
             a.download = 'filament-theme.json';
             a.click();
             URL.revokeObjectURL(url);
+        },
+
+        loadFromLocalStorage() {
+            try {
+                const savedState = localStorage.getItem('filament-theme-editor-state');
+                
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    
+                    // Restore UI state
+                    if (state.activeTab) this.activeTab = state.activeTab;
+                    if (state.previewMode) this.previewMode = state.previewMode;
+                    if (state.currentPreset) this.currentPreset = state.currentPreset;
+                    
+                    // Restore form data
+                    if (state.form && Object.keys(state.form).length > 0) {
+                        this.isUndoRedoOperation = true;
+                        this.deepMerge(this.form, state.form);
+                        this.$nextTick(() => {
+                            this.isUndoRedoOperation = false;
+                        });
+                    } else {
+                        this.applyPreset('default', true);
+                    }
+                    
+                    // Restore history if available
+                    if (state.history && Array.isArray(state.history) && state.history.length > 0) {
+                        this.history = state.history;
+                        this.historyIndex = state.historyIndex || this.history.length - 1;
+                    }
+                    
+                    // Set last saved time
+                    if (state.savedAt) {
+                        this.lastSaved = new Date(state.savedAt);
+                    }
+                } else {
+                    // No saved state, use default preset
+                    this.applyPreset('default', true);
+                }
+            } catch (error) {
+                console.error('Failed to load from localStorage:', error);
+                this.applyPreset('default', true);
+            }
+        },
+
+        saveToLocalStorage() {
+            try {
+                const now = new Date();
+                const state = {
+                    form: this.form,
+                    activeTab: this.activeTab,
+                    previewMode: this.previewMode,
+                    currentPreset: this.currentPreset,
+                    history: this.history,
+                    historyIndex: this.historyIndex,
+                    savedAt: now.toISOString()
+                };
+                
+                localStorage.setItem('filament-theme-editor-state', JSON.stringify(state));
+                this.lastSaved = now;
+            } catch (error) {
+                console.error('Failed to save to localStorage:', error);
+            }
+        },
+
+        debouncedSaveToLocalStorage() {
+            clearTimeout(this.localStorageTimeout);
+            this.localStorageTimeout = setTimeout(() => {
+                this.saveToLocalStorage();
+            }, 300);
+        },
+
+        clearSavedState() {
+            if (confirm('Are you sure you want to clear all saved data? This will reset your theme to default and cannot be undone.')) {
+                localStorage.removeItem('filament-theme-editor-state');
+                this.applyPreset('default');
+                this.history = [];
+                this.historyIndex = -1;
+                this.lastSaved = null;
+                this.saveToHistory();
+            }
+        },
+
+        getLastSavedTime() {
+            if (!this.lastSaved) return 'Never';
+            return this.lastSaved.toLocaleTimeString();
         },
 
         saveTheme() {
