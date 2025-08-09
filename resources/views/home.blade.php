@@ -4,7 +4,7 @@
         <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
             <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-orange-400 to-orange-600 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
         </div>
-        
+
         <div class="mx-auto max-w-4xl px-6 py-24 sm:py-32 lg:px-8">
             <div class="text-center">
                 <h1 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-7xl">
@@ -14,9 +14,6 @@
                     The easiest way to create, customize, and preview stunning Filament themes with real-time feedback. No code required.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="/editor" class="rounded-md bg-orange-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-all">
-                        Try Editor →
-                    </a>
                     <div class="flex items-center gap-6 text-sm text-gray-400">
                         <div class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,16 +35,22 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="mt-12">
+                    <a href="/editor" class="rounded-md bg-orange-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-all">
+                        Try Now →
+                    </a>
+                </div>
             </div>
         </div>
-        
+
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
             <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-orange-400 to-orange-600 opacity-30 sm:w-[72.1875rem]"></div>
         </div>
     </div>
 
     <!-- Features Section -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32" id="features">
         <div class="mx-auto max-w-2xl text-center">
             <h2 class="text-base/7 font-semibold text-orange-500">Powerful Features</h2>
             <p class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -109,7 +112,7 @@
     </div>
 
     <!-- Examples/Gallery Section -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50" id="examples">
         <div class="mx-auto max-w-2xl text-center">
             <h2 class="text-base/7 font-semibold text-orange-500">Theme Gallery</h2>
             <p class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -133,7 +136,7 @@
                     </div>
                     <span class="text-xs text-orange-500 font-medium">Business Applications</span>
                 </div>
-                
+
                 <div class="relative overflow-hidden rounded-2xl bg-gray-900 p-8">
                     <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full opacity-20"></div>
                     <h3 class="text-lg font-semibold text-white mb-2">E-commerce Hub</h3>
@@ -146,7 +149,7 @@
                     </div>
                     <span class="text-xs text-orange-500 font-medium">Online Retail</span>
                 </div>
-                
+
                 <div class="relative overflow-hidden rounded-2xl bg-gray-900 p-8">
                     <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full opacity-20"></div>
                     <h3 class="text-lg font-semibold text-white mb-2">SaaS Dashboard</h3>
@@ -164,7 +167,7 @@
     </div>
 
     <!-- Pricing Section -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32" id="pricing">
         <div class="mx-auto max-w-4xl text-center">
             <h2 class="text-base/7 font-semibold text-orange-500">Pricing</h2>
             <p class="mt-2 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -216,7 +219,7 @@
                 </ul>
                 <a href="#" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white bg-gray-700 hover:bg-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 transition-all">Get started</a>
             </div>
-            
+
             <div class="rounded-3xl p-8 ring-2 ring-orange-500 bg-gray-900/50 relative">
                 <div class="absolute -top-5 left-1/2 -translate-x-1/2">
                     <span class="inline-flex items-center rounded-full bg-orange-500 px-4 py-1 text-xs font-medium text-white">Most Popular</span>
@@ -265,7 +268,7 @@
     </div>
 
     <!-- FAQ Section -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-800/50" id="faq">
         <div class="mx-auto max-w-4xl">
             <div class="mx-auto max-w-2xl text-center">
                 <h2 class="text-base/7 font-semibold text-orange-500">FAQ</h2>
@@ -278,17 +281,17 @@
             </div>
             <div class="mt-16 space-y-8" x-data="{ openFaq: null }">
                 <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button 
+                    <button
                         @click="openFaq = openFaq === 1 ? null : 1"
                         class="flex w-full items-start justify-between text-left"
                     >
                         <span class="text-lg font-semibold text-white">What is Filament Studio?</span>
                         <span class="ml-6 flex h-7 items-center">
-                            <svg 
+                            <svg
                                 :class="openFaq === 1 ? 'rotate-45' : ''"
                                 class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none" 
-                                viewBox="0 0 24 24" 
+                                fill="none"
+                                viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -301,17 +304,17 @@
                 </div>
 
                 <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button 
+                    <button
                         @click="openFaq = openFaq === 2 ? null : 2"
                         class="flex w-full items-start justify-between text-left"
                     >
                         <span class="text-lg font-semibold text-white">What export formats are supported?</span>
                         <span class="ml-6 flex h-7 items-center">
-                            <svg 
+                            <svg
                                 :class="openFaq === 2 ? 'rotate-45' : ''"
                                 class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none" 
-                                viewBox="0 0 24 24" 
+                                fill="none"
+                                viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -324,17 +327,17 @@
                 </div>
 
                 <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button 
+                    <button
                         @click="openFaq = openFaq === 3 ? null : 3"
                         class="flex w-full items-start justify-between text-left"
                     >
                         <span class="text-lg font-semibold text-white">Do I need coding knowledge to use Filament Studio?</span>
                         <span class="ml-6 flex h-7 items-center">
-                            <svg 
+                            <svg
                                 :class="openFaq === 3 ? 'rotate-45' : ''"
                                 class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none" 
-                                viewBox="0 0 24 24" 
+                                fill="none"
+                                viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -347,17 +350,17 @@
                 </div>
 
                 <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button 
+                    <button
                         @click="openFaq = openFaq === 4 ? null : 4"
                         class="flex w-full items-start justify-between text-left"
                     >
                         <span class="text-lg font-semibold text-white">What's included in the 1 year of updates?</span>
                         <span class="ml-6 flex h-7 items-center">
-                            <svg 
+                            <svg
                                 :class="openFaq === 4 ? 'rotate-45' : ''"
                                 class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none" 
-                                viewBox="0 0 24 24" 
+                                fill="none"
+                                viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -370,17 +373,17 @@
                 </div>
 
                 <div class="rounded-lg bg-gray-900/50 p-6">
-                    <button 
+                    <button
                         @click="openFaq = openFaq === 5 ? null : 5"
                         class="flex w-full items-start justify-between text-left"
                     >
                         <span class="text-lg font-semibold text-white">Can I use themes on multiple applications?</span>
                         <span class="ml-6 flex h-7 items-center">
-                            <svg 
+                            <svg
                                 :class="openFaq === 5 ? 'rotate-45' : ''"
                                 class="h-6 w-6 text-orange-500 transition-transform"
-                                fill="none" 
-                                viewBox="0 0 24 24" 
+                                fill="none"
+                                viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -394,68 +397,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="mx-auto max-w-7xl px-6 lg:px-8 py-16 border-t border-gray-800">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-                <h3 class="text-sm font-semibold text-white">Product</h3>
-                <ul role="list" class="mt-4 space-y-2">
-                    <li><a href="/editor" class="text-sm text-gray-400 hover:text-white transition-colors">Theme Editor</a></li>
-                    <li><a href="#features" class="text-sm text-gray-400 hover:text-white transition-colors">Features</a></li>
-                    <li><a href="#examples" class="text-sm text-gray-400 hover:text-white transition-colors">Examples</a></li>
-                    <li><a href="#pricing" class="text-sm text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-sm font-semibold text-white">Support</h3>
-                <ul role="list" class="mt-4 space-y-2">
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Documentation</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
-                    <li><a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-sm font-semibold text-white">Company</h3>
-                <ul role="list" class="mt-4 space-y-2">
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">About</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Careers</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Press</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-sm font-semibold text-white">Legal</h3>
-                <ul role="list" class="mt-4 space-y-2">
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">License Agreement</a></li>
-                    <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="mt-12 border-t border-gray-800 pt-8">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <p class="text-sm text-gray-400">© 2024 Filament Studio. All rights reserved.</p>
-                <div class="flex items-center space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.083.346-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.748-1.378 0 0-.599 2.282-.744 2.84-.282 1.084-1.064 2.456-1.549 3.235C9.584 23.815 10.77 24.001 12.017 24.001c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
 </x-layouts.app>

@@ -8,3 +8,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 Route::view('/editor', 'theme-editor');
+Route::view('/legal-notice', 'legal-notice');
+Route::view('/privacy-policy', 'privacy-policy');
