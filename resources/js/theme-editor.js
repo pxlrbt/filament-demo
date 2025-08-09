@@ -2,6 +2,7 @@ function themeEditor() {
     return {
         activeTab: 'typography',
         previewMode: 'desktop',
+        themeMode: 'dark',
         currentPreset: 'default',
         history: [],
         historyIndex: -1,
@@ -32,33 +33,65 @@ function themeEditor() {
                     }
                 },
                 colors: {
-                    primary: {
-                        background: '#2563eb',
-                        text: '#ffffff'
+                    dark: {
+                        primary: {
+                            background: '#2563eb',
+                            text: '#ffffff'
+                        },
+                        secondary: {
+                            background: '#334155',
+                            text: '#e0e7ef'
+                        },
+                        accent: {
+                            background: '#10b981',
+                            text: '#ffffff'
+                        },
+                        base: {
+                            background: '#18181b',
+                            text: '#f4f4f5'
+                        },
+                        card: {
+                            background: '#23272f',
+                            text: '#f4f4f5'
+                        },
+                        sidebar: {
+                            background: '#18181b',
+                            text: '#e0e7ef',
+                            primaryBackground: '#2563eb',
+                            primaryText: '#ffffff',
+                            accentBackground: '#10b981',
+                            accentText: '#ffffff'
+                        }
                     },
-                    secondary: {
-                        background: '#334155',
-                        text: '#e0e7ef'
-                    },
-                    accent: {
-                        background: '#10b981',
-                        text: '#ffffff'
-                    },
-                    base: {
-                        background: '#18181b',
-                        text: '#f4f4f5'
-                    },
-                    card: {
-                        background: '#23272f',
-                        text: '#f4f4f5'
-                    },
-                    sidebar: {
-                        background: '#18181b',
-                        text: '#e0e7ef',
-                        primaryBackground: '#2563eb',
-                        primaryText: '#ffffff',
-                        accentBackground: '#10b981',
-                        accentText: '#ffffff'
+                    light: {
+                        primary: {
+                            background: '#2563eb',
+                            text: '#ffffff'
+                        },
+                        secondary: {
+                            background: '#64748b',
+                            text: '#1e293b'
+                        },
+                        accent: {
+                            background: '#10b981',
+                            text: '#ffffff'
+                        },
+                        base: {
+                            background: '#ffffff',
+                            text: '#0f172a'
+                        },
+                        card: {
+                            background: '#f8fafc',
+                            text: '#1e293b'
+                        },
+                        sidebar: {
+                            background: '#f1f5f9',
+                            text: '#334155',
+                            primaryBackground: '#2563eb',
+                            primaryText: '#ffffff',
+                            accentBackground: '#10b981',
+                            accentText: '#ffffff'
+                        }
                     }
                 },
                 layout: {
@@ -102,6 +135,12 @@ function themeEditor() {
                 this.saveToLocalStorage();
             });
 
+            this.$watch('themeMode', () => {
+                this.updateThemeClass();
+                this.updateTheme();
+                this.saveToLocalStorage();
+            });
+
             this.$watch('currentPreset', () => {
                 this.saveToLocalStorage();
             });
@@ -110,8 +149,25 @@ function themeEditor() {
                 this.loadGoogleFonts();
                 this.setupIframe();
                 this.setupKeyboardShortcuts();
+                this.updateThemeClass();
                 this.saveToHistory();
             });
+        },
+
+        toggleThemeMode() {
+            this.themeMode = this.themeMode === 'dark' ? 'light' : 'dark';
+        },
+
+        updateThemeClass() {
+            const iframe = document.querySelector('iframe');
+            if (iframe && iframe.contentDocument) {
+                const body = iframe.contentDocument.body;
+                if (this.themeMode === 'dark') {
+                    body.classList.add('dark');
+                } else {
+                    body.classList.remove('dark');
+                }
+            }
         },
 
         setupKeyboardShortcuts() {
@@ -197,6 +253,7 @@ function themeEditor() {
 
             if (iframe) {
                 iframe.onload = () => {
+                    this.updateThemeClass();
                     this.updateTheme();
                 };
             }
@@ -309,6 +366,7 @@ function themeEditor() {
                     // Restore UI state
                     if (state.activeTab) this.activeTab = state.activeTab;
                     if (state.previewMode) this.previewMode = state.previewMode;
+                    if (state.themeMode) this.themeMode = state.themeMode;
                     if (state.currentPreset) this.currentPreset = state.currentPreset;
                     
                     // Restore form data
@@ -349,6 +407,7 @@ function themeEditor() {
                     form: this.form,
                     activeTab: this.activeTab,
                     previewMode: this.previewMode,
+                    themeMode: this.themeMode,
                     currentPreset: this.currentPreset,
                     history: this.history,
                     historyIndex: this.historyIndex,
@@ -419,11 +478,30 @@ function themeEditor() {
                 return vars;
             }
 
-            const cssVars = flattenToCssVars(this.form);
+            // Create a form copy with current theme mode colors
+            const formForCSS = JSON.parse(JSON.stringify(this.form));
+            if (formForCSS.colors && formForCSS.colors[this.themeMode]) {
+                // Replace colors with the current theme mode colors
+                formForCSS.colors = formForCSS.colors[this.themeMode];
+            }
+
+            const cssVars = flattenToCssVars(formForCSS);
 
             return `
                 :root {
                     ${Object.entries(cssVars)
+                        .map(([key, value]) => `${key}: ${value};`)
+                        .join('\n    ')}
+                }
+
+                body.dark {
+                    ${Object.entries(flattenToCssVars(this.form.colors?.dark || {}))
+                        .map(([key, value]) => `${key}: ${value};`)
+                        .join('\n    ')}
+                }
+
+                body:not(.dark) {
+                    ${Object.entries(flattenToCssVars(this.form.colors?.light || {}))
                         .map(([key, value]) => `${key}: ${value};`)
                         .join('\n    ')}
                 }

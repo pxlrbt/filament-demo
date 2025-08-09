@@ -9,6 +9,30 @@
                 <div class="flex items-center justify-between p-2 bg-gray-900 border-b border-gray-800">
                     <h3 class="text-lg font-semibold text-white">Live Preview</h3>
                     <div class="flex items-center space-x-2">
+                        <!-- Theme Mode Toggle -->
+                        <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
+                            <button
+                                @click="toggleThemeMode()"
+                                :class="themeMode === 'dark' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
+                                class="p-2 rounded-md transition-all"
+                                title="Dark mode"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+                                </svg>
+                            </button>
+                            <button
+                                @click="toggleThemeMode()"
+                                :class="themeMode === 'light' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
+                                class="p-2 rounded-md transition-all"
+                                title="Light mode"
+                            >
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.5 12C17.5 8.96 15.04 6.5 12 6.5S6.5 8.96 6.5 12s2.46 5.5 5.5 5.5 5.5-2.46 5.5-5.5zM12 4.5c.28 0 .5-.22.5-.5V2c0-.28-.22-.5-.5-.5s-.5.22-.5.5v2c0 .28.22.5.5.5zm7.07 2.43c.2-.2.2-.51 0-.71l-1.41-1.41c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.41 1.41c.2.2.51.2.71 0zM22 11.5h-2c-.28 0-.5.22-.5.5s.22.5.5.5h2c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-1.93 7.07l-1.41-1.41c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.41 1.41c.2.2.51.2.71 0s.2-.51 0-.71zM12 19.5c-.28 0-.5.22-.5.5v2c0 .28.22.5.5.5s.5-.22.5-.5v-2c0-.28-.22-.5-.5-.5zM4.93 18.57c-.2-.2-.51-.2-.71 0l-1.41 1.41c-.2.2-.2.51 0 .71s.51.2.71 0l1.41-1.41c.2-.2.2-.51 0-.71zM2 11.5h2c.28 0 .5.22.5.5s-.22.5-.5.5H2c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm2.93-6.07l1.41-1.41c.2-.2.2-.51 0-.71s-.51-.2-.71 0L4.22 4.72c-.2.2-.2.51 0 .71s.51.2.71 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+
                         <!-- History Controls -->
                         <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
                             <button

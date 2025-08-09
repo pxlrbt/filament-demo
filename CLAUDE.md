@@ -12,3 +12,8 @@ There is a PoC for the theme editor at the home route.
 - Laravel 12
 - Vanilla JS
 - TailwindCSS v4
+
+## Agent Behaviour
+
+- Always ask questions if something is unclear
+- Use Playwright MCP to validate UI changes
