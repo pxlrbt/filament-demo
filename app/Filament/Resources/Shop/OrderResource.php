@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
-use Phiki\Grammar\Detections\JavaScript;
 use Squire\Models\Currency;
 use UnitEnum;
 
@@ -64,16 +63,16 @@ class OrderResource extends Resource
                         Forms\Components\TextInput::make('length'),
 
                         Forms\Components\TextInput::make('name')
-                          ->hint(JsContent::make(<<<'JS'
+                            ->hint(JsContent::make(<<<'JS'
                               ($get('name')?.length ?? 0) + '/' + $get('length')
                           JS)),
-                    ])
+                    ]),
 
-                        //
-                        // Forms\Components\Placeholder::make('Great length')->visibleJs(<<<'JS'
-                        //     $get('name')?.length > 10
-                        // JS),
-                            // ->hint(fn ($state): ?string => strlen($state).'/20'),
+                //
+                // Forms\Components\Placeholder::make('Great length')->visibleJs(<<<'JS'
+                //     $get('name')?.length > 10
+                // JS),
+                // ->hint(fn ($state): ?string => strlen($state).'/20'),
                 //
                 //         Section::make()
                 //             ->schema(static::getDetailsFormSchema())

@@ -48,9 +48,18 @@
                     <a href="/#faq" class="text-sm/6 font-semibold text-white">FAQ</a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
-                    <a href="/editor" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 transition-colors">
-                        Try Now  →
-                    </a>
+                    @if(request()->is('editor'))
+                        <button 
+                            onclick="showBuyNowModal()"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 transition-colors"
+                        >
+                            Buy Now  →
+                        </button>
+                    @else
+                        <a href="/editor" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 transition-colors">
+                            Try Now  →
+                        </a>
+                    @endif
                 </div>
             </nav>
 
@@ -99,6 +108,46 @@
                 </dialog>
             </el-dialog>
         </header>
+
+        <!-- Buy Now Modal -->
+        @if(request()->is('editor'))
+            <div id="buyNowModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+                <div class="flex items-center justify-center min-h-screen p-4">
+                    <div class="bg-gray-900 rounded-lg p-6 w-full max-w-md">
+                        <h2 class="text-xl font-semibold text-white mb-4">Purchase Theme</h2>
+                        
+                        <form id="buyNowForm">
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-300 mb-2">License Type</label>
+                                <select name="license_type" class="w-full px-3 py-2 bg-gray-800 text-white rounded-md border border-gray-700">
+                                    <option value="business">Business - €49 (1 Application)</option>
+                                    <option value="unlimited">Unlimited - €149 (Unlimited Applications)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                                <input type="text" name="name" class="w-full px-3 py-2 bg-gray-800 text-white rounded-md border border-gray-700" placeholder="Your Name">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                                <input type="email" name="email" required class="w-full px-3 py-2 bg-gray-800 text-white rounded-md border border-gray-700" placeholder="your@email.com">
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <button type="button" onclick="hideBuyNowModal()" class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                                <button type="submit" id="buyNowBtn" class="flex-1 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-500">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <main class="px-2">
             {{ $slot }}
@@ -171,5 +220,97 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        
+        @if(request()->is('editor'))
+            <script>
+                function showBuyNowModal() {
+                    document.getElementById('buyNowModal').classList.remove('hidden');
+                }
+                
+                function hideBuyNowModal() {
+                    document.getElementById('buyNowModal').classList.add('hidden');
+                }
+                
+                document.getElementById('buyNowForm').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(e.target);
+                    const email = formData.get('email');
+                    const name = formData.get('name');
+                    const licenseType = formData.get('license_type');
+                    
+                    const buyNowBtn = document.getElementById('buyNowBtn');
+                    const originalText = buyNowBtn.textContent;
+                    
+                    // Show loading state
+                    buyNowBtn.textContent = 'Creating checkout...';
+                    buyNowBtn.disabled = true;
+                    
+                    // Get the current theme configuration from the theme editor
+                    let configuration = {};
+                    if (window.themeEditorInstance && typeof window.themeEditorInstance.getCurrentConfiguration === 'function') {
+                        configuration = window.themeEditorInstance.getCurrentConfiguration();
+                    } else {
+                        // Fallback: try to get configuration from Alpine.js data
+                        const themeEditorElement = document.querySelector('[x-data*="themeEditor"]');
+                        if (themeEditorElement && themeEditorElement.__x && themeEditorElement.__x.$data) {
+                            const editorData = themeEditorElement.__x.$data;
+                            if (typeof editorData.getCurrentConfiguration === 'function') {
+                                configuration = editorData.getCurrentConfiguration();
+                            } else {
+                                // Basic fallback configuration
+                                configuration = {
+                                    form: editorData.form || {},
+                                    themeMode: editorData.themeMode || 'dark',
+                                    currentPreset: editorData.currentPreset || 'default'
+                                };
+                            }
+                        }
+                    }
+                    
+                    try {
+                        const response = await fetch('/checkout', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                configuration: configuration,
+                                license_type: licenseType,
+                                email: email,
+                                name: name
+                            })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok && data.checkout_url) {
+                            // Redirect to Lemon Squeezy checkout
+                            window.location.href = data.checkout_url;
+                        } else {
+                            // Reset button
+                            buyNowBtn.textContent = originalText;
+                            buyNowBtn.disabled = false;
+                            
+                            alert('Error creating checkout: ' + (data.error || data.message || 'Unknown error'));
+                        }
+                    } catch (error) {
+                        // Reset button
+                        buyNowBtn.textContent = originalText;
+                        buyNowBtn.disabled = false;
+                        
+                        alert('Error: ' + error.message);
+                    }
+                });
+                
+                // Close modal when clicking outside
+                document.getElementById('buyNowModal').addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        hideBuyNowModal();
+                    }
+                });
+            </script>
+        @endif
     </body>
 </html>

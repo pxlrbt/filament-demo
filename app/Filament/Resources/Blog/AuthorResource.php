@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Blog;
 use App\Filament\Resources\Blog\AuthorResource\Pages;
 use App\Models\Blog\Author;
 use BackedEnum;
-use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -15,9 +14,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use pxlrbt\FilamentExcel\Actions\ExportAction;
-use pxlrbt\FilamentExcel\Columns\Column;
-use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use UnitEnum;
 
 class AuthorResource extends Resource

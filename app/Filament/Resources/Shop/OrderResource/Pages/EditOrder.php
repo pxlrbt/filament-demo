@@ -15,13 +15,13 @@ class EditOrder extends EditRecord
     {
         return [
             Actions\Action::make('test')
-                ->action(fn () =>
-                    Notification::make()
+                ->action(
+                    fn () => Notification::make()
                         ->title('You sure?')
                         ->actions([
                             Actions\DeleteAction::make()
                                 ->compo
-                                ->record($this->record)
+                                ->record($this->record),
                         ])
                         ->send()
                 ),

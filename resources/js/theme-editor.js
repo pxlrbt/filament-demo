@@ -611,6 +611,18 @@ function themeEditor() {
             alert('Theme saved successfully!');
         },
 
+        getCurrentConfiguration() {
+            return {
+                form: JSON.parse(JSON.stringify(this.form)),
+                presets: this.presets,
+                activeTab: this.activeTab,
+                previewMode: this.previewMode,
+                themeMode: this.themeMode,
+                currentPreset: this.currentPreset,
+                css: this.generateCSS()
+            };
+        },
+
         generateCSS() {
             const self = this;
 

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Console\DbOpenCommand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use LemonSqueezy\Laravel\LemonSqueezy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        LemonSqueezy::ignoreMigrations();
     }
 
     /**
@@ -26,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::unguard();
+
+        $this->commands([DbOpenCommand::class]);
 
         if (app()->environment('production')) {
             URL::forceScheme('https');

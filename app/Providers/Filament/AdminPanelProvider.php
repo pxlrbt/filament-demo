@@ -4,16 +4,11 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
-use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\Login as MiddlewareLogin;
-use App\Models\User;
-use Filament\Actions\Action;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
-use Filament\Tests\Fixtures\Resources\Users\UserResource;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -23,16 +18,6 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
-use pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin;
-use pxlrbt\FilamentSpotlight\SpotlightPlugin;
-use pxlrbt\FilamentSpotlightPro\SpotlightActions\PushContextAction;
-use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterCommands;
-use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterPages;
-use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterResources;
-use pxlrbt\FilamentSpotlightPro\SpotlightQueries\SpotlightQuery;
-use pxlrbt\FilamentSpotlightPro\SpotlightResults\SpotlightResult;
-
-use function PHPUnit\Framework\isFalse;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -81,9 +66,9 @@ class AdminPanelProvider extends PanelProvider
                     ->defaultLocales(['en', 'es', 'nl']),
             )
             ->viteTheme('resources/css/theme/_index.css');
-            // ->colors([
-            //     'gray' => '#ca6868',
-            //     'primary' => '#ff0000',
-            // ]);
+        // ->colors([
+        //     'gray' => '#ca6868',
+        //     'primary' => '#ff0000',
+        // ]);
     }
 }

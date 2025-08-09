@@ -18,8 +18,6 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-use function Filament\Support\get_color_css_variables;
-
 class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
