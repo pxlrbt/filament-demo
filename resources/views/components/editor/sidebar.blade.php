@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <aside class="w-80 mr-8 flex flex-col text-white">
     <!-- Tab Navigation -->
-    <nav class="flex rounded-sm  p-1 gap-1">
+    <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
         <button
             :class="activeTab === 'presets' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700'"
             @click="activeTab = 'presets'"
@@ -45,10 +45,10 @@
             </svg>
             Layout
         </button>
-    </nav>
+    </div>
 
     <!-- Tab Content -->
-    <div class="flex-1 overflow-y-auto mt-2 text-white">
+    <div class="flex-1 overflow-y-auto mt-2 pr-1 text-white">
         <!-- Presets Tab -->
 
         <x-editor.tabs.presets />
