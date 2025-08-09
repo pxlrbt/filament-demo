@@ -20,7 +20,7 @@
 
     <body class="antialiased bg-gray-900">
         <header class="relative z-10">
-            <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            <nav aria-label="Global" class="mx-auto flex items-center justify-between p-6">
                 <div class="flex lg:flex-1">
                     <a href="/" class="-m-1.5 p-1.5 font-bold text-white flex items-center gap-2">
                         <div class="flex items-center">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
                     @if(request()->is('editor'))
-                        <button 
+                        <button
                             onclick="showBuyNowModal()"
                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 transition-colors"
                         >
@@ -115,7 +115,7 @@
                 <div class="flex items-center justify-center min-h-screen p-4">
                     <div class="bg-gray-900 rounded-lg p-6 w-full max-w-md">
                         <h2 class="text-xl font-semibold text-white mb-4">Purchase Theme</h2>
-                        
+
                         <form id="buyNowForm">
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-300 mb-2">License Type</label>
@@ -124,17 +124,17 @@
                                     <option value="unlimited">Unlimited - €149 (Unlimited Applications)</option>
                                 </select>
                             </div>
-                            
+
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Name</label>
                                 <input type="text" name="name" class="w-full px-3 py-2 bg-gray-800 text-white rounded-md border border-gray-700" placeholder="Your Name">
                             </div>
-                            
+
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
                                 <input type="email" name="email" required class="w-full px-3 py-2 bg-gray-800 text-white rounded-md border border-gray-700" placeholder="your@email.com">
                             </div>
-                            
+
                             <div class="flex gap-3">
                                 <button type="button" onclick="hideBuyNowModal()" class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600">
                                     Cancel
@@ -149,7 +149,7 @@
             </div>
         @endif
 
-        <main class="px-2">
+        <main>
             {{ $slot }}
         </main>
 
@@ -195,20 +195,20 @@
             <div class="mt-12 border-t border-gray-800 pt-8">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <p class="text-sm text-gray-400">© 2024 Filament Studio. All rights reserved.</p>
-                    <div class="flex items-center space-x-6 mt-4 md:mt-0">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="https://denniskoch.dev" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" title="Website">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 1024 1024">
+                                <path fill="currentColor" d="M1025.02 512c0-272.016-213.663-495.104-482.319-511.023c-5.536-.608-11.088-1.009-16.72-1.009c-1.664 0-3.328.176-4.992.224c-2.992-.048-5.968-.224-8.992-.224C229.117-.032-1.026 229.664-1.026 512s230.144 512.032 513.023 512.032c3.024 0 6-.176 9.008-.24c1.664.064 3.328.24 4.992.24c5.632 0 11.184-.4 16.72-1.009c268.64-15.92 482.304-238.976 482.303-511.023m-95.451 164.832c-17.632-5.12-61.92-16.24-140.064-25.392c6.464-44.192 10-90.896 10-139.44c0-38.256-2.208-75.343-6.288-111.008c99.008-11.824 142.384-26.72 145.296-27.745l-11.92-33.584c22.24 53.088 34.56 111.296 34.56 172.336c0 58.193-11.28 113.761-31.583 164.833zM285.488 512.001c0-35.808 2.37-70.77 6.705-104.401c51.888 4.08 113.936 7.088 186.863 7.792v222.064c-70.992.688-131.664 3.568-182.688 7.473c-7.04-42.193-10.88-86.88-10.88-132.928M542.945 68.223c78.464 22.736 145.648 131.695 175.744 276.111c-48.368 3.856-106.624 6.673-175.744 7.33zm-63.886.783V351.63c-68.368-.688-126.88-3.473-176.063-7.232C333.7 201.79 401.428 93.646 479.059 69.006m0 632.223l.001 253.743c-72.4-22.976-136.192-118.575-169.36-247.023c47.76-3.504 104.096-6.063 169.359-6.72m63.888 254.543l-.001-254.56c65.952.623 122.064 3.28 169.217 6.928c-32.608 130.128-96 226.416-169.216 247.632m-.001-318.32l.001-222.032c73.311-.688 134.991-3.776 186.191-8a845 845 0 0 1 6.496 104.592c0 46.128-3.712 90.864-10.528 133.12c-50.416-4.08-110.8-7.008-182.16-7.68m371.858-323.52c-9.664 3.008-50.063 14.48-131.023 24.032c-18.048-95.952-50.672-177.968-93.12-237.168C788.197 143.18 867.797 219.1 914.805 313.932zM358.82 90.589c-52.208 59.952-94.832 146.161-118.096 248.113c-72.48-7.856-115.921-17.089-133.312-21.281c50.72-104.64 141.04-186.752 251.408-226.832M83.637 377.182c12.32 3.344 58.913 14.941 145.553 24.525a796 796 0 0 0-7.68 110.305c0 48.273 4.368 94.721 12.24 138.688c-74.4 8.033-120.16 17.649-140.688 22.609c-19.44-50.096-30.208-104.447-30.208-161.312c0-46.96 7.312-92.256 20.783-134.815m37.457 355.166c23.264-4.944 64.912-12.464 126.592-18.928c24.288 89.712 63.792 165.616 111.136 219.968c-101.12-36.72-185.296-108.752-237.728-201.04M690.662 923.18c38.224-53.264 68.48-125.024 87.296-208.801c63.408 7.28 103.216 15.792 123.296 20.864c-48.016 83.072-121.855 149.393-210.592 187.937" />
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        <a href="https://github.com/pxlrbt" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" title="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.083.346-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.748-1.378 0 0-.599 2.282-.744 2.84-.282 1.084-1.064 2.456-1.549 3.235C9.584 23.815 10.77 24.001 12.017 24.001c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                        <a href="https://phpc.social/@denniskoch" target="_blank" rel="me noopener" class="text-gray-400 hover:text-white transition-colors" title="Mastodon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127C.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611c.118 1.24.325 2.47.62 3.68c.55 2.237 2.777 4.098 4.96 4.857c2.336.792 4.849.923 7.256.38q.398-.092.786-.213c.585-.184 1.27-.39 1.774-.753a.06.06 0 0 0 .023-.043v-1.809a.05.05 0 0 0-.02-.041a.05.05 0 0 0-.046-.01a20.3 20.3 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.6 5.6 0 0 1-.319-1.433a.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546c.376 0 .75 0 1.125-.01c1.57-.044 3.224-.124 4.768-.422q.059-.011.11-.024c2.435-.464 4.753-1.92 4.989-5.604c.008-.145.03-1.52.03-1.67c.002-.512.167-3.63-.024-5.545m-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976c-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35c-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102q0-1.965 1.011-3.12c.696-.77 1.608-1.164 2.74-1.164c1.311 0 2.302.5 2.962 1.498l.638 1.06l.638-1.06c.66-.999 1.65-1.498 2.96-1.498c1.13 0 2.043.395 2.74 1.164q1.012 1.155 1.012 3.12z" />
                             </svg>
                         </a>
                     </div>
@@ -220,32 +220,32 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        
+
         @if(request()->is('editor'))
             <script>
                 function showBuyNowModal() {
                     document.getElementById('buyNowModal').classList.remove('hidden');
                 }
-                
+
                 function hideBuyNowModal() {
                     document.getElementById('buyNowModal').classList.add('hidden');
                 }
-                
+
                 document.getElementById('buyNowForm').addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    
+
                     const formData = new FormData(e.target);
                     const email = formData.get('email');
                     const name = formData.get('name');
                     const licenseType = formData.get('license_type');
-                    
+
                     const buyNowBtn = document.getElementById('buyNowBtn');
                     const originalText = buyNowBtn.textContent;
-                    
+
                     // Show loading state
                     buyNowBtn.textContent = 'Creating checkout...';
                     buyNowBtn.disabled = true;
-                    
+
                     // Get the current theme configuration from the theme editor
                     let configuration = {};
                     if (window.themeEditorInstance && typeof window.themeEditorInstance.getCurrentConfiguration === 'function') {
@@ -267,7 +267,7 @@
                             }
                         }
                     }
-                    
+
                     try {
                         const response = await fetch('/checkout', {
                             method: 'POST',
@@ -282,9 +282,9 @@
                                 name: name
                             })
                         });
-                        
+
                         const data = await response.json();
-                        
+
                         if (response.ok && data.checkout_url) {
                             // Redirect to Lemon Squeezy checkout
                             window.location.href = data.checkout_url;
@@ -292,18 +292,18 @@
                             // Reset button
                             buyNowBtn.textContent = originalText;
                             buyNowBtn.disabled = false;
-                            
+
                             alert('Error creating checkout: ' + (data.error || data.message || 'Unknown error'));
                         }
                     } catch (error) {
                         // Reset button
                         buyNowBtn.textContent = originalText;
                         buyNowBtn.disabled = false;
-                        
+
                         alert('Error: ' + error.message);
                     }
                 });
-                
+
                 // Close modal when clicking outside
                 document.getElementById('buyNowModal').addEventListener('click', function(e) {
                     if (e.target === this) {

@@ -1,6 +1,6 @@
 <x-layouts.app>
     <div x-data="themeEditor()">
-        <div class="flex h-[calc(100vh-73px)]">
+        <div class="flex h-[calc(100vh-73px)] px-6">
 
             <x-editor.sidebar />
 
@@ -8,6 +8,7 @@
             <main class="flex-1 flex flex-col bg-gray-900">
                 <div class="flex items-center justify-between p-2 bg-gray-900 border-b border-gray-800">
                     <h3 class="text-lg font-semibold text-white">Live Preview</h3>
+
                     <div class="flex items-center space-x-2">
                         <!-- Theme Mode Toggle -->
                         <div class="flex items-center space-x-1 bg-gray-800 p-1 rounded-lg border border-gray-700">
@@ -91,7 +92,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 flex items-center justify-center p-6 bg-gray-850">
+
+                <div class="flex-1 flex items-center justify-center py-6 bg-gray-850">
                     <div :class="previewMode === 'desktop' ? 'w-full h-full' : 'w-full max-w-4xl h-4/5'" class="transition-all duration-300">
                         <iframe
                             src="https://tweakfilament.test/admin"
