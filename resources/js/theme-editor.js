@@ -700,18 +700,22 @@ function themeEditor() {
             const cssVars = flattenToCssVars(this.form);
             const [lightMappings, darkMappings] = generateColorMappings(cssVars);
 
+            const colors = ['primary', 'success', 'info', 'warning', 'danger'];
+            const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+
+            colors.forEach(color => {
+                shades.forEach(shade => {
+                    cssVars[`--${color}-${shade}`] = `oklch(var(--l-${shade}) calc(var(--c-950) * var(--colors-${color}-chroma)) var(--colors-${color}-hue))`;
+                });
+            });
+
+            shades.forEach(shade => {
+                cssVars[`--gray-${shade}`] = `oklch(var(--l-${shade}) calc(var(--c-950) * var(--colors-base-chroma)) var(--colors-base-hue))`;
+            });
+
             const css = `
                 :root, body {
-                    ${Object.entries(cssVars)
-                        .map(([key, value]) => `${key}: ${value};`)
-                        .join('\n                    ')}
-
-                    /* Default to light mode */
-                    ${Object.entries(lightMappings)
-                        .map(([key, value]) => `${key}: ${value};`)
-                        .join('\n                    ')}
-
-                    // Chroma 0 – ~0.4
+                    /* Chroma 0 – ~0.4 */
                     --c-50: 0.01395454545455;
                     --c-100: 0.03272727272727;
                     --c-200: 0.06318181818182;
@@ -724,7 +728,7 @@ function themeEditor() {
                     --c-900: 0.09963636363636;
                     --c-950: 0.07136363636364;
 
-                    // Lightness 0 – 1
+                    /* Lightness 0 – 1 */
                     --l-50: 0.97717647058824;
                     --l-100: 0.95035294117647;
                     --l-200: 0.90547058823529;
@@ -737,90 +741,14 @@ function themeEditor() {
                     --l-900: 0.39458823529412;
                     --l-950: 0.27788235294118;
 
-                    --danger-50: oklch(from var(--colors-danger) var(--l-50) var(--c-50) h);
-                    --danger-100: oklch(from var(--colors-danger) var(--l-100) var(--c-100) h);
-                    --danger-200: oklch(from var(--colors-danger) var(--l-200) var(--c-200) h);
-                    --danger-300: oklch(from var(--colors-danger) var(--l-300) var(--c-300) h);
-                    --danger-400: oklch(from var(--colors-danger) var(--l-400) var(--c-400) h);
-                    --danger-500: oklch(from var(--colors-danger) var(--l-500) var(--c-500) h);
-                    --danger-600: oklch(from var(--colors-danger) var(--l-600) var(--c-600) h);
-                    --danger-700: oklch(from var(--colors-danger) var(--l-700) var(--c-700) h);
-                    --danger-800: oklch(from var(--colors-danger) var(--l-800) var(--c-800) h);
-                    --danger-900: oklch(from var(--colors-danger) var(--l-900) var(--c-900) h);
-                    --danger-950: oklch(from var(--colors-danger) var(--l-950) var(--c-950) h);
+                    ${Object.entries(cssVars)
+                        .map(([key, value]) => `${key}: ${value};`)
+                        .join('\n                    ')}
 
-                    --warning-50: oklch(from var(--colors-warning) var(--l-50) var(--c-50) h);
-                    --warning-100: oklch(from var(--colors-warning) var(--l-100) var(--c-100) h);
-                    --warning-200: oklch(from var(--colors-warning) var(--l-200) var(--c-200) h);
-                    --warning-300: oklch(from var(--colors-warning) var(--l-300) var(--c-300) h);
-                    --warning-400: oklch(from var(--colors-warning) var(--l-400) var(--c-400) h);
-                    --warning-500: oklch(from var(--colors-warning) var(--l-500) var(--c-500) h);
-                    --warning-600: oklch(from var(--colors-warning) var(--l-600) var(--c-600) h);
-                    --warning-700: oklch(from var(--colors-warning) var(--l-700) var(--c-700) h);
-                    --warning-800: oklch(from var(--colors-warning) var(--l-800) var(--c-800) h);
-                    --warning-900: oklch(from var(--colors-warning) var(--l-900) var(--c-900) h);
-                    --warning-950: oklch(from var(--colors-warning) var(--l-950) var(--c-950) h);
-
-                    --info-50: oklch(from var(--colors-info) var(--l-50) var(--c-50) h);
-                    --info-100: oklch(from var(--colors-info) var(--l-100) var(--c-100) h);
-                    --info-200: oklch(from var(--colors-info) var(--l-200) var(--c-200) h);
-                    --info-300: oklch(from var(--colors-info) var(--l-300) var(--c-300) h);
-                    --info-400: oklch(from var(--colors-info) var(--l-400) var(--c-400) h);
-                    --info-500: oklch(from var(--colors-info) var(--l-500) var(--c-500) h);
-                    --info-600: oklch(from var(--colors-info) var(--l-600) var(--c-600) h);
-                    --info-700: oklch(from var(--colors-info) var(--l-700) var(--c-700) h);
-                    --info-800: oklch(from var(--colors-info) var(--l-800) var(--c-800) h);
-                    --info-900: oklch(from var(--colors-info) var(--l-900) var(--c-900) h);
-                    --info-950: oklch(from var(--colors-info) var(--l-950) var(--c-950) h);
-
-                    --success-50: oklch(from var(--colors-success) var(--l-50) var(--c-50) h);
-                    --success-100: oklch(from var(--colors-success) var(--l-100) var(--c-100) h);
-                    --success-200: oklch(from var(--colors-success) var(--l-200) var(--c-200) h);
-                    --success-300: oklch(from var(--colors-success) var(--l-300) var(--c-300) h);
-                    --success-400: oklch(from var(--colors-success) var(--l-400) var(--c-400) h);
-                    --success-500: oklch(from var(--colors-success) var(--l-500) var(--c-500) h);
-                    --success-600: oklch(from var(--colors-success) var(--l-600) var(--c-600) h);
-                    --success-700: oklch(from var(--colors-success) var(--l-700) var(--c-700) h);
-                    --success-800: oklch(from var(--colors-success) var(--l-800) var(--c-800) h);
-                    --success-900: oklch(from var(--colors-success) var(--l-900) var(--c-900) h);
-                    --success-950: oklch(from var(--colors-success) var(--l-950) var(--c-950) h);
-
-                    --primary-50: oklch(from var(--colors-primary) var(--l-50) var(--c-50) h);
-                    --primary-100: oklch(from var(--colors-primary) var(--l-100) var(--c-100) h);
-                    --primary-200: oklch(from var(--colors-primary) var(--l-200) var(--c-200) h);
-                    --primary-300: oklch(from var(--colors-primary) var(--l-300) var(--c-300) h);
-                    --primary-400: oklch(from var(--colors-primary) var(--l-400) var(--c-400) h);
-                    --primary-500: oklch(from var(--colors-primary) var(--l-500) var(--c-500) h);
-                    --primary-600: oklch(from var(--colors-primary) var(--l-600) var(--c-600) h);
-                    --primary-700: oklch(from var(--colors-primary) var(--l-700) var(--c-700) h);
-                    --primary-800: oklch(from var(--colors-primary) var(--l-800) var(--c-800) h);
-                    --primary-900: oklch(from var(--colors-primary) var(--l-900) var(--c-900) h);
-                    --primary-950: oklch(from var(--colors-primary) var(--l-950) var(--c-950) h);
-
-                    --secondary-50: oklch(from var(--colors-secondary) var(--l-50) var(--c-50) h);
-                    --secondary-100: oklch(from var(--colors-secondary) var(--l-100) var(--c-100) h);
-                    --secondary-200: oklch(from var(--colors-secondary) var(--l-200) var(--c-200) h);
-                    --secondary-300: oklch(from var(--colors-secondary) var(--l-300) var(--c-300) h);
-                    --secondary-400: oklch(from var(--colors-secondary) var(--l-400) var(--c-400) h);
-                    --secondary-500: oklch(from var(--colors-secondary) var(--l-500) var(--c-500) h);
-                    --secondary-600: oklch(from var(--colors-secondary) var(--l-600) var(--c-600) h);
-                    --secondary-700: oklch(from var(--colors-secondary) var(--l-700) var(--c-700) h);
-                    --secondary-800: oklch(from var(--colors-secondary) var(--l-800) var(--c-800) h);
-                    --secondary-900: oklch(from var(--colors-secondary) var(--l-900) var(--c-900) h);
-                    --secondary-950: oklch(from var(--colors-secondary) var(--l-950) var(--c-950) h);
-
-
-                    --gray-50: oklch(0.985 calc(var(--c-50) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-100: oklch(0.967 calc(var(--c-100) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-200: oklch(0.928 calc(var(--c-200) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-300: oklch(0.872 calc(var(--c-300) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-400: oklch(0.707 calc(var(--c-400) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-500: oklch(0.551 calc(var(--c-500) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-600: oklch(0.446 calc(var(--c-600) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-700: oklch(0.373 calc(var(--c-700) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-800: oklch(0.278 calc(var(--c-800) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-900: oklch(0.21 calc(var(--c-900) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
-                    --gray-950: oklch(0.13 calc(var(--c-950) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    /* Default to light mode */
+                    ${Object.entries(lightMappings)
+                        .map(([key, value]) => `${key}: ${value};`)
+                        .join('\n                    ')}
                 }
 
                 .dark body {

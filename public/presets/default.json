@@ -19,11 +19,27 @@
           "hue": "260",
           "chroma": "1"
         },
-      "primary": "#2563eb",
-      "info": "#38bdf8",
-      "success": "#16a34a",
-      "warning": "#facc15",
-      "danger": "#f87171",
+
+      "primary": {
+          "hue": "80",
+          "chroma": "2"
+      },
+      "info": {
+          "hue": "260",
+          "chroma": "2"
+      },
+      "success": {
+          "hue": "150",
+          "chroma": "2"
+      },
+      "warning": {
+          "hue": "40",
+          "chroma": "2"
+      },
+      "danger": {
+          "hue": "27",
+          "chroma": "2"
+      },
       "topbar": {
         "background": "#1e293b",
         "text": "#ffffff"
@@ -46,12 +62,28 @@
       "base": {
           "hue": "260",
           "chroma": "1"
-        },
-      "primary": "#2563eb",
-      "info": "#38bdf8",
-      "success": "#16a34a",
-      "warning": "#facc15",
-      "danger": "#f87171",
+      },
+      "primary": {
+          "hue": "80",
+          "chroma": "2"
+      },
+      "info": {
+          "hue": "260",
+          "chroma": "2"
+      },
+      "success": {
+          "hue": "150",
+          "chroma": "2"
+      },
+      "warning": {
+          "hue": "40",
+          "chroma": "2"
+      },
+      "danger": {
+          "hue": "27",
+          "chroma": "2"
+      },
+
       "card": {
         "background": "#f8fafc",
         "text": "#1e293b"

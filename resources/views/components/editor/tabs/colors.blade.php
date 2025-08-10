@@ -23,31 +23,31 @@
         <x-field name="colors[themeMode].primary">
             <x-label>Primary</x-label>
 
-            <x-color />
+            <x-hue-slider />
         </x-field>
 
         <x-field name="colors[themeMode].info">
             <x-label>Info</x-label>
 
-            <x-color />
+            <x-hue-slider />
         </x-field>
 
         <x-field name="colors[themeMode].success">
             <x-label>Success</x-label>
 
-            <x-color />
+            <x-hue-slider />
         </x-field>
 
         <x-field name="colors[themeMode].warning">
             <x-label>Warning</x-label>
 
-            <x-color />
+            <x-hue-slider />
         </x-field>
 
         <x-field name="colors[themeMode].danger">
             <x-label>Danger</x-label>
 
-            <x-color />
+            <x-hue-slider />
         </x-field>
     </x-editor.details>
 
@@ -55,17 +55,11 @@
         id="cardColors"
         :open="true"
     >
-        <x-slot:title>Card Colors</x-slot>
+        <x-slot:title>Card Color</x-slot>
 
         <div class="space-y-2">
             <x-field name="colors[themeMode].card.background">
                 <x-label>Background</x-label>
-
-                <x-color />
-            </x-field>
-
-            <x-field name="colors[themeMode].card.text">
-                <x-label>Text</x-label>
 
                 <x-color />
             </x-field>
@@ -76,17 +70,11 @@
         id="topbarColors"
         :open="true"
     >
-        <x-slot:title>Topbar Colors</x-slot>
+        <x-slot:title>Topbar Color</x-slot>
 
         <div class="space-y-2">
             <x-field name="colors[themeMode].topbar.background">
                 <x-label>Background</x-label>
-
-                <x-color />
-            </x-field>
-
-            <x-field name="colors[themeMode].topbar.text">
-                <x-label>Text</x-label>
 
                 <x-color />
             </x-field>
@@ -137,24 +125,4 @@
             </x-field>
         </div>
     </x-editor.details>
-
-{{--
-    <x-editor.details
-        id="destructiveColors"
-        :open="true"
-    >
-        <x-slot:title>Destructive Colors</x-slot>
-
-        <x-field name="colors.destructive.background">
-            <x-label>Background Color</x-label>
-
-            <x-color />
-        </x-field>
-
-        <x-field name="colors.destructive.text">
-            <x-label>Text Color</x-label>
-
-            <x-color />
-        </x-field>
-    </x-editor.details> --}}
 </div>
