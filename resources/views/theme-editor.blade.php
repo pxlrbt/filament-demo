@@ -1,6 +1,6 @@
 <x-layouts.app>
     <div x-data="themeEditor()">
-        <div class="flex h-[calc(100vh-73px)] px-6">
+        <div class="flex h-[calc(100vh-6rem)] px-6 mb-16">
 
             <x-editor.sidebar />
 
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="flex-1 flex items-center justify-center py-6 bg-gray-850">
-                    <div :class="previewMode === 'desktop' ? 'w-full h-full' : 'w-full max-w-4xl h-4/5'" class="transition-all duration-300">
+                    <div :class="previewMode === 'desktop' ? 'w-full h-full' : 'h-full max-w-4xl aspect-9/16'" class="transition-all duration-300">
                         <iframe
                             src="https://tweakfilament.test/admin"
                             class="w-full h-full border border-gray-700 rounded-lg shadow-2xl bg-white"

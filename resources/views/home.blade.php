@@ -209,7 +209,7 @@ $faqs = [
                 <h3 class="text-lg/8 font-semibold text-white">Business</h3>
                 <p class="mt-4 text-sm/6 text-gray-300">Perfect for single applications and small projects</p>
                 <p class="mt-6 flex items-baseline gap-x-1">
-                    <span class="text-4xl font-semibold tracking-tight text-white">€49</span>
+                    <span class="text-4xl font-semibold tracking-tight text-white">€59</span>
                     <span class="text-sm/6 font-semibold text-gray-300">one-time</span>
                 </p>
                 <ul role="list" class="mt-8 space-y-3 text-sm/6 text-gray-300">
@@ -254,7 +254,7 @@ $faqs = [
                 <h3 class="text-lg/8 font-semibold text-white">Unlimited</h3>
                 <p class="mt-4 text-sm/6 text-gray-300">For agencies and developers with multiple projects</p>
                 <p class="mt-6 flex items-baseline gap-x-1">
-                    <span class="text-4xl font-semibold tracking-tight text-white">€149</span>
+                    <span class="text-4xl font-semibold tracking-tight text-white">€199</span>
                     <span class="text-sm/6 font-semibold text-gray-300">one-time</span>
                 </p>
                 <ul role="list" class="mt-8 space-y-3 text-sm/6 text-gray-300">
