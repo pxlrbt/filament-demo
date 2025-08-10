@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
 
@@ -13,6 +14,7 @@ class ObfuscateFilamentClasses extends Command
     protected $description = 'Obfuscate all strings starting with fi- in vendor folder';
 
     private array $classMapping = [];
+
     private int $counter = 1;
 
     public function handle(): int
@@ -46,13 +48,14 @@ class ObfuscateFilamentClasses extends Command
     {
         $vendorPath = base_path('vendor');
 
-        if (!is_dir($vendorPath)) {
+        if (! is_dir($vendorPath)) {
             $this->warn('Vendor directory not found: ' . $vendorPath);
+
             return;
         }
 
         // Use Symfony Finder to find all relevant files recursively
-        $finder = new Finder();
+        $finder = new Finder;
         $finder->files()
             ->in($vendorPath)
             ->name('/\.(php|blade\.php|css|js|html|vue|ts|jsx|tsx)$/')
@@ -69,6 +72,7 @@ class ObfuscateFilamentClasses extends Command
 
         if (count($files) === 0) {
             $this->warn('No files found in vendor directory.');
+
             return;
         }
 
@@ -86,7 +90,7 @@ class ObfuscateFilamentClasses extends Command
 
     private function processFile(string $filePath): void
     {
-        if (!is_readable($filePath) || !is_writable($filePath)) {
+        if (! is_readable($filePath) || ! is_writable($filePath)) {
             return;
         }
 
@@ -113,6 +117,7 @@ class ObfuscateFilamentClasses extends Command
     private function obfuscateMatch(array $matches): string
     {
         $class = $matches[0];
+
         return $this->obfuscateClass($class);
     }
 
@@ -122,8 +127,9 @@ class ObfuscateFilamentClasses extends Command
             // Get the manifest to find built CSS files
             $manifestPath = public_path('build/manifest.json');
 
-            if (!file_exists($manifestPath)) {
+            if (! file_exists($manifestPath)) {
                 $this->warn('Vite manifest not found. Run npm run build first.');
+
                 return;
             }
 
@@ -138,7 +144,7 @@ class ObfuscateFilamentClasses extends Command
                     }
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->warn('Error processing CSS files: ' . $e->getMessage());
         }
     }
@@ -169,7 +175,7 @@ class ObfuscateFilamentClasses extends Command
     private function saveMappingFile(string $filePath): void
     {
         $directory = dirname($filePath);
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             mkdir($directory, 0755, true);
         }
 
