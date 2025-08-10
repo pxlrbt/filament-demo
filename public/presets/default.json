@@ -15,7 +15,10 @@
   },
   "colors": {
     "dark": {
-      "base": "#18181b",
+      "base": {
+          "hue": "260",
+          "chroma": "1"
+        },
       "primary": "#2563eb",
       "info": "#38bdf8",
       "success": "#16a34a",
@@ -40,7 +43,10 @@
       "shadow": "#000000cc"
     },
     "light": {
-      "base": "#ffffff",
+      "base": {
+          "hue": "260",
+          "chroma": "1"
+        },
       "primary": "#2563eb",
       "info": "#38bdf8",
       "success": "#16a34a",

@@ -711,28 +711,31 @@ function themeEditor() {
                         .map(([key, value]) => `${key}: ${value};`)
                         .join('\n                    ')}
 
-                    --l-50: 0.97717647058824;
+                    // Chroma 0 – ~0.4
                     --c-50: 0.01395454545455;
-                    --l-100: 0.95035294117647;
                     --c-100: 0.03272727272727;
-                    --l-200: 0.90547058823529;
                     --c-200: 0.06318181818182;
-                    --l-300: 0.84047058823529;
                     --c-300: 0.10604545454546;
-                    --l-400: 0.75352941176471;
                     --c-400: 0.15027272727273;
-                    --l-500: 0.68270588235294;
                     --c-500: 0.17009090909091;
-                    --l-600: 0.59782352941176;
                     --c-600: 0.16913636363636;
-                    --l-700: 0.51494117647059;
                     --c-700: 0.14940909090909;
-                    --l-800: 0.44611764705882;
                     --c-800: 0.12331818181818;
-                    --l-900: 0.39458823529412;
                     --c-900: 0.09963636363636;
-                    --l-950: 0.27788235294118;
                     --c-950: 0.07136363636364;
+
+                    // Lightness 0 – 1
+                    --l-50: 0.97717647058824;
+                    --l-100: 0.95035294117647;
+                    --l-200: 0.90547058823529;
+                    --l-300: 0.84047058823529;
+                    --l-400: 0.75352941176471;
+                    --l-500: 0.68270588235294;
+                    --l-600: 0.59782352941176;
+                    --l-700: 0.51494117647059;
+                    --l-800: 0.44611764705882;
+                    --l-900: 0.39458823529412;
+                    --l-950: 0.27788235294118;
 
                     --danger-50: oklch(from var(--colors-danger) var(--l-50) var(--c-50) h);
                     --danger-100: oklch(from var(--colors-danger) var(--l-100) var(--c-100) h);
@@ -806,17 +809,18 @@ function themeEditor() {
                     --secondary-900: oklch(from var(--colors-secondary) var(--l-900) var(--c-900) h);
                     --secondary-950: oklch(from var(--colors-secondary) var(--l-950) var(--c-950) h);
 
-                    --gray-50: oklch(from var(--colors-base) var(--l-50) c h);
-                    --gray-100: oklch(from var(--colors-base) var(--l-100) c h);
-                    --gray-200: oklch(from var(--colors-base) var(--l-200) c h);
-                    --gray-300: oklch(from var(--colors-base) var(--l-300) c h);
-                    --gray-400: oklch(from var(--colors-base) var(--l-400) c h);
-                    --gray-500: oklch(from var(--colors-base) var(--l-500) c h);
-                    --gray-600: oklch(from var(--colors-base) var(--l-600) c h);
-                    --gray-700: oklch(from var(--colors-base) var(--l-700) c h);
-                    --gray-800: oklch(from var(--colors-base) var(--l-800) c h);
-                    --gray-900: oklch(from var(--colors-base) var(--l-900) c h);
-                    --gray-950: oklch(from var(--colors-base) var(--l-950) c h);
+
+                    --gray-50: oklch(0.985 calc(var(--c-50) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-100: oklch(0.967 calc(var(--c-100) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-200: oklch(0.928 calc(var(--c-200) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-300: oklch(0.872 calc(var(--c-300) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-400: oklch(0.707 calc(var(--c-400) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-500: oklch(0.551 calc(var(--c-500) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-600: oklch(0.446 calc(var(--c-600) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-700: oklch(0.373 calc(var(--c-700) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-800: oklch(0.278 calc(var(--c-800) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-900: oklch(0.21 calc(var(--c-900) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
+                    --gray-950: oklch(0.13 calc(var(--c-950) * var(--colors-base-chroma)) var(--colors-base-hue)) !important;
                 }
 
                 .dark body {
@@ -829,11 +833,61 @@ function themeEditor() {
 
             console.log('Generated CSS:', css);
             return css;
+        },
+
+        updateHueColor(fieldName, hueValue) {
+            const hue = parseFloat(hueValue) || 0;
+
+            // Find the actual field path considering [themeMode] replacement
+            let actualFieldName = fieldName;
+            if (fieldName.includes('[themeMode]')) {
+                actualFieldName = fieldName.replace('[themeMode]', `.${this.themeMode}`);
+            }
+
+            // Set just the hue value in the form
+            const fieldPath = actualFieldName.split('.');
+            let current = this.form;
+            for (let i = 0; i < fieldPath.length - 1; i++) {
+                const key = fieldPath[i];
+                if (!current[key]) {
+                    current[key] = {};
+                }
+                current = current[key];
+            }
+            current[fieldPath[fieldPath.length - 1]] = hue;
+        },
+
+        getHueFromColor(colorValue) {
+            if (!colorValue) return 240; // Default blue hue
+
+            // If it's already a hue value, return it
+            if (typeof colorValue === 'number') return colorValue;
+
+            // Extract hue from oklch format
+            const oklchMatch = String(colorValue).match(/oklch\([^)]*?(\d+(?:\.\d+)?)\)$/);
+            if (oklchMatch) {
+                return parseFloat(oklchMatch[1]) || 240;
+            }
+
+            // Default to blue hue if we can't parse
+            return 240;
         }
     }
 }
 
 window.themeEditor = themeEditor;
+
+// Create a global instance when themeEditor is initialized
+document.addEventListener('alpine:init', () => {
+    Alpine.data('themeEditor', () => {
+        const instance = themeEditor();
+        // Store globally for access from child components
+        setTimeout(() => {
+            window.themeEditorInstance = document.querySelector('[x-data*="themeEditor"]')?.__x?.$data;
+        }, 100);
+        return instance;
+    });
+});
 
 function fontSelector(fieldName) {
     return {

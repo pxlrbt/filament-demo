@@ -17,7 +17,7 @@
         <x-field name="colors[themeMode].base">
             <x-label>Base</x-label>
 
-            <x-color />
+            <x-hue-slider />
         </x-field>
 
         <x-field name="colors[themeMode].primary">
