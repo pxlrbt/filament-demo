@@ -5,20 +5,24 @@ $faqs = [
         'answer' => 'Filament Studio is a powerful theme builder for Filament PHP that lets you create, customize, and preview beautiful admin panel themes without writing any code. It provides real-time editing capabilities with instant preview.'
     ],
     [
-        'question' => 'What export formats are supported?',
-        'answer' => 'Themes can be exported as ready-to-use CSS files, Tailwind configuration files, or complete theme packages that integrate seamlessly with your Filament application. All exports include both light and dark mode variants.'
-    ],
-    [
         'question' => 'Do I need coding knowledge to use Filament Studio?',
         'answer' => 'Not at all! Filament Studio is designed to be used by anyone, regardless of technical background. The visual interface makes theme creation intuitive and accessible, while still providing the flexibility that developers need.'
     ],
     [
+        'question' => 'What export formats are supported?',
+        'answer' => 'Themes can be exported as ready-to-use CSS files. You just need to setup a custom theme in Filament and copy the code. All exports include both light and dark mode variants.'
+    ],
+    [
         'question' => 'What\'s included in the 1 year of updates?',
-        'answer' => 'Your purchase includes free updates for one full year, covering new features, bug fixes, compatibility updates with the latest Filament versions, and new preset themes. After the year, you can continue using your current version or purchase an update package.'
+        'answer' => 'Your purchase includes free updates for one full year, covering new features, bug fixes or compatibility updates with the latest Filament versions. After the year, you can continue using your current version or purchase an update package.'
     ],
     [
         'question' => 'Can I use themes on multiple applications?',
-        'answer' => 'The Business plan allows usage on one application, while the Unlimited plan provides licensing for unlimited applications. Both plans allow you to create and export as many themes as you need within your license terms.'
+        'answer' => 'The Business plan allows usage on one application, while the Unlimited plan provides licensing for unlimited applications.'
+    ],
+    [
+        'question' => 'Do you create custom themes on request?',
+        'answer' => 'No. We focus on providing a powerful theme builder that allows you to create and customize your own themes without the need for custom development. However, there are talented designers in the Filament community who offer their services for custom theme development.'
     ]
 ];
 @endphp
@@ -209,7 +213,7 @@ $faqs = [
                 <h3 class="text-lg/8 font-semibold text-white">Business</h3>
                 <p class="mt-4 text-sm/6 text-gray-300">Perfect for single applications and small projects</p>
                 <p class="mt-6 flex items-baseline gap-x-1">
-                    <span class="text-4xl font-semibold tracking-tight text-white">€59</span>
+                    <span class="text-4xl font-semibold tracking-tight text-white">€49</span>
                     <span class="text-sm/6 font-semibold text-gray-300">one-time</span>
                 </p>
                 <ul role="list" class="mt-8 space-y-3 text-sm/6 text-gray-300">
@@ -254,7 +258,7 @@ $faqs = [
                 <h3 class="text-lg/8 font-semibold text-white">Unlimited</h3>
                 <p class="mt-4 text-sm/6 text-gray-300">For agencies and developers with multiple projects</p>
                 <p class="mt-6 flex items-baseline gap-x-1">
-                    <span class="text-4xl font-semibold tracking-tight text-white">€199</span>
+                    <span class="text-4xl font-semibold tracking-tight text-white">€149</span>
                     <span class="text-sm/6 font-semibold text-gray-300">one-time</span>
                 </p>
                 <ul role="list" class="mt-8 space-y-3 text-sm/6 text-gray-300">
