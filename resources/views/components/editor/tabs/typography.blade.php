@@ -7,7 +7,7 @@
             <x-field name="typography.base.fontFamily">
                 <x-label>Font Family</x-label>
 
-                <x-font-selector />
+                <x-enhanced-font-selector />
             </x-field>
 
             <x-field name="typography.base.letterSpacing">
@@ -28,7 +28,7 @@
             <x-field name="typography.headline.fontFamily">
                 <x-label>Font Family</x-label>
 
-                <x-font-selector />
+                <x-enhanced-font-selector />
             </x-field>
 
             <x-field name="typography.headline.letterSpacing">

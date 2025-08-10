@@ -961,5 +961,250 @@ function fontSelector(fieldName) {
     }
 }
 
+function enhancedFontSelector(fieldName) {
+    return {
+        isOpen: false,
+        isLoading: true,
+        search: '',
+        fieldName: fieldName,
+        googleFonts: [],
+        filteredFonts: [],
+        fontPreviews: {},
+        loadedFonts: new Set(),
+        selectedCategories: [],
+
+        async init() {
+            // Find the parent theme editor component
+            this.themeEditor = this.$el.closest('[x-data*="themeEditor"]')?.__x?.$data;
+
+            if (!this.themeEditor && window.themeEditorInstance) {
+                this.themeEditor = window.themeEditorInstance;
+            }
+
+            // Load Google Fonts
+            await this.loadGoogleFonts();
+
+            // Load fonts when the current value changes
+            this.$watch('currentValue', (newValue) => {
+                if (newValue && this.themeEditor && typeof this.themeEditor.loadGoogleFont === 'function') {
+                    this.themeEditor.loadGoogleFont(newValue);
+                }
+            });
+
+            // Preload current font if it exists
+            if (this.currentValue) {
+                this.loadFontPreview(this.currentValue);
+            }
+        },
+
+        async loadGoogleFonts() {
+            try {
+                // Use a cached version or fetch from Google Fonts API
+                const cachedFonts = localStorage.getItem('googleFonts');
+                const cacheTime = localStorage.getItem('googleFontsTime');
+                const now = Date.now();
+                
+                // Cache for 24 hours
+                if (cachedFonts && cacheTime && (now - parseInt(cacheTime)) < 24 * 60 * 60 * 1000) {
+                    this.googleFonts = JSON.parse(cachedFonts);
+                    this.applyFilters(); // Use applyFilters instead of direct assignment
+                    this.isLoading = false;
+                    return;
+                }
+
+                // Fetch popular fonts list (curated for better performance)
+                const popularFonts = [
+                    { family: 'Inter', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Roboto', category: 'sans-serif', variants: ['regular', '500', '700'] },
+                    { family: 'Open Sans', category: 'sans-serif', variants: ['regular', '600', '700'] },
+                    { family: 'Lato', category: 'sans-serif', variants: ['regular', '700'] },
+                    { family: 'Montserrat', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Source Sans Pro', category: 'sans-serif', variants: ['regular', '600', '700'] },
+                    { family: 'Raleway', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'PT Sans', category: 'sans-serif', variants: ['regular', '700'] },
+                    { family: 'Nunito', category: 'sans-serif', variants: ['regular', '600', '700'] },
+                    { family: 'Ubuntu', category: 'sans-serif', variants: ['regular', '500', '700'] },
+                    { family: 'Poppins', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Fira Sans', category: 'sans-serif', variants: ['regular', '500', '600'] },
+                    { family: 'Work Sans', category: 'sans-serif', variants: ['regular', '500', '600'] },
+                    { family: 'Rubik', category: 'sans-serif', variants: ['regular', '500', '600'] },
+                    { family: 'DM Sans', category: 'sans-serif', variants: ['regular', '500', '700'] },
+                    { family: 'Manrope', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Space Grotesk', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Plus Jakarta Sans', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Outfit', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Figtree', category: 'sans-serif', variants: ['regular', '500', '600', '700'] },
+                    
+                    // Serif fonts
+                    { family: 'Playfair Display', category: 'serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Merriweather', category: 'serif', variants: ['regular', '700'] },
+                    { family: 'Lora', category: 'serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'PT Serif', category: 'serif', variants: ['regular', '700'] },
+                    { family: 'Crimson Text', category: 'serif', variants: ['regular', '600', '700'] },
+                    { family: 'EB Garamond', category: 'serif', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Libre Baskerville', category: 'serif', variants: ['regular', '700'] },
+                    { family: 'Cormorant Garamond', category: 'serif', variants: ['regular', '500', '600', '700'] },
+                    
+                    // Display fonts
+                    { family: 'Abril Fatface', category: 'display', variants: ['regular'] },
+                    { family: 'Bebas Neue', category: 'display', variants: ['regular'] },
+                    { family: 'Righteous', category: 'display', variants: ['regular'] },
+                    { family: 'Anton', category: 'display', variants: ['regular'] },
+                    { family: 'Fjalla One', category: 'display', variants: ['regular'] },
+                    
+                    // Monospace fonts
+                    { family: 'Source Code Pro', category: 'monospace', variants: ['regular', '500', '600'] },
+                    { family: 'Fira Code', category: 'monospace', variants: ['regular', '500', '600'] },
+                    { family: 'JetBrains Mono', category: 'monospace', variants: ['regular', '500', '600'] },
+                    { family: 'Space Mono', category: 'monospace', variants: ['regular', '700'] },
+                    { family: 'Roboto Mono', category: 'monospace', variants: ['regular', '500', '700'] },
+                    
+                    // Handwriting fonts
+                    { family: 'Dancing Script', category: 'handwriting', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Pacifico', category: 'handwriting', variants: ['regular'] },
+                    { family: 'Caveat', category: 'handwriting', variants: ['regular', '500', '600', '700'] },
+                    { family: 'Kalam', category: 'handwriting', variants: ['regular', '700'] },
+                    { family: 'Indie Flower', category: 'handwriting', variants: ['regular'] }
+                ];
+
+                this.googleFonts = popularFonts;
+                this.applyFilters(); // Use applyFilters instead of direct assignment
+                
+                // Cache the fonts
+                localStorage.setItem('googleFonts', JSON.stringify(popularFonts));
+                localStorage.setItem('googleFontsTime', now.toString());
+                
+                this.isLoading = false;
+            } catch (error) {
+                console.error('Failed to load Google Fonts:', error);
+                // Fallback to basic font list
+                this.googleFonts = [
+                    { family: 'Inter', category: 'sans-serif', variants: ['regular'] },
+                    { family: 'Roboto', category: 'sans-serif', variants: ['regular'] },
+                    { family: 'Open Sans', category: 'sans-serif', variants: ['regular'] }
+                ];
+                this.applyFilters(); // Use applyFilters instead of direct assignment
+                this.isLoading = false;
+            }
+        },
+
+        searchFonts() {
+            this.applyFilters();
+        },
+
+        applyFilters() {
+            const query = this.search.toLowerCase().trim();
+            let fonts = this.googleFonts;
+
+            // Apply category filters
+            if (this.selectedCategories.length > 0) {
+                fonts = fonts.filter(font => this.selectedCategories.includes(font.category));
+            }
+
+            // Apply search filter
+            if (query) {
+                fonts = fonts.filter(font => {
+                    return font.family.toLowerCase().includes(query) ||
+                           font.category.toLowerCase().includes(query);
+                });
+            }
+
+            this.filteredFonts = fonts;
+        },
+
+        toggleCategoryFilter(category) {
+            const index = this.selectedCategories.indexOf(category);
+            if (index > -1) {
+                this.selectedCategories.splice(index, 1);
+            } else {
+                this.selectedCategories.push(category);
+            }
+            this.applyFilters();
+        },
+
+        clearCategoryFilters() {
+            this.selectedCategories = [];
+            this.applyFilters();
+        },
+
+        loadFontPreview(fontFamily) {
+            if (this.fontPreviews[fontFamily] || this.loadedFonts.has(fontFamily)) {
+                return;
+            }
+
+            this.loadedFonts.add(fontFamily);
+
+            // Create font face for preview
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(' ', '+')}:wght@400;500;600;700&display=swap`;
+            
+            link.onload = () => {
+                // Wait a bit for the font to be fully loaded before marking as ready
+                setTimeout(() => {
+                    this.fontPreviews[fontFamily] = true;
+                }, 100);
+            };
+            
+            link.onerror = () => {
+                // Mark as loaded even on error to avoid infinite loading states
+                this.fontPreviews[fontFamily] = true;
+            };
+            
+            document.head.appendChild(link);
+        },
+
+        loadFontWhenVisible(fontFamily, element) {
+            console.log(`Font ${fontFamily} entered viewport, loading...`);
+            this.loadFontPreview(fontFamily);
+        },
+
+        get currentValue() {
+            if (!this.themeEditor?.form) return '';
+            const path = this.fieldName.split('.');
+            let current = this.themeEditor.form;
+            for (const key of path) {
+                current = current?.[key];
+            }
+            return current || '';
+        },
+
+        set currentValue(value) {
+            if (!this.themeEditor?.form) return;
+            const path = this.fieldName.split('.');
+            let current = this.themeEditor.form;
+            for (let i = 0; i < path.length - 1; i++) {
+                if (!current[path[i]]) {
+                    current[path[i]] = {};
+                }
+                current = current[path[i]];
+            }
+            current[path[path.length - 1]] = value;
+
+            // Trigger theme update after setting value
+            if (this.themeEditor && typeof this.themeEditor.handleFormChange === 'function') {
+                this.themeEditor.handleFormChange();
+            }
+        },
+
+        selectFont(fontFamily) {
+            this.currentValue = fontFamily;
+            this.isOpen = false;
+
+            // Load the selected font immediately
+            this.loadFontPreview(fontFamily);
+
+            if (this.themeEditor && typeof this.themeEditor.loadGoogleFont === 'function') {
+                this.themeEditor.loadGoogleFont(fontFamily);
+            }
+        },
+
+        getCategoryClass(category) {
+            return window.getCategoryClass ? window.getCategoryClass(category) : 'bg-gray-900/30 text-gray-300';
+        }
+    }
+}
+
 window.fontSelector = fontSelector;
+window.enhancedFontSelector = enhancedFontSelector;
 window.themeEditor = themeEditor;
