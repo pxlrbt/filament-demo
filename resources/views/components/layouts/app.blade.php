@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <title>{{ config('app.name') }}</title>
-        
+
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="alternate icon" href="/favicon.ico">
 
@@ -29,6 +29,7 @@
                         <div class="flex items-center">
                             <span class="text-xl">Filament</span>
                             <span class="ml-1 px-2 py-1 text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-full shadow-sm">Studio</span>
+                            <span class="ml-2 px-2 py-1 text-xs font-mono text-gray-200 ">beta</span>
                         </div>
                     </a>
                 </div>
