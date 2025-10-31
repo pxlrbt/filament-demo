@@ -19,6 +19,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
+use pxlrbt\FilamentSpotlightPro\SpotlightPlugin;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterCommands;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterPages;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterResources;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->login(Login::class)
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -65,6 +70,15 @@ class AdminPanelProvider extends PanelProvider
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
             )
+            ->plugin(
+                SpotlightPlugin::make()
+                    ->registerItems([
+                        RegisterResources::make(),
+                        RegisterPages::make(),
+                        RegisterCommands::make(),
+                    ]),
+            )
+
             ->spa()
             ->colors([
                 'primary' => Color::Blue,
