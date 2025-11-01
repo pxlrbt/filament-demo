@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blog;
 
+use App\Enums\NavigationGroup;
 use App\Filament\Resources\Blog\AuthorResource\Pages;
 use App\Models\Blog\Author;
 use BackedEnum;
@@ -24,7 +25,7 @@ class AuthorResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string | UnitEnum | null $navigationGroup = 'Blog';
+    protected static string | UnitEnum | null $navigationGroup = NavigationGroup::Blog;
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-users';
 
