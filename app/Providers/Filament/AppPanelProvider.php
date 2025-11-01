@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\App\Pages\RegisterTeam;
 use App\Filament\Pages\Auth\Login;
+use App\Filament\Resources\Shop\OrderResource\Resources\Payments\PaymentResource;
 use App\Models\Team;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -17,6 +18,10 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterCommands;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterPages;
+use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterResources;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -25,6 +30,7 @@ class AppPanelProvider extends PanelProvider
         return $panel
             ->id('app')
             ->path('app')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login(Login::class)
             ->registration()
             ->passwordReset()
@@ -47,6 +53,14 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->plugin(
+                \pxlrbt\FilamentSpotlightPro\SpotlightPlugin::make()
+                    ->registerItems([
+                        RegisterResources::make(),
+                        RegisterPages::make(),
+                        RegisterCommands::make(),
+                    ]),
+            );
     }
 }
