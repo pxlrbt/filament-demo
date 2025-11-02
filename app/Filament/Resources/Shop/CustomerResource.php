@@ -121,6 +121,7 @@ class CustomerResource extends Resource
         return [
             RelationManagers\AddressesRelationManager::class,
             RelationManagers\PaymentsRelationManager::class,
+            RelationManagers\OrdersRelationManager::class,
         ];
     }
 
