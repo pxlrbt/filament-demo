@@ -10,10 +10,13 @@ enum NavigationGroup: string implements HasLabel
 {
     case Blog = 'blog';
 
+    case Packages = 'packages';
+
     public function getLabel(): string
     {
         return match ($this) {
             self::Blog => 'Blog',
+            self::Packages => 'Packages',
         };
     }
 

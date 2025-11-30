@@ -10,6 +10,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -19,6 +20,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
+use pxlrbt\FilamentChangelog\ChangelogPlugin;
+use pxlrbt\FilamentChangelog\Filament\Pages\ChangelogPage;
+use pxlrbt\FilamentChangelog\Filament\Widgets\ChangelogWidget;
+use pxlrbt\FilamentSpotlightPro\SpotlightCommands\ChangePanelCommand;
 use pxlrbt\FilamentSpotlightPro\SpotlightPlugin;
 use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterCommands;
 use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterPages;
@@ -28,7 +33,17 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        // ChangePanelCommand::panelLabels([
+        //     'admin' => 'Adminbereich',
+        //     'app' => 'App'
+        // ]);
+        //
+        // ChangePanelCommand::panelIcons([
+        //     'admin' => Heroicon::AcademicCap,
+        //     'app' => Heroicon::User
+        // ]);
+
+        $panel
             ->default()
             ->id('admin')
             ->login(Login::class)
@@ -72,6 +87,8 @@ class AdminPanelProvider extends PanelProvider
             )
             ->plugin(
                 SpotlightPlugin::make()
+                    // ->hideGlobalSearch()
+                    // ->replaceGlobalSearch()
                     ->registerItems([
                         RegisterResources::make(),
                         RegisterPages::make(),
@@ -83,5 +100,26 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ]);
+
+        $this->registerChangelogPlugin($panel);
+
+        return $panel;
+    }
+
+    public function registerChangelogPlugin(Panel $panel): Panel
+    {
+        return $panel
+            ->pages([
+                ChangelogPage::class,
+            ])
+            ->widgets([
+                ChangelogWidget::class,
+            ])
+            ->plugin(
+                ChangelogPlugin::make()
+                    ->github(config('services.github.repo'), config('services.github.token'))
+                    ->showVersionBadge()
+                    // ->showNewVersionModal()
+            );
     }
 }
