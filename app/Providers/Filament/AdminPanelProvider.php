@@ -23,6 +23,7 @@ use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
 use pxlrbt\FilamentChangelog\ChangelogPlugin;
 use pxlrbt\FilamentChangelog\Filament\Pages\ChangelogPage;
 use pxlrbt\FilamentChangelog\Filament\Widgets\ChangelogWidget;
+use pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin;
 use pxlrbt\FilamentSpotlightPro\SpotlightCommands\ChangePanelCommand;
 use pxlrbt\FilamentSpotlightPro\SpotlightPlugin;
 use pxlrbt\FilamentSpotlightPro\SpotlightProviders\RegisterCommands;
@@ -85,25 +86,31 @@ class AdminPanelProvider extends PanelProvider
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
             )
-            ->plugin(
-                SpotlightPlugin::make()
-                    // ->hideGlobalSearch()
-                    // ->replaceGlobalSearch()
-                    ->registerItems([
-                        RegisterResources::make(),
-                        RegisterPages::make(),
-                        RegisterCommands::make(),
-                    ]),
-            )
 
             ->spa()
             ->colors([
                 'primary' => Color::Blue,
             ]);
 
+        $this->registerSpotlightPlugin($panel);
         $this->registerChangelogPlugin($panel);
+        $this->registerEnvironmentIndicator($panel);
 
         return $panel;
+    }
+
+    public function registerSpotlightPlugin(Panel $panel): Panel
+    {
+        return $panel->plugin(
+            SpotlightPlugin::make()
+                // ->hideGlobalSearch()
+                // ->replaceGlobalSearch()
+                ->registerItems([
+                    RegisterResources::make(),
+                    RegisterPages::make(),
+                    RegisterCommands::make(),
+                ]),
+        );
     }
 
     public function registerChangelogPlugin(Panel $panel): Panel
@@ -118,5 +125,20 @@ class AdminPanelProvider extends PanelProvider
                     ->showVersionBadge()
                     // ->showNewVersionModal()
             );
+    }
+
+
+    public function registerEnvironmentIndicator(Panel $panel): Panel
+    {
+        $panel
+            ->plugin(
+                EnvironmentIndicatorPlugin::make()
+                    ->color(fn () => Color::Pink)
+                    ->showBorder()
+                    ->showGitBranch()
+                    ->showDebugModeWarningInProduction()
+            );
+
+        return $panel;
     }
 }

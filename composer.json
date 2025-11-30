@@ -21,7 +21,11 @@
         "laravel/octane": "^2.13",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.8",
-        "pxlrbt/filament-spotlight-pro": "dev-feat/nested-resources",
+        "pxlrbt/filament-changelog": "dev-main",
+        "pxlrbt/filament-environment-indicator": "dev-main",
+        "pxlrbt/filament-favicon": "dev-main",
+        "pxlrbt/filament-image-compare": "dev-main",
+        "pxlrbt/filament-spotlight-pro": "dev-main",
         "squirephp/countries-en": "^3.3",
         "squirephp/currencies-en": "^3.3"
     },
