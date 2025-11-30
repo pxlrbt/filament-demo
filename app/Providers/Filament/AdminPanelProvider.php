@@ -109,9 +109,6 @@ class AdminPanelProvider extends PanelProvider
     public function registerChangelogPlugin(Panel $panel): Panel
     {
         return $panel
-            ->pages([
-                ChangelogPage::class,
-            ])
             ->widgets([
                 ChangelogWidget::class,
             ])
