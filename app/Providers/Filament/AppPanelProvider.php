@@ -4,7 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\App\Pages\RegisterTeam;
 use App\Filament\Pages\Auth\Login;
-use App\Filament\Resources\Shop\OrderResource\Resources\Payments\PaymentResource;
+use App\Filament\Resources\Shop\Orders\Resources\Payments\PaymentResource;
 use App\Models\Team;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
