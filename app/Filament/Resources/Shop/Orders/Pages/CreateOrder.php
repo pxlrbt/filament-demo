@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Shop\Orders\Pages;
 
 use App\Filament\Resources\Shop\Orders\OrderResource;
+use App\Filament\Resources\Shop\Orders\Schemas\OrderForm;
 use App\Models\Shop\Order;
 use App\Models\User;
 use Filament\Actions\Action;
@@ -10,9 +11,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\HasWizard;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Components\Wizard\Step;
-use Filament\Schemas\Schema;
 
 class CreateOrder extends CreateRecord
 {
@@ -20,18 +19,25 @@ class CreateOrder extends CreateRecord
 
     protected static string $resource = OrderResource::class;
 
-    public function form(Schema $schema): Schema
+    /**
+     * @return array<Step>
+     */
+    protected function getSteps(): array
     {
-        return parent::form($schema)
-            ->components([
-                Wizard::make($this->getSteps())
-                    ->startOnStep($this->getStartStep())
-                    ->cancelAction($this->getCancelFormAction())
-                    ->submitAction($this->getSubmitFormAction())
-                    ->skippable($this->hasSkippableSteps())
-                    ->contained(false),
-            ])
-            ->columns(null);
+        return [
+            Step::make('Order Details')
+                ->schema([
+                    Section::make()
+                        ->schema(OrderForm::getDetailsComponents())
+                        ->columns(),
+                ]),
+
+            Step::make('Order Items')
+                ->schema([
+                    Section::make()
+                        ->schema([OrderForm::getItemsRepeater()]),
+                ]),
+        ];
     }
 
     protected function afterCreate(): void
@@ -51,23 +57,5 @@ class CreateOrder extends CreateRecord
                     ->url(OrderResource::getUrl('edit', ['record' => $order])),
             ])
             ->sendToDatabase($user);
-    }
-
-    /** @return Step[] */
-    protected function getSteps(): array
-    {
-        return [
-            Step::make('Order Details')
-                ->schema([
-                    Section::make()->schema(OrderResource::getDetailsFormSchema())->columns(),
-                ]),
-
-            Step::make('Order Items')
-                ->schema([
-                    Section::make()->schema([
-                        OrderResource::getItemsRepeater(),
-                    ]),
-                ]),
-        ];
     }
 }

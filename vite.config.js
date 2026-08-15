@@ -1,14 +1,11 @@
-import { defineConfig } from 'vite';
-import laravel, { refreshPaths } from 'laravel-vite-plugin';
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite'
+import laravel from 'laravel-vite-plugin'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
     plugins: [
-        tailwindcss(),
         laravel({
-            input: [
-                'resources/css/filament/admin/theme.css'
-            ],
+            input: ['resources/css/filament/admin/theme.css'],
             refresh: [
                 'app/Filament/**',
                 'app/Forms/Components/**',
@@ -18,5 +15,6 @@ export default defineConfig({
                 'app/Tables/Columns/**',
             ],
         }),
+        tailwindcss(),
     ],
 })

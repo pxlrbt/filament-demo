@@ -2,22 +2,21 @@
 
 namespace App\Filament\Resources\Shop\Customers;
 
-use App\Filament\Resources\Shop\Customers\Pages;
-use App\Filament\Resources\Shop\Customers\RelationManagers;
+use App\Filament\Resources\Shop\Customers\Pages\CreateCustomer;
+use App\Filament\Resources\Shop\Customers\Pages\EditCustomer;
+use App\Filament\Resources\Shop\Customers\Pages\ListCustomers;
+use App\Filament\Resources\Shop\Customers\RelationManagers\AddressesRelationManager;
+use App\Filament\Resources\Shop\Customers\RelationManagers\OrdersRelationManager;
+use App\Filament\Resources\Shop\Customers\RelationManagers\PaymentsRelationManager;
+use App\Filament\Resources\Shop\Customers\Schemas\CustomerForm;
+use App\Filament\Resources\Shop\Customers\Tables\CustomersTable;
 use App\Models\Shop\Customer;
 use BackedEnum;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Forms;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Squire\Models\Country;
 use UnitEnum;
 
 class CustomerResource extends Resource
@@ -36,78 +35,12 @@ class CustomerResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                Section::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->maxLength(255)
-                            ->required(),
-
-                        Forms\Components\TextInput::make('email')
-                            ->label('Email address')
-                            ->required()
-                            ->email()
-                            ->maxLength(255)
-                            ->unique(ignoreRecord: true),
-
-                        Forms\Components\TextInput::make('phone')
-                            ->maxLength(255),
-
-                        Forms\Components\DatePicker::make('birthday')
-                            ->maxDate('today'),
-                    ])
-                    ->columns(2)
-                    ->columnSpan(['lg' => fn (?Customer $record) => $record === null ? 3 : 2]),
-
-                Section::make()
-                    ->schema([
-                        Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn (Customer $record): ?string => $record->created_at?->diffForHumans()),
-
-                        Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(fn (Customer $record): ?string => $record->updated_at?->diffForHumans()),
-                    ])
-                    ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Customer $record) => $record === null),
-            ])
-            ->columns(3);
+        return CustomerForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(isIndividual: true)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(isIndividual: true, isGlobal: false)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('country')
-                    ->getStateUsing(fn ($record): ?string => Country::find($record->addresses->first()?->country)?->name ?? null),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable()
-                    ->sortable(),
-            ])
-            ->filters([
-                Tables\Filters\TrashedFilter::make(),
-            ])
-            ->recordActions([
-                EditAction::make(),
-            ])
-            ->groupedBulkActions([
-                DeleteBulkAction::make()
-                    ->action(function () {
-                        Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
-                            ->warning()
-                            ->send();
-                    }),
-            ]);
+        return CustomersTable::configure($table);
     }
 
     /** @return Builder<Customer> */
@@ -119,18 +52,18 @@ class CustomerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\AddressesRelationManager::class,
-            RelationManagers\PaymentsRelationManager::class,
-            RelationManagers\OrdersRelationManager::class,
+            AddressesRelationManager::class,
+            OrdersRelationManager::class,
+            PaymentsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCustomers::route('/'),
-            'create' => Pages\CreateCustomer::route('/create'),
-            'edit' => Pages\EditCustomer::route('/{record}/edit'),
+            'index' => ListCustomers::route('/'),
+            'create' => CreateCustomer::route('/create'),
+            'edit' => EditCustomer::route('/{record}/edit'),
         ];
     }
 

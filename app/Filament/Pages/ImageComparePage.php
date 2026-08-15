@@ -3,7 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Enums\NavigationGroup;
-use App\Models\Blog\Link;
+use App\Models\Blog\Post;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\EmbeddedSchema;
 use Filament\Schemas\Schema;
@@ -16,21 +16,19 @@ class ImageComparePage extends Page
 
     public function infolist(Schema $schema): Schema
     {
-        $linkA = Link::find(1);
-        $linkB = Link::find(2);
+        $posts = Post::query()->take(2)->get();
 
         return $schema->components([
             ImageCompareEntry::make()
-                ->leftImage($linkA->image)
-                ->rightImage($linkB->image),
+                ->leftImage($posts->first()?->getFirstMediaUrl('post-images'))
+                ->rightImage($posts->last()?->getFirstMediaUrl('post-images')),
         ]);
     }
-
 
     public function content(Schema $schema): Schema
     {
         return $schema->components([
-            EmbeddedSchema::make('infolist')
+            EmbeddedSchema::make('infolist'),
         ]);
     }
 }

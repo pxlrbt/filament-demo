@@ -1,6 +1,6 @@
 # Filament Demo App
 
-A demo application to illustrate how Filament Admin works.
+A demo application to illustrate how Filament works.
 
 ![Filament Demo](https://github.com/filamentphp/demo/assets/171715/899161a9-3c85-4dc9-9599-13928d3a4412)
 
@@ -20,45 +20,10 @@ Install PHP dependencies:
 composer install
 ```
 
-Setup configuration:
+Setup project:
 
 ```sh
-cp .env.example .env
-```
-
-Generate application key:
-
-```sh
-php artisan key:generate
-```
-
-Create an SQLite database. You can also use another database (MySQL, Postgres), simply update your configuration accordingly.
-
-```sh
-touch database/database.sqlite
-```
-
-Run database migrations:
-
-```sh
-php artisan migrate
-```
-
-Run database seeder:
-
-```sh
-php artisan db:seed
-```
-
-> **Note**  
-> If you get an "Invalid datetime format (1292)" error, this is probably related to the timezone setting of your database.  
-> Please see https://dba.stackexchange.com/questions/234270/incorrect-datetime-value-mysql
-
-
-Create a symlink to the storage:
-
-```sh
-php artisan storage:link
+composer setup
 ```
 
 Run the dev server (the output will give the address):

@@ -9,14 +9,17 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Schemas\Schema;
-use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Support\Htmlable;
 
 class ManagePostComments extends ManageRelatedRecords
 {
@@ -26,44 +29,24 @@ class ManagePostComments extends ManageRelatedRecords
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
 
-    public function getTitle(): string | Htmlable
-    {
-        $recordTitle = $this->getRecordTitle();
-
-        $recordTitle = $recordTitle instanceof Htmlable ? $recordTitle->toHtml() : $recordTitle;
-
-        return "Manage {$recordTitle} Comments";
-    }
-
-    public function getBreadcrumb(): string
-    {
-        return 'Comments';
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return 'Manage Comments';
-    }
-
     public function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required(),
 
-                Forms\Components\Select::make('customer_id')
+                Select::make('customer_id')
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->required(),
 
-                Forms\Components\Toggle::make('is_visible')
-                    ->label('Approved for public')
+                Toggle::make('is_visible')
+                    ->label('Public visibility')
                     ->default(true),
 
-                Forms\Components\MarkdownEditor::make('content')
-                    ->required()
-                    ->label('Content'),
+                RichEditor::make('content')
+                    ->required(),
             ])
             ->columns(1);
     }
@@ -76,7 +59,7 @@ class ManagePostComments extends ManageRelatedRecords
                 TextEntry::make('title'),
                 TextEntry::make('customer.name'),
                 IconEntry::make('is_visible')
-                    ->label('Visibility'),
+                    ->label('Public visibility'),
                 TextEntry::make('content')
                     ->markdown(),
             ]);
@@ -87,18 +70,16 @@ class ManagePostComments extends ManageRelatedRecords
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->label('Title')
+                TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('customer.name')
-                    ->label('Customer')
+                TextColumn::make('customer.name')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\IconColumn::make('is_visible')
-                    ->label('Visibility')
+                IconColumn::make('is_visible')
+                    ->label('Public visibility')
                     ->sortable(),
             ])
             ->filters([
