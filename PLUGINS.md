@@ -4,8 +4,8 @@ Documentation about the plugins installed for testing/development.
 
 ## Activity Log
 
-- Customer: https://v4.filament.test/shop/customers → clock icon per row
-- Author: https://v4.filament.test/blog/authors → clock icon per row
+- Direct links under the "Packages" navigation group (first record of each model)
+- Per-row clock icon on https://v4.filament.test/shop/customers and https://v4.filament.test/blog/authors
 - `LogsActivity` lives on `Shop\Customer` and `Blog\Author`; edit a record to generate entries
 
 ## Changelog Pro

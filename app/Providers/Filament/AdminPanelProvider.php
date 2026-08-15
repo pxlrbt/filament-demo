@@ -7,7 +7,10 @@ use App\Filament\Clusters\Products\Resources\Products\ProductResource;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Resources\Blog\Authors\AuthorResource;
+use App\Filament\Resources\Shop\Customers\CustomerResource;
 use App\Http\Middleware\Authenticate;
+use App\Models\Blog\Author;
+use App\Models\Shop\Customer;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationItem;
@@ -90,6 +93,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Blue,
             ]);
 
+        $this->registerActivityLogLinks($panel);
         $this->registerExcelLinks($panel);
         $this->registerSpotlightPlugin($panel);
         $this->registerChangelogPlugin($panel);
@@ -109,6 +113,26 @@ class AdminPanelProvider extends PanelProvider
                 ->icon(Heroicon::OutlinedTableCells)
                 ->group(NavigationGroup::Packages)
                 ->url(fn (): string => ProductResource::getUrl()),
+        ]);
+    }
+
+    public function registerActivityLogLinks(Panel $panel): Panel
+    {
+        return $panel->navigationItems([
+            NavigationItem::make('Activity Log: Customer')
+                ->icon(Heroicon::OutlinedClock)
+                ->group(NavigationGroup::Packages)
+                ->visible(fn (): bool => Customer::query()->exists())
+                ->url(fn (): string => CustomerResource::getUrl('activities', [
+                    'record' => Customer::query()->value('id'),
+                ])),
+            NavigationItem::make('Activity Log: Author')
+                ->icon(Heroicon::OutlinedClock)
+                ->group(NavigationGroup::Packages)
+                ->visible(fn (): bool => Author::query()->exists())
+                ->url(fn (): string => AuthorResource::getUrl('activities', [
+                    'record' => Author::query()->value('id'),
+                ])),
         ]);
     }
 
