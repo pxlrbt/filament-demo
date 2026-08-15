@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Blog\Authors\Tables;
 
+use App\Filament\Resources\Blog\Authors\AuthorResource;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -10,6 +12,10 @@ use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\ExportAction;
+use pxlrbt\FilamentExcel\Actions\ExportBulkAction;
+use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class AuthorsTable
 {
@@ -48,11 +54,30 @@ class AuthorsTable
             ->filters([
                 //
             ])
+            ->headerActions([
+                ExportAction::make()->exports([
+                    ExcelExport::make('table')
+                        ->fromTable()
+                        ->except('email')
+                        ->withNamesAsHeadings()
+                        ->withColumns([
+                            Column::make('bio')->heading('BIO'),
+                        ])
+                        ->withFilename('authors-table'),
+                    ExcelExport::make('form')
+                        ->fromForm()
+                        ->withFilename('authors-form'),
+                ]),
+            ])
             ->recordActions([
+                Action::make('activities')
+                    ->icon('heroicon-o-clock')
+                    ->url(fn ($record): string => AuthorResource::getUrl('activities', ['record' => $record])),
                 EditAction::make(),
                 DeleteAction::make(),
             ])
             ->groupedBulkActions([
+                ExportBulkAction::make(),
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()

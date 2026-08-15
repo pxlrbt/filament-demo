@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Blog\Authors;
 
 use App\Enums\NavigationGroup;
+use App\Filament\Resources\Blog\Authors\Pages\AuthorActivity;
 use App\Filament\Resources\Blog\Authors\Pages\ManageAuthors;
 use App\Filament\Resources\Blog\Authors\Schemas\AuthorForm;
 use App\Filament\Resources\Blog\Authors\Tables\AuthorsTable;
@@ -41,6 +42,7 @@ class AuthorResource extends Resource
     {
         return [
             'index' => ManageAuthors::route('/'),
+            'activities' => AuthorActivity::route('/{record}/activities'),
         ];
     }
 }

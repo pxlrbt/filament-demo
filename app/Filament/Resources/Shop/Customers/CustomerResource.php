@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Shop\Customers;
 
 use App\Filament\Resources\Shop\Customers\Pages\CreateCustomer;
+use App\Filament\Resources\Shop\Customers\Pages\CustomerActivity;
 use App\Filament\Resources\Shop\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Shop\Customers\Pages\ListCustomers;
 use App\Filament\Resources\Shop\Customers\RelationManagers\AddressesRelationManager;
@@ -64,6 +65,7 @@ class CustomerResource extends Resource
             'index' => ListCustomers::route('/'),
             'create' => CreateCustomer::route('/create'),
             'edit' => EditCustomer::route('/{record}/edit'),
+            'activities' => CustomerActivity::route('/{record}/activities'),
         ];
     }
 

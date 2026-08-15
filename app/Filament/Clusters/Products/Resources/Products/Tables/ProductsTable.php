@@ -15,6 +15,7 @@ use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
 use Filament\Tables\Filters\QueryBuilder\Constraints\NumberConstraint;
 use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\ExportBulkAction;
 
 class ProductsTable
 {
@@ -106,6 +107,7 @@ class ProductsTable
                 EditAction::make(),
             ])
             ->groupedBulkActions([
+                ExportBulkAction::make(),
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()

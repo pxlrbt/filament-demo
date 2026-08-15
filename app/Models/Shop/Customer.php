@@ -11,12 +11,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Customer extends Model
 {
     /** @use HasFactory<CustomerFactory> */
     use HasFactory;
 
+    use LogsActivity;
     use SoftDeletes;
 
     /**
@@ -30,6 +33,13 @@ class Customer extends Model
     protected $casts = [
         'birthday' => 'date',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty();
+    }
 
     /** @return MorphToMany<Address, $this> */
     public function addresses(): MorphToMany

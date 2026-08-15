@@ -4,3 +4,4 @@
 @source '../../../../resources/views/filament/**/*';
 
 @import '../../../../vendor/pxlrbt/filament-spotlight-pro/resources/spotlight.css';
+@import '../../../../vendor/pxlrbt/filament-activity-log/resources/css/styles.css';

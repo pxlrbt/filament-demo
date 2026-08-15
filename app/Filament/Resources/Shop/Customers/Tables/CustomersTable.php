@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Shop\Customers\Tables;
 
+use App\Filament\Resources\Shop\Customers\CustomerResource;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Notifications\Notification;
@@ -33,6 +35,9 @@ class CustomersTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                Action::make('activities')
+                    ->icon('heroicon-o-clock')
+                    ->url(fn ($record): string => CustomerResource::getUrl('activities', ['record' => $record])),
                 EditAction::make(),
             ])
             ->groupedBulkActions([

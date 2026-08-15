@@ -2,11 +2,15 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\NavigationGroup;
+use App\Filament\Clusters\Products\Resources\Products\ProductResource;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Dashboard;
+use App\Filament\Resources\Blog\Authors\AuthorResource;
 use App\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -86,11 +90,26 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Blue,
             ]);
 
+        $this->registerExcelLinks($panel);
         $this->registerSpotlightPlugin($panel);
         $this->registerChangelogPlugin($panel);
         $this->registerEnvironmentIndicator($panel);
 
         return $panel;
+    }
+
+    public function registerExcelLinks(Panel $panel): Panel
+    {
+        return $panel->navigationItems([
+            NavigationItem::make('Excel: Authors')
+                ->icon(Heroicon::OutlinedTableCells)
+                ->group(NavigationGroup::Packages)
+                ->url(fn (): string => AuthorResource::getUrl()),
+            NavigationItem::make('Excel: Products')
+                ->icon(Heroicon::OutlinedTableCells)
+                ->group(NavigationGroup::Packages)
+                ->url(fn (): string => ProductResource::getUrl()),
+        ]);
     }
 
     public function registerSpotlightPlugin(Panel $panel): Panel
